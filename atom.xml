@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://tsubasaprime.net</id>
+    <title>Tsubasa 的日记</title>
+    <updated>2020-09-28T14:17:09.313Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://tsubasaprime.net"/>
+    <link rel="self" href="https://tsubasaprime.net/atom.xml"/>
+    <subtitle>わたし、気になります! </subtitle>
+    <logo>https://tsubasaprime.net/images/avatar.png</logo>
+    <icon>https://tsubasaprime.net/favicon.ico</icon>
+    <rights>All rights reserved 2020, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[CNN(卷积神经网络)]]></title>
+        <id>https://tsubasaprime.net/cnn/</id>
+        <link href="https://tsubasaprime.net/cnn/">
+        </link>
+        <updated>2019-08-23T13:43:19.000Z</updated>
+    </entry>
+</feed>
