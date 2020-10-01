@@ -9625,3 +9625,8 @@ photos .photo:last-child {
   border-top: 1px solid #aaa;
   padding-top: 8px;
 }
+
+      .post-detail .post-content pre code{
+overflow:auto;
+}
+    

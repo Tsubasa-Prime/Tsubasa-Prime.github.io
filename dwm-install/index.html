@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PyTorch | Tsubasa 的日记</title>
+<title>Dwm 安装与配置 | Tsubasa 的日记</title>
 <meta name="description" content="わたし、気になります! " />
 <link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
 <link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
@@ -16,11 +16,20 @@
 <script src="https://tsubasaprime.net/media/js/functions.js"></script>
 <script src="https://tsubasaprime.net/media/js/moment.js"></script>
 
+    <meta name="referrer" content="never">
+    <meta name="description" content="Dwm 轻量级动态桌面管理器
+
+安装
+sudo pacman -S base-devel # 安装开发工具集
+# 安装 x 组件
+sudo pacman -S xorg-server
+sudo pacman -S xorg-apps
+sud..." />
+    <meta name="keywords" content="Dwm" />
+    <script src="https://tsubasaprime.net/media/js/waterfall.min.js"></script>
+    <script src="https://tsubasaprime.net/media/js/prism.min.js"></script>
   </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -87,45 +96,113 @@
         </div>
       </div>
 
-      <main id="home" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
-                
-            <!-- start: .articles -->
-            <div class="main-article post">
-  <h2 class="year"># PyTorch</h2>
-    
-      <article class="item default grid-33 tablet-grid-50 np-mobile">
-        <a href="https://tsubasaprime.net/cnn/" class="thumb hover-effect">
-          <span class="fullimage cover" style="display: block;background-image: url('https://tsubasaprime.net/post-images/cnn.jpg');"></span>
-        </a>
-        <div class="info gradient-effect">
-          <time datetime="2019-08-23">2019-08-23</time>
-          <h4 class="title usmall">
-            <a href="https://tsubasaprime.net/cnn/">CNN(卷积神经网络)</a>
-          </h4>
-        </div>
-      </article>
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
-    
-    <div class="clear"></div>
-</div>
-            <!-- end: .articles -->
-            
-                        <div class="epcl-pagination section">
-              <div class="nav">
-                
-                
-              </div>
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/dwm-install.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-10-01"><i class="fa fa-calendar"></i><span class="lately"></span></time>
+              
+              <a href="https://tsubasaprime.net/dwm-install/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/dwm-install/"> </span>
+              </a>
+              <span id="/dwm-install/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              
             </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://tsubasaprime.net/tag/dwm/" class="ctag ctag-0 ctag-dwm" aria-label="">Dwm</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">Dwm 安装与配置</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text" >
+                  <p>Dwm 轻量级动态桌面管理器</p>
+<!-- more -->
+<h3 id="安装">安装</h3>
+<pre><code class="language-bash">sudo pacman -S base-devel # 安装开发工具集
+# 安装 x 组件
+sudo pacman -S xorg-server
+sudo pacman -S xorg-apps
+sudo pacman -S xorg-xinit
+sudo pacman -S noto-fonts-cjk # 安装字体
+# 下载 Dwm 源码
+git clone https://git.suckless.org/dwm
+</code></pre>
+<h3 id="配置">配置</h3>
+<p>将 config.def.h 复制成 config.h</p>
+<pre><code class="language-c">47 #define MODKEY Mod1Mask // MODKEY1 是左 ALT 键
+
+60 static const char *termcmd[]  = { &quot;st&quot;, NULL };  // 默认终端为 st
+
+65	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } }, // Alt + Shift + Enter 打开终端
+</code></pre>
+<h3 id="启动">启动</h3>
+<pre><code class="language-bash"># 编译启动 Dwm
+sudo make
+sudo make install
+# 在文件最后一行加入 exec dwm
+vim .bashrc
+# 如果没有意外，则可以进入 Dwm 桌面环境
+startx
+</code></pre>
+<h3 id="意外">意外</h3>
+<p>如果使用 sddm 启动器，在输入密码之后会出现进不去桌面环境的情况。<br>
+这是因为在 <code>/usr/share/xsessions/</code> 中没有找到需要的 .desktop 文件，我们只需要在目录下加入 dwm.desktop 后重启即可进入桌面系统</p>
+<pre><code>[Desktop Entry]
+Name=dwm
+Comment=Dynamic Window Manager
+Exec=/usr/local/bin/dwm
+TryExec=/usr/local/bin/dwm
+Icon=/dwm.png
+Type=Application
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/go-install.jpg');"></div>
+                 <a href="https://tsubasaprime.net/go-install/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-10-01">2020-10-01</time>
+                  <h4 class="title white no-margin">Golang 安装与配置</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://tsubasaprime.net/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
             
+              <div class="clear"></div>
+            
+
+            </div>
           </div>
-          </div>
-        </div>
       </main>
 
-        <footer id="footer" class="grid-container">
+          <footer id="footer" class="grid-container">
 		<script type="text/javascript">
                  for (i = 0, foo = document.getElementsByClassName("lately").length; i < foo; i ++) {
                      var date = moment(document.getElementsByTagName(("time"))[i].dateTime).fromNow()
@@ -246,6 +323,9 @@
     <div class="clear"></div>
 
         
+
+      
+    <script src="https://tsubasaprime.net/media/js/functions-post.js"></script>
 
     </div>
     <!-- end: #wrapper -->
