@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasaprime.net</id>
     <title>Tsubasa 的日记</title>
-    <updated>2020-10-01T15:51:24.910Z</updated>
+    <updated>2020-10-08T05:50:17.475Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasaprime.net"/>
     <link rel="self" href="https://tsubasaprime.net/atom.xml"/>
@@ -11,20 +11,30 @@
     <icon>https://tsubasaprime.net/favicon.ico</icon>
     <rights>All rights reserved 2020, Tsubasa 的日记</rights>
     <entry>
+        <title type="html"><![CDATA[Golang 多线程图片爬取]]></title>
+        <id>https://tsubasaprime.net/goSpider/</id>
+        <link href="https://tsubasaprime.net/goSpider/">
+        </link>
+        <updated>2020-10-08T05:43:02.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Golang 线程之间的数据同步]]></title>
+        <id>https://tsubasaprime.net/goDataSync/</id>
+        <link href="https://tsubasaprime.net/goDataSync/">
+        </link>
+        <updated>2020-10-08T05:03:55.000Z</updated>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Dwm 安装与配置]]></title>
-        <id>https://tsubasaprime.net/dwm-install/</id>
-        <link href="https://tsubasaprime.net/dwm-install/">
+        <id>https://tsubasaprime.net/dwmInstall/</id>
+        <link href="https://tsubasaprime.net/dwmInstall/">
         </link>
         <updated>2020-10-01T14:47:42.000Z</updated>
-        <summary type="html"><![CDATA[<p>Dwm 轻量级动态桌面管理器</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>Dwm 轻量级动态桌面管理器</p>
-]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 安装与配置]]></title>
-        <id>https://tsubasaprime.net/go-install/</id>
-        <link href="https://tsubasaprime.net/go-install/">
+        <id>https://tsubasaprime.net/goInstall/</id>
+        <link href="https://tsubasaprime.net/goInstall/">
         </link>
         <updated>2020-10-01T13:11:09.000Z</updated>
     </entry>
