@@ -1,0 +1,408 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vim 命令 | Tsubasa 的日记</title>
+<meta name="description" content="わたし、気になります! " />
+<link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
+<link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
+
+<script src="https://tsubasaprime.net/media/js/jquery.min.js"></script>
+<script src="https://tsubasaprime.net/media/js/masonry.pkgd.min.js"></script>
+<script src="https://tsubasaprime.net/media/js/aos.js"></script>
+<script src="https://tsubasaprime.net/media/js/pace.min.js"></script>
+<script src="https://tsubasaprime.net/media/js/view-image.min.js"></script>
+<script src="https://tsubasaprime.net/media/js/jquery.magnific-popup.min.js"></script>
+<script src="https://tsubasaprime.net/media/js/functions.js"></script>
+<script src="https://tsubasaprime.net/media/js/moment.js"></script>
+
+    <meta name="referrer" content="never">
+    <meta name="description" content="在安装 Vim 之后 输入 vimtutor 可阅读教程
+  1. 欲从当前光标删除至下一个单词，请输入：dw
+  2. 欲从当前光标删除至当前行末尾，请输入：d$
+  3. 欲删除整行，请输入：dd
+
+  4. 欲重复一个动作，请在它前面..." />
+    <meta name="keywords" content="Vim" />
+    <script src="https://tsubasaprime.net/media/js/waterfall.min.js"></script>
+    <script src="https://tsubasaprime.net/media/js/prism.min.js"></script>
+  </head>
+  <body>
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
+        </div>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://tsubasaprime.net"><img src="/media/images/custom-headerLogo.png" alt=""></a>
+            </div>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                <li class=""><a href="https://tsubasaprime.net" class="menu">首页</a></li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/friends" class="menu">
+                      友链
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/Photo" class="menu">
+                      图廊
+                    </a>
+                  </li>
+                
+                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
+              </ul>
+            </nav>
+            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
+        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
+          <div class="search-wrapper section">
+            <form id="gridea-search-form" data-update="1602309192669" action="/search/index.html" class="search-form" _lpchecked="1">
+              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
+              <button type="submit" class="submit" aria-label="Submit">
+                <i class="fa fa-search-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/vimOrder.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-10-10"><i class="fa fa-calendar"></i><span class="lately"></span></time>
+              
+              <a href="https://tsubasaprime.net/vimOrder/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/vimOrder/"> </span>
+              </a>
+              <span id="/vimOrder/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://tsubasaprime.net/tag/vim/" class="ctag ctag-0 ctag-vim" aria-label="">Vim</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">Vim 命令</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text" >
+                  <h2 id="在安装-vim-之后-输入-vimtutor-可阅读教程">在安装 Vim 之后 输入 <code>vimtutor</code> 可阅读教程</h2>
+<pre><code class="language-text">  1. 欲从当前光标删除至下一个单词，请输入：dw
+  2. 欲从当前光标删除至当前行末尾，请输入：d$
+  3. 欲删除整行，请输入：dd
+
+  4. 欲重复一个动作，请在它前面加上一个数字：2w
+  5. 在正常模式下修改命令的格式是：
+               operator   [number]   motion
+     其中：
+       operator - 操作符，代表要做的事情，比如 d 代表删除
+       [number] - 可以附加的数字，代表动作重复的次数
+       motion   - 动作，代表在所操作的文本上的移动，例如 w 代表单词(word)，
+                  $ 代表行末等等。
+
+  6. 欲移动光标到行首，请按数字0键：0
+
+  7. 欲撤消以前的操作，请输入：u (小写的u)
+     欲撤消在一行中所做的改动，请输入：U (大写的U)
+     欲撤消以前的撤消命令，恢复以前的操作结果，请输入：CTRL-R
+</code></pre>
+<pre><code class="language-text">1. 要重新置入已经删除的文本内容，请按小写字母 p 键。该操作可以将已删除
+     的文本内容置于光标之后。如果最后一次删除的是一个整行，那么该行将置
+     于当前光标所在行的下一行。
+
+  2. 要替换光标所在位置的字符，请输入小写的 r 和要替换掉原位置字符的新字
+     符即可。
+
+  3. 更改类命令允许您改变从当前光标所在位置直到动作指示的位置中间的文本。
+     比如输入 ce 可以替换当前光标到单词的末尾的内容；输入 c$ 可以替换当
+     前光标到行末的内容。
+
+  4. 更改类命令的格式是：
+
+         c   [number]   motion
+</code></pre>
+<pre><code class="language-text">  1. CTRL-G 用于显示当前光标所在位置和文件状态信息。
+     G 用于将光标跳转至文件最后一行。
+     先敲入一个行号然后输入大写 G 则是将光标移动至该行号代表的行。
+     gg 用于将光标跳转至文件第一行。
+
+  2. 输入 / 然后紧随一个字符串是在当前所编辑的文档中正向查找该字符串。
+     输入 ? 然后紧随一个字符串则是在当前所编辑的文档中反向查找该字符串。
+     完成一次查找之后按 n 键是重复上一次的命令，可在同一方向上查
+     找下一个匹配字符串所在；或者按大写 N 向相反方向查找下一匹配字符串所在。
+     CTRL-O 带您跳转回较旧的位置，CTRL-I 则带您到较新的位置。
+
+  3. 如果光标当前位置是括号(、)、[、]、{、}，按 % 会将光标移动到配对的括号上。
+
+  4. 在一行内替换头一个字符串 old 为新的字符串 new，请输入  :s/old/new
+     在一行内替换所有的字符串 old 为新的字符串 new，请输入  :s/old/new/g
+     在两行内替换所有的字符串 old 为新的字符串 new，请输入  :#,#s/old/new/g
+     在文件内替换所有的字符串 old 为新的字符串 new，请输入  :%s/old/new/g
+     进行全文替换时询问用户确认每个替换需添加 c 标志        :%s/old/new/gc
+    ```
+```text
+      1. :!command 用于执行一个外部命令 command。
+
+     请看一些实际例子：
+         (MS-DOS)         (Unix)
+          :!dir            :!ls            -  用于显示当前目录的内容。
+          :!del FILENAME   :!rm FILENAME   -  用于删除名为 FILENAME 的文件。
+
+  2. :w FILENAME  可将当前 VIM 中正在编辑的文件保存到名为 FILENAME 的文
+     件中。
+
+  3. v motion :w FILENAME 可将当前编辑文件中可视模式下选中的内容保存到文件
+     FILENAME 中。
+
+  4. :r FILENAME 可提取磁盘文件 FILENAME 并将其插入到当前文件的光标位置
+     后面。
+
+  5. :r !dir 可以读取 dir 命令的输出并将其放置到当前文件的光标位置后面。
+</code></pre>
+<pre><code class="language-text">  1. 输入小写的 o 可以在光标下方打开新的一行并进入插入模式。
+     输入大写的 O 可以在光标上方打开新的一行。
+
+  2. 输入小写的 a 可以在光标所在位置之后插入文本。
+     输入大写的 A 可以在光标所在行的行末之后插入文本。
+
+  3. e 命令可以使光标移动到单词末尾。
+
+  4. 操作符 y 复制文本，p 粘贴先前复制的文本。
+
+  5. 输入大写的 R 将进入替换模式，直至按 &lt;ESC&gt; 键回到正常模式。
+
+  6. 输入 :set xxx 可以设置 xxx 选项。一些有用的选项如下：
+        'ic' 'ignorecase'       查找时忽略字母大小写
+        'is' 'incsearch'        查找短语时显示部分匹配
+        'hls' 'hlsearch'        高亮显示所有的匹配短语
+     选项名可以用完整版本，也可以用缩略版本。
+
+  7. 在选项前加上 no 可以关闭选项：  :set noic
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/goSpider.jpg');"></div>
+                 <a href="https://tsubasaprime.net/goSpider/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-10-08">2020-10-08</time>
+                  <h4 class="title white no-margin">Golang 多线程图片爬取</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://tsubasaprime.net/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div class="clear"></div>
+            
+
+            </div>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+		<script type="text/javascript">
+                 for (i = 0, foo = document.getElementsByClassName("lately").length; i < foo; i ++) {
+                     var date = moment(document.getElementsByTagName(("time"))[i].dateTime).fromNow()
+                     document.getElementsByClassName("lately")[i].innerText = date
+    }
+             </script>
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+				  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://tsubasaprime.net/vimOrder/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://tsubasaprime.net/post-images/vimOrder.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-10-10">2020-10-10</time>
+                      <h4 class="title usmall">
+                        <a href="https://tsubasaprime.net/vimOrder/">Vim 命令</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+				  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://tsubasaprime.net/goSpider/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://tsubasaprime.net/post-images/goSpider.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-10-08">2020-10-08</time>
+                      <h4 class="title usmall">
+                        <a href="https://tsubasaprime.net/goSpider/">Golang 多线程图片爬取</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+				  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://tsubasaprime.net/goDataSync/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://tsubasaprime.net/post-images/goDataSync.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-10-08">2020-10-08</time>
+                      <h4 class="title usmall">
+                        <a href="https://tsubasaprime.net/goDataSync/">Golang 线程之间的数据同步</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+				  
+                  
+                  
+				  
+                  
+                  
+				  
+                  
+                  
+				  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                      <a href="https://tsubasaprime.net/tag/vim/" class="ctag ctag-0 ctag-vim" aria-label="">Vim</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-1 ctag-go" aria-label="">Golang</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/dwm/" class="ctag ctag-2 ctag-dwm" aria-label="">Dwm</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/pytorch/" class="ctag ctag-3 ctag-pytorch" aria-label="">PyTorch</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/deepLearning/" class="ctag ctag-4 ctag-deepLearning" aria-label="">深度学习</a>
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://tsubasaprime.net/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Tsubasa 的日记</a></h4>
+                    <p class="founder">わたし、気になります! </p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="logo">
+          <a href="https://tsubasaprime.net"><img src="/media/images/gridea.png" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          共 6 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
+        
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    
+    <div class="clear"></div>
+
+        
+
+      
+    <script src="https://tsubasaprime.net/media/js/functions-post.js"></script>
+
+    </div>
+    <!-- end: #wrapper -->
+  </body>
+</html>
