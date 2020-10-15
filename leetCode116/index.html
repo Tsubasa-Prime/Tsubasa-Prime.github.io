@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Golang 安装与配置 | Tsubasa 的日记</title>
+<title>116. 填充每个节点的下一个右侧节点指针 | Tsubasa 的日记</title>
 <meta name="description" content="わたし、気になります! " />
 <link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
 <link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
@@ -17,16 +17,15 @@
 <script src="https://tsubasaprime.net/media/js/moment.js"></script>
 
     <meta name="referrer" content="never">
-    <meta name="description" content="安装
-命令行安装
-# Arch 发行版
-sudo pacman -S go
-
-# Ubuntu 发行版
-sudo apt-get-repository ppa:gophers/go
-sudo apt-get update
-sudo apt-..." />
-    <meta name="keywords" content="Golang" />
+    <meta name="description" content="给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+struct Node {
+int val;
+Node *left;
+Node *right;
+Node *next;
+}
+填充它的每个 next 指..." />
+    <meta name="keywords" content="二叉树,LeetCode,Golang" />
     <script src="https://tsubasaprime.net/media/js/waterfall.min.js"></script>
     <script src="https://tsubasaprime.net/media/js/prism.min.js"></script>
   </head>
@@ -100,23 +99,27 @@ sudo apt-..." />
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/goInstall.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/leetCode116.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-10-01"><i class="fa fa-calendar"></i><span class="lately"></span></time>
+              <time class="meta-info" style="float:left;" datetime="2020-10-15"><i class="fa fa-calendar"></i><span class="lately"></span></time>
               
-              <a href="https://tsubasaprime.net/goInstall/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/goInstall/"> </span>
+              <a href="https://tsubasaprime.net/leetCode116/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/leetCode116/"> </span>
               </a>
-              <span id="/goInstall/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              <span id="/leetCode116/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
               
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-0 ctag-go" aria-label="">Golang</a>
+                      <a href="https://tsubasaprime.net/tag/binaryTree/" class="ctag ctag-0 ctag-binaryTree" aria-label="">二叉树</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/leetCode/" class="ctag ctag-1 ctag-leetCode" aria-label="">LeetCode</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-2 ctag-go" aria-label="">Golang</a>
                     
               </div>
-              <h1 class="title ularge white bold">Golang 安装与配置</h1>
+              <h1 class="title ularge white bold">116. 填充每个节点的下一个右侧节点指针</h1>
             </div>
           </div>
         </div>  
@@ -126,28 +129,36 @@ sudo apt-..." />
             <article class="main-article post">
               <section class="post-content">
                 <div class="text" >
-                  <h3 id="安装">安装</h3>
-<p>命令行安装</p>
-<pre><code class="language-bash"># Arch 发行版
-sudo pacman -S go
-
-# Ubuntu 发行版
-sudo apt-get-repository ppa:gophers/go
-sudo apt-get update
-sudo apt-get install golang-stable
-</code></pre>
-<h3 id="环境配置">环境配置</h3>
-<pre><code class="language-bash"># 查看与 Golang 有关的环境变量
-go env
-# 修改 $HOME/GO 为 Golang 的工作目录
-go env -w GOPATH=$HOME/GO
-</code></pre>
-<p>GOPATH 目录下有三个文件</p>
-<pre><code class="language-bash">tree -L 1 -d
-.
-├── bin # 编译后生成的可执行文件
-├── pkg # 编译后生成的文件
-└── src # 存放源代码
+                  <p>给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p>
+<p>struct Node {<br>
+int val;<br>
+Node *left;<br>
+Node *right;<br>
+Node *next;<br>
+}<br>
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p>
+<p>初始状态下，所有 next 指针都被设置为 NULL。</p>
+<p>示例：<br>
+<img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/02/15/116_sample.png" alt="" loading="lazy"></p>
+<p>输入：{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …&quot;:&quot;1&quot;,&quot;left&quot;:{&quot;'>id&quot;:&quot;1&quot;,&quot;left&quot;:{&quot;</span>id&quot;:&quot;2&quot;,&quot;left&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 53: …t&quot;:null,&quot;val&quot;:4}̲,&quot;next&quot;:null,&quot;r…'>id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:4},&quot;next&quot;:null,&quot;right&quot;:{&quot;</span>id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:5},&quot;val&quot;:2},&quot;next&quot;:null,&quot;right&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …&quot;:&quot;5&quot;,&quot;left&quot;:{&quot;'>id&quot;:&quot;5&quot;,&quot;left&quot;:{&quot;</span>id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:6},&quot;next&quot;:null,&quot;right&quot;:{&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7},&quot;val&quot;:3},&quot;val&quot;:1}</p>
+<p>输出：{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …&quot;:&quot;1&quot;,&quot;left&quot;:{&quot;'>id&quot;:&quot;1&quot;,&quot;left&quot;:{&quot;</span>id&quot;:&quot;2&quot;,&quot;left&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …:null,&quot;next&quot;:{&quot;'>id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:{&quot;</span>id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …:null,&quot;next&quot;:{&quot;'>id&quot;:&quot;5&quot;,&quot;left&quot;:null,&quot;next&quot;:{&quot;</span>id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7},&quot;right&quot;:null,&quot;val&quot;:6},&quot;right&quot;:null,&quot;val&quot;:5},&quot;right&quot;:null,&quot;val&quot;:4},&quot;next&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;}&#039;, got &#039;EOF&#039; at end of input: …&quot;:&quot;7&quot;,&quot;left&quot;:{&quot;'>id&quot;:&quot;7&quot;,&quot;left&quot;:{&quot;</span>ref&quot;:&quot;5&quot;},&quot;next&quot;:null,&quot;right&quot;:{&quot;<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 9: ref&quot;:&quot;6&quot;}̲,&quot;val&quot;:3},&quot;righ…'>ref&quot;:&quot;6&quot;},&quot;val&quot;:3},&quot;right&quot;:{&quot;</span>ref&quot;:&quot;4&quot;},&quot;val&quot;:2},&quot;next&quot;:null,&quot;right&quot;:{&quot;$ref&quot;:&quot;7&quot;},&quot;val&quot;:1}</p>
+<p>解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。</p>
+<p><strong>解题思路</strong><br>
+根节点的左子树的 Next 指向根节点的右子树，右子数的 Next 指向根节点的兄弟节点的左子树。递归调用实现遍历。</p>
+<pre><code class="language-go">func connect(root *Node) *Node {
+	if root == nil || root.Left == nil || root.Right == nil {
+        return root
+    }
+    root.Left.Next = root.Right
+    if root.Next != nil {
+        root.Right.Next = root.Next.Left
+    } else {
+        root.Right.Next = nil
+    }
+    connect(root.Left)
+    connect(root.Right)
+    return root
+}
 </code></pre>
 
                 </div>
@@ -158,32 +169,6 @@ go env -w GOPATH=$HOME/GO
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/dwmInstall.jpg');"></div>
-                 <a href="https://tsubasaprime.net/dwmInstall/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-10-01">2020-10-01</time>
-                  <h4 class="title white no-margin">Dwm 安装与配置</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://tsubasaprime.net/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-              
-              <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/cnn.jpg');"></div>
-                 <a href="https://tsubasaprime.net/cnn/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2019-08-23">2019-08-23</time>
-                  <h4 class="title white no-margin">CNN(卷积神经网络)</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://tsubasaprime.net/media/images/right-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
               
 
                 <div class="clear"></div>
