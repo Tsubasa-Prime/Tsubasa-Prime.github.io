@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>搜索结果 | Tsubasa 的日记</title>
+<title>977. 有序数组的平方 | Tsubasa 的日记</title>
 <meta name="description" content="わたし、気になります! " />
 <link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
 <link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
@@ -16,16 +16,19 @@
 <script src="https://tsubasaprime.net/media/js/functions.js"></script>
 <script src="https://tsubasaprime.net/media/js/moment.js"></script>
 
-    <script src="/media/gridea-search/fuse.js"></script>
-    <script src="/media/gridea-search/ejs.min.js"></script>
-    <script src="/media/gridea-search/gridea-search.js"></script>
-    <script src="/media/gridea-search/result-template.ejs" type="text/ejs"></script>
-</head>
-
+    <meta name="referrer" content="never">
+    <meta name="description" content="给定一个按非递减顺序排序的整数数组 A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。
+示例 1：
+输入：[-4,-1,0,3,10]
+输出：[0,1,9,16,100]
+示例 2：
+输入：[-7,-3,2,3,11]
+输出：[4..." />
+    <meta name="keywords" content="LeetCode,Golang" />
+    <script src="https://tsubasaprime.net/media/js/waterfall.min.js"></script>
+    <script src="https://tsubasaprime.net/media/js/prism.min.js"></script>
+  </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -92,22 +95,79 @@
         </div>
       </div>
 
-      <main id="home" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
-          <div class="main-article post">
-            <div id="gridea-search-result">
-              <h2 class="searching">搜索中......</h2>
-              <h2 class="no-result" style="display:none">未搜索到相关文章</h2>
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/leetCode977.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-10-18"><i class="fa fa-calendar"></i><span class="lately"></span></time>
+              
+              <a href="https://tsubasaprime.net/leetCode977/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/leetCode977/"> </span>
+              </a>
+              <span id="/leetCode977/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://tsubasaprime.net/tag/leetCode/" class="ctag ctag-0 ctag-leetCode" aria-label="">LeetCode</a>
+                    
+                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-1 ctag-go" aria-label="">Golang</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">977. 有序数组的平方</h1>
             </div>
           </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text" >
+                  <p>给定一个按非递减顺序排序的整数数组 A，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。</p>
+<p>示例 1：</p>
+<p>输入：[-4,-1,0,3,10]<br>
+输出：[0,1,9,16,100]<br>
+示例 2：</p>
+<p>输入：[-7,-3,2,3,11]<br>
+输出：[4,9,9,49,121]</p>
+<p><strong>解题思路</strong><br>
+遍历数组所有元素，并进行平方运算。最后排序后返回。</p>
+<pre><code class="language-go">func sortedSquares(A []int) []int {
+    for i, foo := range A {
+        A[i] = foo * foo
+    }
+    sort.Ints(A)
+    return A
+}
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div class="clear"></div>
+            
+
+            </div>
           </div>
-        </div>
-        </div>
       </main>
 
-        <footer id="footer" class="grid-container">
+          <footer id="footer" class="grid-container">
 		<script type="text/javascript">
                  for (i = 0, foo = document.getElementsByClassName("lately").length; i < foo; i ++) {
                      var date = moment(document.getElementsByTagName(("time"))[i].dateTime).fromNow()
@@ -231,6 +291,9 @@
     <div class="clear"></div>
 
         
+
+      
+    <script src="https://tsubasaprime.net/media/js/functions-post.js"></script>
 
     </div>
     <!-- end: #wrapper -->
