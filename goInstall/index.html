@@ -1,134 +1,186 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Golang 安装与配置 | Tsubasa 的日记</title>
-<meta name="description" content="わたし、気になります! " />
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Tsubasa 的日记</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="description" content="わたし、気になります! "/>
+<meta name="keywords" content="わたし、気になります! "/>
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
+
 <link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
 
-<script src="https://tsubasaprime.net/media/js/jquery.min.js"></script>
-<script src="https://tsubasaprime.net/media/js/masonry.pkgd.min.js"></script>
-<script src="https://tsubasaprime.net/media/js/aos.js"></script>
-<script src="https://tsubasaprime.net/media/js/pace.min.js"></script>
-<script src="https://tsubasaprime.net/media/js/view-image.min.js"></script>
-<script src="https://tsubasaprime.net/media/js/jquery.magnific-popup.min.js"></script>
-<script src="https://tsubasaprime.net/media/js/functions.js"></script>
-<script src="https://tsubasaprime.net/media/js/moment.js"></script>
+<!-- Modernizr JS -->
+<script src="https://tsubasaprime.net/media/scripts/modernizr-2.6.2.min.js"></script>
+<!-- FOR IE9 below -->
+<!--[if lt IE 9]>
+<scripts src="https://tsubasaprime.net/media/scripts/respond.min.js"></scripts>
+<![endif]-->
 
-    <meta name="referrer" content="never">
-    <meta name="description" content="安装
-命令行安装
-# Arch 发行版
-sudo pacman -S go
+<!-- Comment -->
 
-# Ubuntu 发行版
-sudo apt-get-repository ppa:gophers/go
-sudo apt-get update
-sudo apt-..." />
-    <meta name="keywords" content="Golang" />
-    <script src="https://tsubasaprime.net/media/js/waterfall.min.js"></script>
-    <script src="https://tsubasaprime.net/media/js/prism.min.js"></script>
-  </head>
-  <body>
-            <header id="header" class="grid-container">
-        <!-- start: .menu-wrapper -->
-        <div class="menu-mobile"> 
-          <i class="fa fa-reorder"></i>
-        </div>
-        <div class="menu-wrapper">
-          <div class="">
-            <div class="logo">
-              <a href="https://tsubasaprime.net"><img src="/media/images/custom-headerLogo.png" alt=""></a>
-            </div>
-            <!-- start: .main-nav -->
 
-            <nav class="main-nav grid-container grid-parent">
-              <ul id="menu-header" class="menu gradient-effect">
-                <li class=""><a href="https://tsubasaprime.net" class="menu">首页</a></li>
-                
-                  <li class="" >
-                    <a href="/archives" class="menu">
-                      归档
-                    </a>
-                  </li>
-                
-                  <li class="" >
-                    <a href="/tags" class="menu">
-                      标签
-                    </a>
-                  </li>
-                
-                  <li class="" >
-                    <a href="/friends" class="menu">
-                      友链
-                    </a>
-                  </li>
-                
-                  <li class="" >
-                    <a href="/Photo" class="menu">
-                      图廊
-                    </a>
-                  </li>
-                
-                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
-              </ul>
-            </nav>
-            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
-            <!-- end: .main-nav -->
-            <div class="clear"></div>
-            <div class="border hide-on-tablet hide-on-mobile"></div>
-          </div>    
-          <div class="clear"></div>
-        </div>
-        <!-- end: .menu-wrapper -->
-        <div class="clear"></div>
-      </header>
-      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
-        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
-          <div class="search-wrapper section">
-            <form id="gridea-search-form" data-update="1603577594447" action="/search/index.html" class="search-form" _lpchecked="1">
-              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
-              <button type="submit" class="submit" aria-label="Submit">
-                <i class="fa fa-search-line"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
 
-      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+<!-- katex -->
+<!--<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet">-->
 
-        <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://tsubasaprime.net/post-images/goInstall.jpg');">
-            <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-10-01"><i class="fa fa-calendar"></i><span class="lately"></span></time>
-              
-              <a href="https://tsubasaprime.net/goInstall/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/goInstall/"> </span>
-              </a>
-              <span id="/goInstall/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
-              
-            </div>
-            <div class="info">
-              <div class="tags ">
-                
-                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-0 ctag-go" aria-label="">Golang</a>
+<link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <div id="fh5co-offcanvas">
+    <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
+        <span><i class="icon-cross3"></i> <span>Close</span></span>
+    </a>
+    <div class="fh5co-bio">
+        <figure>
+            <img src="https://tsubasaprime.net/images/avatar.png" alt="Tsubasa 的日记"
+                 class="img-responsive">
+        </figure>
+        <h2>Tsubasa 的日记</h2>
+        <p>わたし、気になります! </p>
+        <ul class="fh5co-social">
+            
+                <li>
                     
-              </div>
-              <h1 class="title ularge white bold">Golang 安装与配置</h1>
-            </div>
-          </div>
-        </div>  
+                </li>
+            
+                <li>
+                    
+                </li>
+            
+                <li>
+                    
+                </li>
+            
+                <li>
+                    
+                </li>
+            
+                <li>
+                    
+                </li>
+            
+        </ul>
+    </div>
 
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile">
-            <article class="main-article post">
-              <section class="post-content">
-                <div class="text" >
-                  <h3 id="安装">安装</h3>
+    <div class="fh5co-menu">
+
+        <!-- 标签 -->
+        <div class="fh5co-box">
+            <a href="https://tsubasaprime.net/tags/"><h3 class="heading">👉标签</h3></a>
+            <ul>
+                
+                    <li><a href="https://tsubasaprime.net/tag/dataStructure/">数据结构</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/list/">线性表</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/vim/">Vim</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/go/">Golang</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/dwm/">Dwm</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/pytorch/">PyTorch</a></li>
+                
+                    <li><a href="https://tsubasaprime.net/tag/deepLearning/">深度学习</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<header id="fh5co-header">
+    <div class="container-fluid">
+        <div class="row">
+            <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+            <ul class="fh5co-social">
+                
+                    <li>
+                        <a href="/archives"
+                        
+                        >
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags"
+                        
+                        >
+                            标签
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/friends"
+                        
+                        >
+                            友链
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/Photo"
+                        
+                        >
+                            图廊
+                        </a>
+                    </li>
+                
+            </ul>
+            <div class="col-lg-12 col-md-12 text-center">
+                <h1 id="fh5co-logo">
+                    <a href="https://tsubasaprime.net">Tsubasa 的日记 </a>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!--  <a href="#" class="fh5co-post-prev"><span>👈 Prev</span></a>-->
+    <!--  <a href="#" class="fh5co-post-next"><span>Next 👉</span></a>-->
+
+    <!-- 等gridea出自定义页面功能再优化一下 -->
+    
+        <div class="container-fluid">
+    <div class="row fh5co-post-entry single-entry">
+        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <figure class="animate-box">
+                
+                    <img src="https://tsubasaprime.net/post-images/goInstall.jpg" alt="Golang 安装与配置" class="img-responsive">
+                
+            </figure>
+            <span class="fh5co-meta animate-box">
+                
+                    <div class="tag-container">
+                        
+                            <a href="https://tsubasaprime.net/tag/go/" class="tag">Golang, </a>
+                        
+                    </div>
+                
+            </span>
+            <h2 class="fh5co-article-title animate-box">Golang 安装与配置</h2>
+            <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
+                <li>2020-10-01</li>
+                <li>110字</li>
+                <li>1 min read</li>
+            </ol>
+
+            <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+                <div class="row">
+                    <div class="col-md-12 animate-box post-content">
+                        <p> <h3 id="安装">安装</h3>
 <p>命令行安装</p>
-<pre><code class="language-bash"># Arch 发行版
+<pre><code class="language-Bash"># Arch 发行版
 sudo pacman -S go
 
 # Ubuntu 发行版
@@ -149,196 +201,125 @@ go env -w GOPATH=$HOME/GO
 ├── pkg # 编译后生成的文件
 └── src # 存放源代码
 </code></pre>
-
-                </div>
-                <div class="clear"></div>
-              </section>
-            </article>
-            <div class="clear"></div>
-
-            <section class="related section">
-              
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/dwmInstall.jpg');"></div>
-                 <a href="https://tsubasaprime.net/dwmInstall/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-10-01">2020-10-01</time>
-                  <h4 class="title white no-margin">Dwm 安装与配置</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://tsubasaprime.net/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-              
-              <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://tsubasaprime.net/post-images/cnn.jpg');"></div>
-                 <a href="https://tsubasaprime.net/cnn/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2019-08-23">2019-08-23</time>
-                  <h4 class="title white no-margin">CNN(卷积神经网络)</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://tsubasaprime.net/media/images/right-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-
-                <div class="clear"></div>
-            </section>
-
-              <div class="clear"></div>
-              
-            
-              <div class="clear"></div>
-            
-
-            </div>
-          </div>
-      </main>
-
-          <footer id="footer" class="grid-container">
-		<script type="text/javascript">
-                 for (i = 0, foo = document.getElementsByClassName("lately").length; i < foo; i ++) {
-                     var date = moment(document.getElementsByTagName(("time"))[i].dateTime).fromNow()
-                     document.getElementsByClassName("lately")[i].innerText = date
-    }
-             </script>
-        <div class="widgets row gradient-effect">
-            <div class="default-sidebar border-effect">
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
-                  <h4 class="widget-title title white bordered">最新文章</h4>
-                  
-                  
-				  
-                  
-                  
-				  
-                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
-                    <a href="https://tsubasaprime.net/vimOrder/" class="thumb hover-effect">
-                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://tsubasaprime.net/post-images/vimOrder.jpg');"></span>
-                    </a>
-                    <div class="info gradient-effect">
-                      <time datetime="2020-10-10">2020-10-10</time>
-                      <h4 class="title usmall">
-                        <a href="https://tsubasaprime.net/vimOrder/">Vim 命令</a>
-                      </h4>
+ </p>
                     </div>
-                    <div class="clear"></div>
-                  </article>
-                  
-                  
-                  
-				  
-                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
-                    <a href="https://tsubasaprime.net/goSpider/" class="thumb hover-effect">
-                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://tsubasaprime.net/post-images/goSpider.jpg');"></span>
-                    </a>
-                    <div class="info gradient-effect">
-                      <time datetime="2020-10-08">2020-10-08</time>
-                      <h4 class="title usmall">
-                        <a href="https://tsubasaprime.net/goSpider/">Golang 多线程图片爬取</a>
-                      </h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 animate-box">
+                        
+                            <div class="next-post">
+                                <div class="next">下一篇</div>
+                                <a href="https://tsubasaprime.net/cnn/">
+                                    <h3 class="post-title">
+                                        CNN(卷积神经网络)
+                                    </h3>
+                                </a>
+                            </div>
+                        
                     </div>
-                    <div class="clear"></div>
-                  </article>
-                  
-                  
-                  
-				  
-                  
-                  
-				  
-                  
-                  
-				  
-                  
-                  
-				  
-                  
-                  
-				  
-                  
-                  <div class="clear"></div>
-                </section>
-              </div>
+                </div>
 
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
-                  <h4 class="widget-title title white bordered">标签云</h4>
-                  <div class="tagcloud">
-                    
-                      <a href="https://tsubasaprime.net/tag/vim/" class="ctag ctag-0 ctag-vim" aria-label="">Vim</a>
-                    
-                      <a href="https://tsubasaprime.net/tag/go/" class="ctag ctag-1 ctag-go" aria-label="">Golang</a>
-                    
-                      <a href="https://tsubasaprime.net/tag/dwm/" class="ctag ctag-2 ctag-dwm" aria-label="">Dwm</a>
-                    
-                      <a href="https://tsubasaprime.net/tag/pytorch/" class="ctag ctag-3 ctag-pytorch" aria-label="">PyTorch</a>
-                    
-                      <a href="https://tsubasaprime.net/tag/deepLearning/" class="ctag ctag-4 ctag-deepLearning" aria-label="">深度学习</a>
-                    
-                  </div>
-                  <div class="clear"></div>
-                </section>
-              </div>
-
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
-                  <h4 class="widget-title title white bordered">关于我</h4>
-                  <div class="avatar">
-                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://tsubasaprime.net/images/avatar.png);"></span></a>
-                  </div>
-                  <div class="info">
-                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Tsubasa 的日记</a></h4>
-                    <p class="founder">わたし、気になります! </p>
-                    <div class="social">
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                    </div> 
-                  </div>
-                  <div class="clear"></div>
-                  </section>
-              </div>
-
-            </div>
-            <div class="clear"></div>
-        </div>
-
-        <div class="logo">
-          <a href="https://tsubasaprime.net"><img src="/media/images/gridea.png" alt=""></a>
-        </div>
-        <p class="published border-effect">
-          共 7 篇文章
-          <br/>
-          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
-        </p>
+                <div class="row">
+    <div class="col-md-12 animate-box">
         
-        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
-          <i class="fa fa-arrow"></i>
-        </a>
-    </footer>
-    
-    <div class="clear"></div>
-
-        
-
-      
-    <script src="https://tsubasaprime.net/media/js/functions-post.js"></script>
-
     </div>
-    <!-- end: #wrapper -->
-  </body>
+</div>
+
+            </div>
+
+        </article>
+    </div>
+</div>
+
+    
+
+    <!-- 返回顶部 -->
+    <div class="back-to-top">
+    
+        <a href="#!" id="tool-toc" class="hidden-xs hidden-sm">
+            <i class="fa fa-map"></i>
+        </a>
+        <br>
+    
+    <a href="#top" class="hidden-xs hidden-sm"><i class="fa fa-paper-plane"></i></a>
+</div>
+
+<div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">环境配置</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+    
+<footer id="fh5co-footer">
+  <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
+</footer>
+
+
+    <!-- jQuery -->
+<script src="https://tsubasaprime.net/media/scripts/jquery.min.js"></script>
+<!-- img lazy load -->
+<script src="https://tsubasaprime.net/media/scripts/jquery.lazyload.min.js"></script>
+<!-- jQuery Easing -->
+<script src="https://tsubasaprime.net/media/scripts/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="https://tsubasaprime.net/media/scripts/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="https://tsubasaprime.net/media/scripts/jquery.waypoints.min.js"></script>
+<!-- Main JS -->
+<script src="https://tsubasaprime.net/media/scripts/main.js"></script>
+<!-- Md5 Min JS -->
+<script src="https://tsubasaprime.net/media/scripts/md5.min.js"></script>
+<!-- katex -->
+<!--<script src="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.js"></script>-->
+<!-- highlight -->
+<script src="https://tsubasaprime.net/media/scripts/highlight.js"></script>
+<!-- <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script> -->
+
+<script type="application/javascript">
+    // 代码高亮
+    hljs.initHighlightingOnLoad();
+    
+	// img 懒加载
+    $(function () {
+        $("img.lazy").lazyload({
+            effect: "fadeIn",  // 懒加载动画
+            threshold: 180  // 在图片距离屏幕180px时提前载入
+        });
+        // tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // 目录
+        $('#tool-toc').click(function () {
+            $('.post-toc').toggle();
+        });
+    });
+
+    
+        var allImg = $("img");
+        allImg.on("contextmenu", function () {
+            return false;
+        });
+        allImg.on("dragstart", function () {
+            return false;
+        });
+    
+</script>
+
+
+
+
+</body>
 </html>

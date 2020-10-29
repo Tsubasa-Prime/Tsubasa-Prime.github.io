@@ -156,66 +156,154 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasaprime.net/post-images/dwmInstall.jpg" alt="Dwm 安装与配置" class="img-responsive">
+                    <img src="https://tsubasaprime.net/post-images/list.jpg" alt="线性表" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasaprime.net/tag/dwm/" class="tag">Dwm, </a>
+                            <a href="https://tsubasaprime.net/tag/dataStructure/" class="tag">数据结构, </a>
+                        
+                            <a href="https://tsubasaprime.net/tag/list/" class="tag">线性表, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">Dwm 安装与配置</h2>
+            <h2 class="fh5co-article-title animate-box">线性表</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2020-10-01</li>
-                <li>243字</li>
-                <li>2 min read</li>
+                <li>2020-10-29</li>
+                <li>985字</li>
+                <li>5 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h3 id="安装">安装</h3>
-<pre><code class="language-bash">sudo pacman -S base-devel # 安装开发工具集
-# 安装 x 组件
-sudo pacman -S xorg-server
-sudo pacman -S xorg-apps
-sudo pacman -S xorg-xinit
-sudo pacman -S noto-fonts-cjk # 安装字体
-# 下载 Dwm 源码
-git clone https://git.suckless.org/dwm
+                        <p> <h1 id="线性表-零个或多个元素的有限序列">线性表 ： 零个或多个元素的有限序列</h1>
+<h2 id="结构定义">结构定义</h2>
+<pre><code>ADT 线性表 (List)
+Data
+    线性表的数据对象集合为 {a1, a2, ..., an}，每个元素类型均为 DataType。其中，除第一个元素外，每个元素有且只有一个直接前驱元素。除了最后一个元素外，每一个元素有且只有一个直接后继元素。数据元素之间的关系是一对一关系。
+Operation
+    InitList(*L) : 初始化操作，建立一个空的线性表 L
+    ListEmpty(L) : 若线性表为空，返回 true，否则返回 false
+    ClearList(*L) : 将线性表清空
+    GetElem(L, i, *e) : 将线性表 L 中的第 i 个元素值返回给 e
+    LocateElem(L, e) : 在线性表中查找给定元素，如果查找成功，返回该元素在表中序列号。否则，返回 -1 表示失败
+    ListInsert(*L, i, e) : 在线性表中的第 i 个位置插入新元素 e
+    ListDelete(*L, i, *e) : 删除线性表 L 中的第 i 个位置元素，并用 e 返回其值
+    ListLength(L) : 返回线性表 L 的元素个数
+endADT
 </code></pre>
-<h3 id="配置">配置</h3>
-<p>将 config.def.h 复制成 config.h</p>
-<pre><code class="language-c">47 #define MODKEY Mod1Mask // MODKEY1 是左 ALT 键
+<h2 id="线性表的顺序储存结构">线性表的顺序储存结构</h2>
+<p>线性表的顺序存储结构，指的是用一段地址连续的存储单元依次存储线性表的数据元素。</p>
+<pre><code class="language-golang">type int TYPE
+var MAXSIZE int = 10
 
-60 static const char *termcmd[]  = { &quot;st&quot;, NULL };  // 默认终端为 st
+type List struct {
+    Data []TYPE
+    Length int
+}
 
-65	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } }, // Alt + Shift + Enter 打开终端
 </code></pre>
-<h3 id="启动">启动</h3>
-<pre><code class="language-bash"># 编译启动 Dwm
-sudo make
-sudo make install
-# 在文件最后一行加入 exec dwm
-vim .bashrc
-# 如果没有意外，则可以进入 Dwm 桌面环境
-startx
+<h3 id="顺序储存结构的插入与删除">顺序储存结构的插入与删除</h3>
+<h4 id="插入">插入</h4>
+<pre><code class="language-golang">func (list *List) ListInsert(i int, e TYPE) error {
+    if i &lt; 0 || i &gt; MAXSIZE - 1 || list.Length - 1 &lt; i  {
+        return errors.New(&quot;错误&quot;)
+    } else {
+        for j := list.Length - 1; j &gt;= i; j -- {
+            list.Data[j + 1] = list.Data[j]
+        }
+    }
+    list.Data[i] = e
+    list.Length += 1
+    return nil
+}
 </code></pre>
-<h3 id="意外">意外</h3>
-<p>如果使用 sddm 启动器，在输入密码之后会出现进不去桌面环境的情况。<br>
-这是因为在 <code>/usr/share/xsessions/</code> 中没有找到需要的 .desktop 文件，我们只需要在目录下加入 dwm.desktop 后重启即可进入桌面系统</p>
-<pre><code>[Desktop Entry]
-Name=dwm
-Comment=Dynamic Window Manager
-Exec=/usr/local/bin/dwm
-TryExec=/usr/local/bin/dwm
-Icon=/dwm.png
-Type=Application
+<h4 id="删除">删除</h4>
+<pre><code class="language-golang">func (list *LIst) ListDelete(i int, e *TYPE) error {
+    if list.Length == 0 || i &lt; 0 || i &gt;list.Length {
+        return errors.New(&quot;错误&quot;)
+    } else if i &lt; list.Length {
+        *e = list.Data[i]
+        for int j := i;  j &lt; list.Length - 1; j ++ {
+            list.Data[j] = list.Data[j + 1]
+        }
+    }
+    list.Length -= 1
+    return nil
+}
 </code></pre>
+<h3 id="优缺点">优缺点</h3>
+<p><strong>优点</strong> : 无需为表示表中元素之间的逻辑关系而增加额外的空间。可以快速地存取表中任意位置的元素<br>
+<strong>缺点</strong> : 插入和删除操作需要移动大量元素。当线性表长度变化较大时，难以确定存储空间的容量。造成存储空间的“碎片”。</p>
+<h2 id="线性表的链式储存结构">线性表的链式储存结构</h2>
+<p>n 个节点链结成一个链表，即为线性表的链式存储结构。</p>
+<pre><code class="language-golang">    type LinkedList struct {
+        Data TYPE
+        Next *LinkedList
+    }
+</code></pre>
+<h3 id="单链表的插入与删除">单链表的插入与删除</h3>
+<h4 id="插入-2">插入</h4>
+<pre><code class="language-golang">func (list *LinkedList) ListInsert(i int, e TYPE) error {
+    int foo := 0
+    for list != nil &amp;&amp; foo &lt; i {
+        list = list.Next
+        foo += 1
+    }
+    if list == nil || foo &gt; i {
+        return errors.New(&quot;错误&quot;)
+    }
+    node = LinkedList{Data : e, Next : nil}
+    node.Next = list.Next
+    list.Next = node
+    return nil
+}
+</code></pre>
+<h4 id="删除-2">删除</h4>
+<pre><code class="language-golang">func (list *LinkedList) ListDelete(i int, e *TYPE) error {
+     int foo := 0
+    for list != nil &amp;&amp; foo &lt; i {
+        list = list.Next
+        foo += 1
+    }
+    if list == nil || foo &gt; i {
+        return errors.New(&quot;错误&quot;)
+    }
+    *e = list.Next.Data
+    list.Next = list.Next.Next
+    return nil
+}
+</code></pre>
+<h2 id="单链表结构与顺序储存结构优缺点">单链表结构与顺序储存结构优缺点</h2>
+<p>储存分配方式 ：</p>
+<ul>
+<li>顺序储存结构用一段连续的存储单元依次存储线性表的数据元素。</li>
+<li>单链表采用链式存储结构，用一组任意的存储单元存放线性表的元素。<br>
+时间性能 ：</li>
+<li>查找
+<ul>
+<li>顺序储存结构 O(1)</li>
+<li>单链表 O(n)</li>
+</ul>
+</li>
+<li>插入与删除
+<ul>
+<li>顺序存储结构需要平均移动表长一半的元素，时间为 O(n)</li>
+<li>单链表在找出某位置的指针后，插入和删除时间仅为 O(1)</li>
+</ul>
+</li>
+<li>空间性能
+<ul>
+<li>顺序存储结构需要预分配存储空间，分大了，浪费，分小了容易发生上溢。</li>
+<li>单链表不需要分配存储空间，只要有就可以分配，元素个数也不受限制。</li>
+</ul>
+</li>
+</ul>
+<p><strong>当线性表中元素个数变化较大或者根本不知道有多大时，最好用单链表结构。而如果事先知道线性表的大致长度，用顺序结构效率会高</strong></p>
  </p>
                     </div>
                 </div>
@@ -225,9 +313,9 @@ Type=Application
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasaprime.net/goInstall/">
+                                <a href="https://tsubasaprime.net/vimOrder/">
                                     <h3 class="post-title">
-                                        Golang 安装与配置
+                                        Vim 命令
                                     </h3>
                                 </a>
                             </div>
@@ -262,16 +350,31 @@ Type=Application
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E9%9B%B6%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%89%E9%99%90%E5%BA%8F%E5%88%97">线性表 ： 零个或多个元素的有限序列</a>
 <ul>
-<li>
+<li><a href="#%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89">结构定义</a></li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84">线性表的顺序储存结构</a>
 <ul>
-<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8">启动</a></li>
-<li><a href="#%E6%84%8F%E5%A4%96">意外</a></li>
+<li><a href="#%E9%A1%BA%E5%BA%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84%E7%9A%84%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%A0%E9%99%A4">顺序储存结构的插入与删除</a>
+<ul>
+<li><a href="#%E6%8F%92%E5%85%A5">插入</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4">删除</a></li>
 </ul>
 </li>
+<li><a href="#%E4%BC%98%E7%BC%BA%E7%82%B9">优缺点</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%93%BE%E5%BC%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84">线性表的链式储存结构</a>
+<ul>
+<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%A0%E9%99%A4">单链表的插入与删除</a>
+<ul>
+<li><a href="#%E6%8F%92%E5%85%A5-2">插入</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4-2">删除</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84%E4%B8%8E%E9%A1%BA%E5%BA%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84%E4%BC%98%E7%BC%BA%E7%82%B9">单链表结构与顺序储存结构优缺点</a></li>
 </ul>
 </li>
 </ul>
