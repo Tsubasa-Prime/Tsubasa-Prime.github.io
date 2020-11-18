@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Tsubasa 的日记</title>
@@ -35,7 +35,7 @@
 
 </head>
 <body>
-<div id="fh5co-offcanvas">
+    <div id="fh5co-offcanvas">
     <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
         <span><i class="icon-cross3"></i> <span>Close</span></span>
     </a>
@@ -148,57 +148,146 @@
 </header>
 
 
-<div class="container-fluid">
+    <!--  <a href="#" class="fh5co-post-prev"><span>👈 Prev</span></a>-->
+    <!--  <a href="#" class="fh5co-post-next"><span>Next 👉</span></a>-->
 
-  <div class="col-lg-12 col-md-12 text-center tag-title">
-      <i class="fa fa-tag"></i> 标签: <h3>线性表</h3>
-  </div>
-
-  <div class="row fh5co-post-entry">
-
+    <!-- 等gridea出自定义页面功能再优化一下 -->
     
-      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
-        <figure class="img-box">
-          <a href="https://tsubasaprime.net/list/">
-            
-              <img data-original="https://tsubasaprime.net/post-images/list.jpg" alt="线性表" class="img-responsive img-rounded lazy">
-            
-          </a>
-        </figure>
-        <span class="fh5co-meta">
-          
-            <div class="tag-container">
-              
-                <a href="https://tsubasaprime.net/tag/dataStructure/" class="tag">数据结构, </a>
-              
-                <a href="https://tsubasaprime.net/tag/list/" class="tag">线性表, </a>
-              
+        <div class="container-fluid">
+    <div class="row fh5co-post-entry single-entry">
+        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <figure class="animate-box">
+                
+                    <img src="https://tsubasaprime.net/post-images/primarySort.jpg" alt="初级排序算法" class="img-responsive">
+                
+            </figure>
+            <span class="fh5co-meta animate-box">
+                
+                    <div class="tag-container">
+                        
+                            <a href="https://tsubasaprime.net/tag/sort/" class="tag">排序算法, </a>
+                        
+                    </div>
+                
+            </span>
+            <h2 class="fh5co-article-title animate-box">初级排序算法</h2>
+            <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
+                <li>2020-11-19</li>
+                <li>359字</li>
+                <li>2 min read</li>
+            </ol>
+
+            <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+                <div class="row">
+                    <div class="col-md-12 animate-box post-content">
+                        <p> <h1 id="选择排序冒泡排序">选择排序（冒泡排序）</h1>
+<p><strong>首先，找到数组中最小（最大）的那个元素，其次，将它和数组的第一个元素交换。再次，在剩下的元素中找到最小（最大）的元素，将它与数组的第二个元素交换位置。</strong></p>
+<pre><code class="language-go">func selectSort(array []int) {
+    for i := 0; i &lt; len(array); i ++ {
+        max := i // 最大元素的索引
+        for j := i + 1; j &lt; len(array); j ++ {
+            // 降序排序
+            if array[max] &lt; array[j] {
+                max = j
+            }
+        }
+        array[max], array[i] = array[i], array[max]
+    }
+}
+</code></pre>
+<h1 id="插入排序">插入排序</h1>
+<p><strong>每一步将一个待排序的数据插入到前面已经排好序的有序序列中，直到插完所有元素为止。</strong></p>
+<pre><code class="language-go">func insertSort(array []int) {
+    for i := 1; i &lt; len(array); i ++ {
+        // 降序排序
+        for j := i; j &gt; 0 &amp;&amp; array[j] &gt; array[j - 1]; j -- {
+            array[j], array[j - 1] = array[j - 1], array[j]
+        }
+    }
+}
+</code></pre>
+<h1 id="希尔排序缩小增量排序">希尔排序（缩小增量排序）</h1>
+<p><strong>将待排序数组按一定增量分组，分为多个子序列，然后对每个子序列进行插入排序，直到增量为 1 时， 进行最后一次插入排序。</strong></p>
+<pre><code class="language-go">func shellSort(array []int) {
+    // 增量的初始值
+    h := 1
+    // 增量为 3 * n + 1 时，时间复杂度为 O(2 ^ (2 / 3))
+    for h &lt; len(array) / 3 {
+        h = h * 3 + 1
+    }
+    for i := h; i &gt; 0; i /= 3 {
+        // 往后扫描
+        for j := i; j &lt; len(array); j ++ {
+            // 往前扫描
+            // 降序排序
+            for k := j; k - i &gt;= 0 &amp;&amp; array[k] &gt; array[k - 1]; k -- {
+                array[k], array[k - i] = array[k - i], array[k]
+            }
+        }
+    }
+}
+</code></pre>
+ </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 animate-box">
+                        
+                            <div class="next-post">
+                                <div class="next">下一篇</div>
+                                <a href="https://tsubasaprime.net/list/">
+                                    <h3 class="post-title">
+                                        线性表
+                                    </h3>
+                                </a>
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+    <div class="col-md-12 animate-box">
+        
+    </div>
+</div>
+
             </div>
-          
-        </span>
-        <h3 class="fh5co-article-title">
-          <a href="https://tsubasaprime.net/list/">线性表</a>
-        </h3>
-        <span class="fh5co-meta fh5co-date">2020-10-29</span>
-      </article>
-    
-    <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
 
-  </div>
+        </article>
+    </div>
+</div>
 
-  <div class="pagination-box animate-box">
     
+
+    <!-- 返回顶部 -->
+    <div class="back-to-top">
     
-  </div>
+        <a href="#!" id="tool-toc" class="hidden-xs hidden-sm">
+            <i class="fa fa-map"></i>
+        </a>
+        <br>
+    
+    <a href="#top" class="hidden-xs hidden-sm"><i class="fa fa-paper-plane"></i></a>
+</div>
+
+<div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F">选择排序（冒泡排序）</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F">插入排序</a></li>
+<li><a href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E7%BC%A9%E5%B0%8F%E5%A2%9E%E9%87%8F%E6%8E%92%E5%BA%8F">希尔排序（缩小增量排序）</a></li>
+</ul>
+
 </div>
 
 
+    
 <footer id="fh5co-footer">
   <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
 </footer>
 
 
-<!-- jQuery -->
+    <!-- jQuery -->
 <script src="https://tsubasaprime.net/media/scripts/jquery.min.js"></script>
 <!-- img lazy load -->
 <script src="https://tsubasaprime.net/media/scripts/jquery.lazyload.min.js"></script>

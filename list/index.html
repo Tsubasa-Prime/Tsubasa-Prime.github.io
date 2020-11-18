@@ -78,6 +78,8 @@
             <a href="https://tsubasaprime.net/tags/"><h3 class="heading">👉标签</h3></a>
             <ul>
                 
+                    <li><a href="https://tsubasaprime.net/tag/sort/">排序算法</a></li>
+                
                     <li><a href="https://tsubasaprime.net/tag/dataStructure/">数据结构</a></li>
                 
                     <li><a href="https://tsubasaprime.net/tag/list/">线性表</a></li>
@@ -173,7 +175,7 @@
             <h2 class="fh5co-article-title animate-box">线性表</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2020-10-29</li>
-                <li>985字</li>
+                <li>1071字</li>
                 <li>5 min read</li>
             </ol>
 
@@ -181,7 +183,7 @@
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
                         <p> <h1 id="线性表-零个或多个元素的有限序列">线性表 ： 零个或多个元素的有限序列</h1>
-<h2 id="结构定义">结构定义</h2>
+<h2 id="抽象数据类型定义">抽象数据类型定义</h2>
 <pre><code>ADT 线性表 (List)
 Data
     线性表的数据对象集合为 {a1, a2, ..., an}，每个元素类型均为 DataType。其中，除第一个元素外，每个元素有且只有一个直接前驱元素。除了最后一个元素外，每一个元素有且只有一个直接后继元素。数据元素之间的关系是一对一关系。
@@ -198,21 +200,25 @@ endADT
 </code></pre>
 <h2 id="线性表的顺序储存结构">线性表的顺序储存结构</h2>
 <p>线性表的顺序存储结构，指的是用一段地址连续的存储单元依次存储线性表的数据元素。</p>
+<h3 id="结构定义">结构定义</h3>
 <pre><code class="language-golang">type int TYPE
 var MAXSIZE int = 10
 
+
 type List struct {
-    Data []TYPE
+    Data [MAXSIZE]TYPE
     Length int
 }
 
 </code></pre>
 <h3 id="顺序储存结构的插入与删除">顺序储存结构的插入与删除</h3>
 <h4 id="插入">插入</h4>
-<pre><code class="language-golang">func (list *List) ListInsert(i int, e TYPE) error {
+<pre><code class="language-golang">
+func (list *List) ListInsert(i int, e TYPE) error {
     if i &lt; 0 || i &gt; MAXSIZE - 1 || list.Length - 1 &lt; i  {
         return errors.New(&quot;错误&quot;)
     } else {
+         // 插入点的数据依次向后移动
         for j := list.Length - 1; j &gt;= i; j -- {
             list.Data[j + 1] = list.Data[j]
         }
@@ -228,6 +234,7 @@ type List struct {
         return errors.New(&quot;错误&quot;)
     } else if i &lt; list.Length {
         *e = list.Data[i]
+        // 删除点的元素依次向前移动
         for int j := i;  j &lt; list.Length - 1; j ++ {
             list.Data[j] = list.Data[j + 1]
         }
@@ -258,7 +265,9 @@ type List struct {
         return errors.New(&quot;错误&quot;)
     }
     node = LinkedList{Data : e, Next : nil}
+    // 将插入元素的 Next 指向当前节点的下一个节点
     node.Next = list.Next
+    // 当前节点的 Next 为被插入元素
     list.Next = node
     return nil
 }
@@ -274,6 +283,8 @@ type List struct {
         return errors.New(&quot;错误&quot;)
     }
     *e = list.Next.Data
+    // 当前节点的 Next 指向下一个节点的 Next
+    // 等待 gc 自动回收
     list.Next = list.Next.Next
     return nil
 }
@@ -352,9 +363,10 @@ type List struct {
     <ul class="markdownIt-TOC">
 <li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8-%E9%9B%B6%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%89%E9%99%90%E5%BA%8F%E5%88%97">线性表 ： 零个或多个元素的有限序列</a>
 <ul>
-<li><a href="#%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89">结构定义</a></li>
+<li><a href="#%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89">抽象数据类型定义</a></li>
 <li><a href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84">线性表的顺序储存结构</a>
 <ul>
+<li><a href="#%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89">结构定义</a></li>
 <li><a href="#%E9%A1%BA%E5%BA%8F%E5%82%A8%E5%AD%98%E7%BB%93%E6%9E%84%E7%9A%84%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%A0%E9%99%A4">顺序储存结构的插入与删除</a>
 <ul>
 <li><a href="#%E6%8F%92%E5%85%A5">插入</a></li>
