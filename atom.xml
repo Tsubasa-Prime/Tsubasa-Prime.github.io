@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://tsubasaprime.net</id>
+    <id>http://localhost:4000</id>
     <title>Tsubasa 的日记</title>
-    <updated>2020-11-21T15:48:32.581Z</updated>
+    <updated>2020-11-21T19:07:21.341Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://tsubasaprime.net"/>
-    <link rel="self" href="https://tsubasaprime.net/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>わたし、気になります! </subtitle>
-    <logo>https://tsubasaprime.net/images/avatar.png</logo>
-    <icon>https://tsubasaprime.net/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2020, Tsubasa 的日记</rights>
     <entry>
         <title type="html"><![CDATA[BeanUtils]]></title>
-        <id>https://tsubasaprime.net/beanUtils/</id>
-        <link href="https://tsubasaprime.net/beanUtils/">
+        <id>http://localhost:4000/beanUtils/</id>
+        <link href="http://localhost:4000/beanUtils/">
         </link>
         <updated>2020-11-19T15:53:07.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[初级排序算法]]></title>
-        <id>https://tsubasaprime.net/primarySort/</id>
-        <link href="https://tsubasaprime.net/primarySort/">
+        <title type="html"><![CDATA[排序算法]]></title>
+        <id>http://localhost:4000/primarySort/</id>
+        <link href="http://localhost:4000/primarySort/">
         </link>
         <updated>2020-11-18T21:06:27.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[线性表]]></title>
-        <id>https://tsubasaprime.net/list/</id>
-        <link href="https://tsubasaprime.net/list/">
+        <id>http://localhost:4000/list/</id>
+        <link href="http://localhost:4000/list/">
         </link>
         <updated>2020-10-28T18:38:16.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Vim 命令]]></title>
-        <id>https://tsubasaprime.net/vimOrder/</id>
-        <link href="https://tsubasaprime.net/vimOrder/">
+        <id>http://localhost:4000/vimOrder/</id>
+        <link href="http://localhost:4000/vimOrder/">
         </link>
         <updated>2020-10-10T05:03:23.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 多线程图片爬取]]></title>
-        <id>https://tsubasaprime.net/goSpider/</id>
-        <link href="https://tsubasaprime.net/goSpider/">
+        <id>http://localhost:4000/goSpider/</id>
+        <link href="http://localhost:4000/goSpider/">
         </link>
         <updated>2020-10-08T05:43:02.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 线程之间的数据同步]]></title>
-        <id>https://tsubasaprime.net/goDataSync/</id>
-        <link href="https://tsubasaprime.net/goDataSync/">
+        <id>http://localhost:4000/goDataSync/</id>
+        <link href="http://localhost:4000/goDataSync/">
         </link>
         <updated>2020-10-08T05:03:55.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Dwm 安装与配置]]></title>
-        <id>https://tsubasaprime.net/dwmInstall/</id>
-        <link href="https://tsubasaprime.net/dwmInstall/">
+        <id>http://localhost:4000/dwmInstall/</id>
+        <link href="http://localhost:4000/dwmInstall/">
         </link>
         <updated>2020-10-01T14:47:42.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 安装与配置]]></title>
-        <id>https://tsubasaprime.net/goInstall/</id>
-        <link href="https://tsubasaprime.net/goInstall/">
+        <id>http://localhost:4000/goInstall/</id>
+        <link href="http://localhost:4000/goInstall/">
         </link>
         <updated>2020-10-01T13:11:09.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[CNN(卷积神经网络)]]></title>
-        <id>https://tsubasaprime.net/cnn/</id>
-        <link href="https://tsubasaprime.net/cnn/">
+        <id>http://localhost:4000/cnn/</id>
+        <link href="http://localhost:4000/cnn/">
         </link>
         <updated>2019-08-23T13:43:19.000Z</updated>
     </entry>

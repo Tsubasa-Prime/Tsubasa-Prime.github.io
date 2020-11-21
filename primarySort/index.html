@@ -11,15 +11,15 @@
 <meta name="keywords" content="わたし、気になります! "/>
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="https://tsubasaprime.net/favicon.ico">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
 
-<link rel="stylesheet" href="https://tsubasaprime.net/styles/main.css">
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
 
 <!-- Modernizr JS -->
-<script src="https://tsubasaprime.net/media/scripts/modernizr-2.6.2.min.js"></script>
+<script src="http://localhost:4000/media/scripts/modernizr-2.6.2.min.js"></script>
 <!-- FOR IE9 below -->
 <!--[if lt IE 9]>
-<scripts src="https://tsubasaprime.net/media/scripts/respond.min.js"></scripts>
+<scripts src="http://localhost:4000/media/scripts/respond.min.js"></scripts>
 <![endif]-->
 
 <!-- Comment -->
@@ -41,7 +41,7 @@
     </a>
     <div class="fh5co-bio">
         <figure>
-            <img src="https://tsubasaprime.net/images/avatar.png" alt="Tsubasa 的日记"
+            <img src="http://localhost:4000/images/avatar.png" alt="Tsubasa 的日记"
                  class="img-responsive">
         </figure>
         <h2>Tsubasa 的日记</h2>
@@ -75,26 +75,26 @@
 
         <!-- 标签 -->
         <div class="fh5co-box">
-            <a href="https://tsubasaprime.net/tags/"><h3 class="heading">👉标签</h3></a>
+            <a href="http://localhost:4000/tags/"><h3 class="heading">👉标签</h3></a>
             <ul>
                 
-                    <li><a href="https://tsubasaprime.net/tag/java/">Java</a></li>
+                    <li><a href="http://localhost:4000/tag/java/">Java</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/sort/">排序算法</a></li>
+                    <li><a href="http://localhost:4000/tag/sort/">排序算法</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/dataStructure/">数据结构</a></li>
+                    <li><a href="http://localhost:4000/tag/dataStructure/">数据结构</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/list/">线性表</a></li>
+                    <li><a href="http://localhost:4000/tag/list/">线性表</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/vim/">Vim</a></li>
+                    <li><a href="http://localhost:4000/tag/vim/">Vim</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/go/">Golang</a></li>
+                    <li><a href="http://localhost:4000/tag/go/">Golang</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/dwm/">Dwm</a></li>
+                    <li><a href="http://localhost:4000/tag/dwm/">Dwm</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/pytorch/">PyTorch</a></li>
+                    <li><a href="http://localhost:4000/tag/pytorch/">PyTorch</a></li>
                 
-                    <li><a href="https://tsubasaprime.net/tag/deepLearning/">深度学习</a></li>
+                    <li><a href="http://localhost:4000/tag/deepLearning/">深度学习</a></li>
                 
             </ul>
         </div>
@@ -142,7 +142,7 @@
             </ul>
             <div class="col-lg-12 col-md-12 text-center">
                 <h1 id="fh5co-logo">
-                    <a href="https://tsubasaprime.net">Tsubasa 的日记 </a>
+                    <a href="http://localhost:4000">Tsubasa 的日记 </a>
                 </h1>
             </div>
         </div>
@@ -160,29 +160,29 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasaprime.net/post-images/primarySort.jpg" alt="初级排序算法" class="img-responsive">
+                    <img src="http://localhost:4000/post-images/primarySort.jpg" alt="排序算法" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasaprime.net/tag/sort/" class="tag">排序算法, </a>
+                            <a href="http://localhost:4000/tag/sort/" class="tag">排序算法, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">初级排序算法</h2>
+            <h2 class="fh5co-article-title animate-box">排序算法</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2020-11-19</li>
-                <li>359字</li>
-                <li>2 min read</li>
+                <li>712字</li>
+                <li>4 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h1 id="选择排序冒泡排序">选择排序（冒泡排序）</h1>
+                        <p> <h1 id="选择排序">选择排序</h1>
 <p><strong>首先，找到数组中最小（最大）的那个元素，其次，将它和数组的第一个元素交换。再次，在剩下的元素中找到最小（最大）的元素，将它与数组的第二个元素交换位置。</strong></p>
 <pre><code class="language-go">func selectSort(array []int) {
     for i := 0; i &lt; len(array); i ++ {
@@ -229,6 +229,57 @@
     }
 }
 </code></pre>
+<h1 id="归并排序">归并排序</h1>
+<p><strong>归并排序，是创建在归并操作上的一种有效的排序算法。算法是采用分治法（Divide and Conquer）的一个非常典型的应用，且各层分治递归可以同时进行。归并排序思路简单，速度仅次于快速排序，为稳定排序算法，一般用于对总体无序，但是各子项相对有序的数列。</strong></p>
+<pre><code class="language-go">func mergeSortFromFoot(array []int) { // 自底向上的并归排序
+    temp := make([]int, len(array)) // 中间变量
+    for i := 1; i &lt; len(array); i *= 2 { // i 子数组大小
+        for j := 0; j &lt; len(array) - i; j += i * 2 { // j 数组索引
+            if j + 2 * i - 1 &lt; len(array) - 1 { // 防止溢出
+                 merge(j, j + 2 * i - 1, j + i - 1, array, temp)
+            } else {
+                merge(j, len(array) - 1, j + i - 1, array, temp)
+            }
+        }
+    }
+}
+
+func mergeSortFromTop(left int, right int, array []int, temp []int) { // 自顶向下的归并排序
+    if left == right {
+        return
+    }
+    mid := (left + right) &gt;&gt; 1 // 将 left + right 向右移动一位，得到平均值
+    mergeSortFromTop(left, mid, array, temp)
+    mergeSortFromTop(mid + 1, right, array, temp)
+    merge(left, right, mid, array, temp)
+}
+
+func merge(left int, right, mid int, array []int, temp []int) {
+    var (
+        i int = left
+        j int = mid + 1
+        k int = 0
+    )
+    for ; i &lt;= mid &amp;&amp; j &lt;= right; k ++ {
+        if array[i] &lt; array[j] {
+            temp[k] = array[i]
+            i += 1
+        } else {
+            temp[k] = array[j]
+            j += 1
+        }
+    }
+    for ; i &lt;= mid; i, k = i + 1, k + 1 {
+        temp[k] = array[i]
+    }
+    for ; j &lt;= right; j, k = j + 1, k + 1 {
+        temp[k] = array[j]
+    }
+    for l := left; l &lt;= right; l ++ { // 将排序后的数据放回原数组
+        array[l] = temp[l - left]
+    }
+}
+</code></pre>
  </p>
                     </div>
                 </div>
@@ -238,7 +289,7 @@
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasaprime.net/list/">
+                                <a href="http://localhost:4000/list/">
                                     <h3 class="post-title">
                                         线性表
                                     </h3>
@@ -275,9 +326,10 @@
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F">选择排序（冒泡排序）</a></li>
+<li><a href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">选择排序</a></li>
 <li><a href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F">插入排序</a></li>
 <li><a href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E7%BC%A9%E5%B0%8F%E5%A2%9E%E9%87%8F%E6%8E%92%E5%BA%8F">希尔排序（缩小增量排序）</a></li>
+<li><a href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F">归并排序</a></li>
 </ul>
 
 </div>
@@ -290,23 +342,23 @@
 
 
     <!-- jQuery -->
-<script src="https://tsubasaprime.net/media/scripts/jquery.min.js"></script>
+<script src="http://localhost:4000/media/scripts/jquery.min.js"></script>
 <!-- img lazy load -->
-<script src="https://tsubasaprime.net/media/scripts/jquery.lazyload.min.js"></script>
+<script src="http://localhost:4000/media/scripts/jquery.lazyload.min.js"></script>
 <!-- jQuery Easing -->
-<script src="https://tsubasaprime.net/media/scripts/jquery.easing.1.3.js"></script>
+<script src="http://localhost:4000/media/scripts/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="https://tsubasaprime.net/media/scripts/bootstrap.min.js"></script>
+<script src="http://localhost:4000/media/scripts/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="https://tsubasaprime.net/media/scripts/jquery.waypoints.min.js"></script>
+<script src="http://localhost:4000/media/scripts/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
-<script src="https://tsubasaprime.net/media/scripts/main.js"></script>
+<script src="http://localhost:4000/media/scripts/main.js"></script>
 <!-- Md5 Min JS -->
-<script src="https://tsubasaprime.net/media/scripts/md5.min.js"></script>
+<script src="http://localhost:4000/media/scripts/md5.min.js"></script>
 <!-- katex -->
 <!--<script src="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.js"></script>-->
 <!-- highlight -->
-<script src="https://tsubasaprime.net/media/scripts/highlight.js"></script>
+<script src="http://localhost:4000/media/scripts/highlight.js"></script>
 <!-- <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script> -->
 
 <script type="application/javascript">
