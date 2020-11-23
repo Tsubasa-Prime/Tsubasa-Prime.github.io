@@ -175,8 +175,8 @@
             <h2 class="fh5co-article-title animate-box">排序算法</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2020-11-19</li>
-                <li>712字</li>
-                <li>4 min read</li>
+                <li>928字</li>
+                <li>5 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
@@ -280,6 +280,32 @@ func merge(left int, right, mid int, array []int, temp []int) {
     }
 }
 </code></pre>
+<h1 id="快速排序">快速排序</h1>
+<p><strong>快速排序是对冒泡排序的一种改进，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</strong></p>
+<pre><code class="language-go">func fastSort(left, right int, array []int) {
+    if left &gt;= right {
+        return
+    }
+    mark := sort(left, right, array) // 基准的下标
+    fastSort(left, mark -  1, array)
+    fastSort(mark + 1, right, array)
+}
+
+func sort(left, right int, array []int) int {
+    var (
+        mark int = array[left] // 基准的数值
+        start int = left
+        end int = right
+    )
+    for start &lt; end {
+        for ; start &lt; end &amp;&amp; array[end] &gt;= mark; end -= 1 {}
+        for ; start &lt; end &amp;&amp; array[start] &lt;= mark; start += 1 {}
+        array[start], array[end] = array[end], array[start]
+    }
+    array[left], array[start] = array[start], array[left]
+    return start
+}
+</code></pre>
  </p>
                     </div>
                 </div>
@@ -330,6 +356,7 @@ func merge(left int, right, mid int, array []int, temp []int) {
 <li><a href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F">插入排序</a></li>
 <li><a href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E7%BC%A9%E5%B0%8F%E5%A2%9E%E9%87%8F%E6%8E%92%E5%BA%8F">希尔排序（缩小增量排序）</a></li>
 <li><a href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F">归并排序</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F">快速排序</a></li>
 </ul>
 
 </div>
