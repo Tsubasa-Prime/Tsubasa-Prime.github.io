@@ -162,120 +162,115 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasaprime.net/post-images/vimOrder.jpg" alt="Vim 命令" class="img-responsive">
+                    <img src="https://tsubasaprime.net/post-images/collection.jpg" alt="Java 集合" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasaprime.net/tag/vim/" class="tag">Vim, </a>
+                            <a href="https://tsubasaprime.net/tag/collections/" class="tag">集合, </a>
+                        
+                            <a href="https://tsubasaprime.net/tag/java/" class="tag">Java, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">Vim 命令</h2>
+            <h2 class="fh5co-article-title animate-box">Java 集合</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2020-10-10</li>
-                <li>1240字</li>
-                <li>5 min read</li>
+                <li>2020-11-27</li>
+                <li>569字</li>
+                <li>3 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h2 id="在安装-vim-之后-输入-vimtutor-可阅读教程">在安装 Vim 之后 输入 <code>vimtutor</code> 可阅读教程</h2>
-<pre><code>  1. 欲从当前光标删除至下一个单词，请输入：dw
-  2. 欲从当前光标删除至当前行末尾，请输入：d$
-  3. 欲删除整行，请输入：dd
+                        <p> <h1 id="集合">集合</h1>
+<p>Java 的集合类是一些常用的数据结构，比如线性表、队列、栈等。Java 集合就像一种“容器”，用于存储数量不等的对象，并按照规范实现一些常用的方法和算法。</p>
+<h2 id="集合框架">集合框架</h2>
+<pre><code class="language-text">Collection 接口的接口 对象的集合（单列集合）
+├── List 接口：
+│    ├── LinkedList 
+│    ├── ArrayList 
+│    └── Vector 接口实现类 数组， 同步， 线程安全（尽量避免使用）
+│         └── Stack 是Vector类的实现类
+├── Queue 接口
+│   ├── Deque
+│   │   ├── ArrayDeque
+│   │   └── LinkList
+│   └── PriorityQueue 
+└── Set 接口： 
+    ├── HashSet 
+    │   └──  LinkedHashSet
+    └── SortedSet 
+         └── TreeSet 
 
-  4. 欲重复一个动作，请在它前面加上一个数字：2w
-  5. 在正常模式下修改命令的格式是：
-               operator   [number]   motion
-     其中：
-       operator - 操作符，代表要做的事情，比如 d 代表删除
-       [number] - 可以附加的数字，代表动作重复的次数
-       motion   - 动作，代表在所操作的文本上的移动，例如 w 代表单词(word)，
-                  $ 代表行末等等。
 
-  6. 欲移动光标到行首，请按数字0键：0
-
-  7. 欲撤消以前的操作，请输入：u (小写的u)
-     欲撤消在一行中所做的改动，请输入：U (大写的U)
-     欲撤消以前的撤消命令，恢复以前的操作结果，请输入：CTRL-R
+Map 接口 键值对的集合 （双列集合）
+├── Hashtable 
+├── HashMap 
+│    └── LinkedHashMap 
+└── TreeMap
 </code></pre>
-<pre><code>1. 要重新置入已经删除的文本内容，请按小写字母 p 键。该操作可以将已删除
-     的文本内容置于光标之后。如果最后一次删除的是一个整行，那么该行将置
-     于当前光标所在行的下一行。
-
-  2. 要替换光标所在位置的字符，请输入小写的 r 和要替换掉原位置字符的新字
-     符即可。
-
-  3. 更改类命令允许您改变从当前光标所在位置直到动作指示的位置中间的文本。
-     比如输入 ce 可以替换当前光标到单词的末尾的内容；输入 c$ 可以替换当
-     前光标到行末的内容。
-
-  4. 更改类命令的格式是：
-
-         c   [number]   motion
-</code></pre>
-<pre><code>  1. CTRL-G 用于显示当前光标所在位置和文件状态信息。
-     G 用于将光标跳转至文件最后一行。
-     先敲入一个行号然后输入大写 G 则是将光标移动至该行号代表的行。
-     gg 用于将光标跳转至文件第一行。
-
-  2. 输入 / 然后紧随一个字符串是在当前所编辑的文档中正向查找该字符串。
-     输入 ? 然后紧随一个字符串则是在当前所编辑的文档中反向查找该字符串。
-     完成一次查找之后按 n 键是重复上一次的命令，可在同一方向上查
-     找下一个匹配字符串所在；或者按大写 N 向相反方向查找下一匹配字符串所在。
-     CTRL-O 带您跳转回较旧的位置，CTRL-I 则带您到较新的位置。
-
-  3. 如果光标当前位置是括号(、)、[、]、{、}，按 % 会将光标移动到配对的括号上。
-
-  4. 在一行内替换头一个字符串 old 为新的字符串 new，请输入  :s/old/new
-     在一行内替换所有的字符串 old 为新的字符串 new，请输入  :s/old/new/g
-     在两行内替换所有的字符串 old 为新的字符串 new，请输入  :#,#s/old/new/g
-     在文件内替换所有的字符串 old 为新的字符串 new，请输入  :%s/old/new/g
-     进行全文替换时询问用户确认每个替换需添加 c 标志        :%s/old/new/gc
-</code></pre>
-<pre><code>    1. :!command 用于执行一个外部命令 command。
-
-     请看一些实际例子：
-         (MS-DOS)         (Unix)
-          :!dir            :!ls            -  用于显示当前目录的内容。
-          :!del FILENAME   :!rm FILENAME   -  用于删除名为 FILENAME 的文件。
-
-  1. :w FILENAME  可将当前 VIM 中正在编辑的文件保存到名为 FILENAME 的文
-     件中。
-
-  2. v motion :w FILENAME 可将当前编辑文件中可视模式下选中的内容保存到文件
-     FILENAME 中。
-
-  3. :r FILENAME 可提取磁盘文件 FILENAME 并将其插入到当前文件的光标位置
-     后面。
-
-  4. :r !dir 可以读取 dir 命令的输出并将其放置到当前文件的光标位置后面。
-</code></pre>
-<pre><code>  1. 输入小写的 o 可以在光标下方打开新的一行并进入插入模式。
-     输入大写的 O 可以在光标上方打开新的一行。
-
-  2. 输入小写的 a 可以在光标所在位置之后插入文本。
-     输入大写的 A 可以在光标所在行的行末之后插入文本。
-
-  3. e 命令可以使光标移动到单词末尾。
-
-  4. 操作符 y 复制文本，p 粘贴先前复制的文本。
-
-  5. 输入大写的 R 将进入替换模式，直至按 &lt;ESC&gt; 键回到正常模式。
-
-  6. 输入 :set xxx 可以设置 xxx 选项。一些有用的选项如下：
-        'ic' 'ignorecase'       查找时忽略字母大小写
-        'is' 'incsearch'        查找短语时显示部分匹配
-        'hls' 'hlsearch'        高亮显示所有的匹配短语
-     选项名可以用完整版本，也可以用缩略版本。
-
-  7. 在选项前加上 no 可以关闭选项：  :set noic
-</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2014/01/2243690-9cd9c896e0d512ed.gif" alt="" loading="lazy"></figure>
+<h2 id="集合类">集合类</h2>
+<h3 id="collection">Collection</h3>
+<ul>
+<li>Set ： HashSet, LinkedHashSet, TreeSet</li>
+<li>Queue ：ArrayDeque, LinkedList, PriorityQueue</li>
+<li>List： LinkedList, Vector, ArrayList, Stack</li>
+</ul>
+<h4 id="子类及其实现类">子类及其实现类</h4>
+<ul>
+<li>List ： List 是有序，元素可重复的Collection，实现List接口的常用类有LinkedList，ArrayList
+<ul>
+<li>LinkedList：LinkedList 实现了 List 和 Dequeue 接口，允许 null 元素。此外 LinkedList 提供额外的get，remove，insert 方法在 LinkedList 的首部或尾部。</li>
+<li>ArrayList：ArrayList 实现了可变大小的数组。它允许所有元素，包括 null。ArrayList 没有同步。size，isEmpty，get，set 方法运行时间为常数。但是 add 方法开销为常数，添加 n 个元素需要 O(n) 的时间。其他的方法运行时间为线性。</li>
+</ul>
+</li>
+<li>Queue：Queue 接口定义了队列数据结构，元素是有序的(按插入顺序)，先进先出。
+<ul>
+<li>PriorityQueue：基于堆结构实现，可以用它来实现优先队列。</li>
+<li>Deque：双端队列。
+<ul>
+<li>ArrayDeque：ArrayDeque 用数组实现。</li>
+<li>LinkedList 实现了 Dequeue 和 List 接口，用链表实现。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Set：Set 接口无序(意味着不能通过下标读取)并且不允许重复元素。
+<ul>
+<li>HashSet：使用 HashMap 存储 hashes 和 elements 以避免存在重复元素。
+<ul>
+<li>LinkedHashSet：LinkedHashSet 继承HashSet，使用双向链表按插入的顺序将元素链起来。</li>
+</ul>
+</li>
+<li>SortedSet：SortedSet是有序的，排序取决于 compareTo 方法或 SortedSet 构造函数
+<ul>
+<li>TreeSet：使用红黑树(由 TreeMap 实现)确保没有重复元素。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="map">Map</h3>
+<ul>
+<li>Hashtable</li>
+<li>HashMap： LinkedHashMap, WeakHashMap</li>
+<li>TreeMap</li>
+</ul>
+<h4 id="子类及其实现类-2">子类及其实现类</h4>
+<ul>
+<li>Hashtable：同步， 线程安全。</li>
+<li>HashMap： 没有同步， 线程不安全。
+<ul>
+<li>LinkedHashMap：此实现与 HashMap 的不同之处在于，后者维护着一个运行于所有条目的双重链接列表。存储的数据是有序的。</li>
+</ul>
+</li>
+<li>TreeMap：红黑树实现。元素按照 key 值排序。</li>
+</ul>
  </p>
                     </div>
                 </div>
@@ -285,9 +280,9 @@
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasaprime.net/goSpider/">
+                                <a href="https://tsubasaprime.net/generic/">
                                     <h3 class="post-title">
-                                        Golang 多线程图片爬取
+                                        Java 泛型
                                     </h3>
                                 </a>
                             </div>
@@ -322,9 +317,23 @@
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E9%9B%86%E5%90%88">集合</a>
 <ul>
-<li><a href="#%E5%9C%A8%E5%AE%89%E8%A3%85-vim-%E4%B9%8B%E5%90%8E-%E8%BE%93%E5%85%A5-vimtutor-%E5%8F%AF%E9%98%85%E8%AF%BB%E6%95%99%E7%A8%8B">在安装 Vim 之后 输入 <code>vimtutor</code> 可阅读教程</a></li>
+<li><a href="#%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6">集合框架</a></li>
+<li><a href="#%E9%9B%86%E5%90%88%E7%B1%BB">集合类</a>
+<ul>
+<li><a href="#collection">Collection</a>
+<ul>
+<li><a href="#%E5%AD%90%E7%B1%BB%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E7%B1%BB">子类及其实现类</a></li>
+</ul>
+</li>
+<li><a href="#map">Map</a>
+<ul>
+<li><a href="#%E5%AD%90%E7%B1%BB%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E7%B1%BB-2">子类及其实现类</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
