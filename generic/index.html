@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Tsubasa 的日记</title>
@@ -35,7 +35,7 @@
 
 </head>
 <body>
-<div id="fh5co-offcanvas">
+    <div id="fh5co-offcanvas">
     <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
         <span><i class="icon-cross3"></i> <span>Close</span></span>
     </a>
@@ -150,78 +150,150 @@
 </header>
 
 
-<div class="container-fluid">
+    <!--  <a href="#" class="fh5co-post-prev"><span>👈 Prev</span></a>-->
+    <!--  <a href="#" class="fh5co-post-next"><span>Next 👉</span></a>-->
 
-  <div class="col-lg-12 col-md-12 text-center tag-title">
-      <i class="fa fa-tag"></i> 标签: <h3>Java</h3>
-  </div>
-
-  <div class="row fh5co-post-entry">
-
+    <!-- 等gridea出自定义页面功能再优化一下 -->
     
-      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
-        <figure class="img-box">
-          <a href="https://tsubasaprime.net/generic/">
-            
-              <img data-original="https://tsubasaprime.net/post-images/generic.jpg" alt="Java 泛型" class="img-responsive img-rounded lazy">
-            
-          </a>
-        </figure>
-        <span class="fh5co-meta">
-          
-            <div class="tag-container">
-              
-                <a href="https://tsubasaprime.net/tag/java/" class="tag">Java, </a>
-              
+        <div class="container-fluid">
+    <div class="row fh5co-post-entry single-entry">
+        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <figure class="animate-box">
+                
+                    <img src="https://tsubasaprime.net/post-images/generic.jpg" alt="Java 泛型" class="img-responsive">
+                
+            </figure>
+            <span class="fh5co-meta animate-box">
+                
+                    <div class="tag-container">
+                        
+                            <a href="https://tsubasaprime.net/tag/java/" class="tag">Java, </a>
+                        
+                    </div>
+                
+            </span>
+            <h2 class="fh5co-article-title animate-box">Java 泛型</h2>
+            <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
+                <li>2020-11-27</li>
+                <li>408字</li>
+                <li>2 min read</li>
+            </ol>
+
+            <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+                <div class="row">
+                    <div class="col-md-12 animate-box post-content">
+                        <p> <h1 id="泛型">泛型</h1>
+<p>从 JDK 5.0 开始，Java 引入“参数化类型”的概念，这种参数化类型称为“泛型”。泛型是将数据类型参数化，即在编写代码时将数据类型定义成参数，这些类型参数在使用之前再进行指明。泛型提高了代码的重用性，使得程序更加灵活、安全和简洁。</p>
+<h2 id="泛型定义">泛型定义</h2>
+<pre><code class="language-java">public class ClassName&lt;T&gt; { 
+    public T data;
+    public void setData(T data) {
+        this.data = data;
+    }
+    public T getData() {
+        return this.data;
+    }
+}
+</code></pre>
+<h2 id="通配符">通配符</h2>
+<p>定义一个方法时，若该方法的参数需要使用泛型，但类型参数是不确定的，则可以使用通配符 &quot;?&quot; 来表示一个未知类型，从而解决类型被限制、不能动态根据实例进行确定的缺点。</p>
+<pre><code class="language-java">public class ClassName {
+    public function(List&lt;?&gt; array) {
+        // Do someting...
+    }
+}
+</code></pre>
+<h3 id="有界类型">有界类型</h3>
+<p>泛型的类型参数可以是各种类型，但有时候需要对类型参数的取值进行一定程度的限制，以保证类型参数在指定范围内。有界类型分为两种</p>
+<ul>
+<li>使用 extends 关键字声明类型参数的上界</li>
+</ul>
+<pre><code class="language-java">public class ClassName&lt;T extends Number&gt; { // 限制类型为 Number 类及其子类
+    // ...
+}
+</code></pre>
+<ul>
+<li>使用 super 关键字声明类型参数的下界</li>
+</ul>
+<pre><code class="language-java">public class ClassName&lt;T super String&gt; { // 限制类型为 String 类本身或其父类 Object
+    // ...
+}
+</code></pre>
+<h3 id="泛型的限制">泛型的限制</h3>
+<ul>
+<li>泛型的类型参数只能是类类型，不能是简单类型</li>
+<li>定义泛型时，类型参数只是占位符，不能直接实例化。比如 <code>new T()</code>是错误的</li>
+<li>不能实例化泛型数组。</li>
+</ul>
+ </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 animate-box">
+                        
+                            <div class="next-post">
+                                <div class="next">下一篇</div>
+                                <a href="https://tsubasaprime.net/beanUtils/">
+                                    <h3 class="post-title">
+                                        BeanUtils
+                                    </h3>
+                                </a>
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+    <div class="col-md-12 animate-box">
+        
+    </div>
+</div>
+
             </div>
-          
-        </span>
-        <h3 class="fh5co-article-title">
-          <a href="https://tsubasaprime.net/generic/">Java 泛型</a>
-        </h3>
-        <span class="fh5co-meta fh5co-date">2020-11-27</span>
-      </article>
-    
-      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
-        <figure class="img-box">
-          <a href="https://tsubasaprime.net/beanUtils/">
-            
-              <img data-original="https://tsubasaprime.net/post-images/beanUtils.jpg" alt="BeanUtils" class="img-responsive img-rounded lazy">
-            
-          </a>
-        </figure>
-        <span class="fh5co-meta">
-          
-            <div class="tag-container">
-              
-                <a href="https://tsubasaprime.net/tag/java/" class="tag">Java, </a>
-              
-            </div>
-          
-        </span>
-        <h3 class="fh5co-article-title">
-          <a href="https://tsubasaprime.net/beanUtils/">BeanUtils</a>
-        </h3>
-        <span class="fh5co-meta fh5co-date">2020-11-19</span>
-      </article>
-    
-    <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
 
-  </div>
+        </article>
+    </div>
+</div>
 
-  <div class="pagination-box animate-box">
     
+
+    <!-- 返回顶部 -->
+    <div class="back-to-top">
     
-  </div>
+        <a href="#!" id="tool-toc" class="hidden-xs hidden-sm">
+            <i class="fa fa-map"></i>
+        </a>
+        <br>
+    
+    <a href="#top" class="hidden-xs hidden-sm"><i class="fa fa-paper-plane"></i></a>
+</div>
+
+<div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E6%B3%9B%E5%9E%8B">泛型</a>
+<ul>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E5%AE%9A%E4%B9%89">泛型定义</a></li>
+<li><a href="#%E9%80%9A%E9%85%8D%E7%AC%A6">通配符</a>
+<ul>
+<li><a href="#%E6%9C%89%E7%95%8C%E7%B1%BB%E5%9E%8B">有界类型</a></li>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E9%99%90%E5%88%B6">泛型的限制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
 </div>
 
 
+    
 <footer id="fh5co-footer">
   <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
 </footer>
 
 
-<!-- jQuery -->
+    <!-- jQuery -->
 <script src="https://tsubasaprime.net/media/scripts/jquery.min.js"></script>
 <!-- img lazy load -->
 <script src="https://tsubasaprime.net/media/scripts/jquery.lazyload.min.js"></script>
