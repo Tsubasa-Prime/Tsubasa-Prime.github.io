@@ -177,8 +177,8 @@
             <h2 class="fh5co-article-title animate-box">排序算法</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2020-11-19</li>
-                <li>928字</li>
-                <li>5 min read</li>
+                <li>1182字</li>
+                <li>6 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
@@ -308,6 +308,44 @@ func sort(left, right int, array []int) int {
     return start
 }
 </code></pre>
+<h1 id="堆排序">堆排序</h1>
+<p><strong>堆排序是利用堆这种数据结构而设计的一种排序算法，堆排序是一种选择排序，它的最坏，最好，平均时间复杂度均为O(nlogn)，它也是不稳定排序。</strong></p>
+<pre><code class="language-go">func heapSort(array []int) {
+    length := len(array)
+    buildMaxHeap(array, length)
+    for i := length - 1; i &gt;= 0; i -- {
+        array[0], array[i] = array[i], array[0]
+        length -= 1
+        heap(array, 0, length) // 从零构建大顶堆
+    }
+}
+</code></pre>
+<h2 id="堆">堆</h2>
+<p><strong>堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。</strong></p>
+<pre><code class="language-go">func buildMaxHeap(array []int, length int) { // 构建大顶堆
+    for i := length / 2; i &gt;= 0; i -- {
+        heap(array, i, length)
+    }
+}
+
+func heap(array []int, i, length int) {
+    var (
+        left int = i * 2 + 1
+        right int = i * 2 + 2
+        max int = i
+    )
+    if left &lt; length &amp;&amp; array[max] &lt; array[left] {
+        max = left
+    }
+    if right &lt; length &amp;&amp; array[max] &lt; array[right] {
+        max = right
+    }
+    if max != i {
+        array[i], array[max] = array[max], array[i]
+        heap(array, max, length)
+    }
+}
+</code></pre>
  </p>
                     </div>
                 </div>
@@ -359,6 +397,11 @@ func sort(left, right int, array []int) int {
 <li><a href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E7%BC%A9%E5%B0%8F%E5%A2%9E%E9%87%8F%E6%8E%92%E5%BA%8F">希尔排序（缩小增量排序）</a></li>
 <li><a href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F">归并排序</a></li>
 <li><a href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F">快速排序</a></li>
+<li><a href="#%E5%A0%86%E6%8E%92%E5%BA%8F">堆排序</a>
+<ul>
+<li><a href="#%E5%A0%86">堆</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
