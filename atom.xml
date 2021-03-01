@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://itsubasa597.github.io</id>
+    <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-03-01T05:19:53.728Z</updated>
+    <updated>2021-03-01T12:53:05.786Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://itsubasa597.github.io"/>
-    <link rel="self" href="https://itsubasa597.github.io/atom.xml"/>
+    <link rel="alternate" href="https://tsubasa597.github.io"/>
+    <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
     <subtitle>わたし、気になります! </subtitle>
-    <logo>https://itsubasa597.github.io/images/avatar.png</logo>
-    <icon>https://itsubasa597.github.io/favicon.ico</icon>
+    <logo>https://tsubasa597.github.io/images/avatar.png</logo>
+    <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
     <entry>
         <title type="html"><![CDATA[Java 集合]]></title>
-        <id>https://itsubasa597.github.io/collection/</id>
-        <link href="https://itsubasa597.github.io/collection/">
+        <id>https://tsubasa597.github.io/collection/</id>
+        <link href="https://tsubasa597.github.io/collection/">
         </link>
         <updated>2020-11-26T19:45:18.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Java 泛型]]></title>
-        <id>https://itsubasa597.github.io/generic/</id>
-        <link href="https://itsubasa597.github.io/generic/">
+        <id>https://tsubasa597.github.io/generic/</id>
+        <link href="https://tsubasa597.github.io/generic/">
         </link>
         <updated>2020-11-26T16:40:07.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[BeanUtils]]></title>
-        <id>https://itsubasa597.github.io/beanUtils/</id>
-        <link href="https://itsubasa597.github.io/beanUtils/">
+        <id>https://tsubasa597.github.io/beanUtils/</id>
+        <link href="https://tsubasa597.github.io/beanUtils/">
         </link>
         <updated>2020-11-19T15:53:07.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[排序算法]]></title>
-        <id>https://itsubasa597.github.io/primarySort/</id>
-        <link href="https://itsubasa597.github.io/primarySort/">
+        <id>https://tsubasa597.github.io/primarySort/</id>
+        <link href="https://tsubasa597.github.io/primarySort/">
         </link>
         <updated>2020-11-18T21:06:27.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[线性表]]></title>
-        <id>https://itsubasa597.github.io/list/</id>
-        <link href="https://itsubasa597.github.io/list/">
+        <id>https://tsubasa597.github.io/list/</id>
+        <link href="https://tsubasa597.github.io/list/">
         </link>
         <updated>2020-10-28T18:38:16.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Vim 命令]]></title>
-        <id>https://itsubasa597.github.io/vimOrder/</id>
-        <link href="https://itsubasa597.github.io/vimOrder/">
+        <id>https://tsubasa597.github.io/vimOrder/</id>
+        <link href="https://tsubasa597.github.io/vimOrder/">
         </link>
         <updated>2020-10-10T05:03:23.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 多线程图片爬取]]></title>
-        <id>https://itsubasa597.github.io/goSpider/</id>
-        <link href="https://itsubasa597.github.io/goSpider/">
+        <id>https://tsubasa597.github.io/goSpider/</id>
+        <link href="https://tsubasa597.github.io/goSpider/">
         </link>
         <updated>2020-10-08T05:43:02.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 线程之间的数据同步]]></title>
-        <id>https://itsubasa597.github.io/goDataSync/</id>
-        <link href="https://itsubasa597.github.io/goDataSync/">
+        <id>https://tsubasa597.github.io/goDataSync/</id>
+        <link href="https://tsubasa597.github.io/goDataSync/">
         </link>
         <updated>2020-10-08T05:03:55.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Dwm 安装与配置]]></title>
-        <id>https://itsubasa597.github.io/dwmInstall/</id>
-        <link href="https://itsubasa597.github.io/dwmInstall/">
+        <id>https://tsubasa597.github.io/dwmInstall/</id>
+        <link href="https://tsubasa597.github.io/dwmInstall/">
         </link>
         <updated>2020-10-01T14:47:42.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Golang 安装与配置]]></title>
-        <id>https://itsubasa597.github.io/goInstall/</id>
-        <link href="https://itsubasa597.github.io/goInstall/">
+        <id>https://tsubasa597.github.io/goInstall/</id>
+        <link href="https://tsubasa597.github.io/goInstall/">
         </link>
         <updated>2020-10-01T13:11:09.000Z</updated>
     </entry>
