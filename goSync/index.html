@@ -146,7 +146,7 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/goMethod.jpg" alt="Golang 方法" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/goSync.jpg" alt="Go 同步与锁" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
@@ -158,177 +158,91 @@
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">Golang 方法</h2>
+            <h2 class="fh5co-article-title animate-box">Go 同步与锁</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2021-03-03</li>
-                <li>981字</li>
-                <li>5 min read</li>
+                <li>2021-03-06</li>
+                <li>1009字</li>
+                <li>4 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h1 id="方法的定义">方法的定义</h1>
-<p>Go 中方法和函数在形式上很像，是作用在接收器上的一个函数，接收器是某种类型的变量。因此方法是一种特殊类型的函数，只是比函数多了一个接收器，在接口中定义的函数也称为方法。</p>
-<pre><code class="language-go">type A struct {
-    Face int
-}
-
-func (a A) f() {
-    fmt.Println(&quot;hi&quot;, a.Face)
-}
-</code></pre>
-<h2 id="接收器">接收器</h2>
-<p>接收器类型除了不能是指针类型或接口类型外，可以是其他任何类型，不仅仅是结构体类型，也可以是函数类型，还可以是以 int、bool、string 等为基础的自定义类型。</p>
+                        <p> <h2 id="同步与锁">同步与锁</h2>
+<p>在并发条件下，信息的同步要求用户必须要用锁的机制来保证准确性。</p>
+<h3 id="互斥锁">互斥锁</h3>
+<p>Go 中的 sync 包提供了两种锁类型: sync.Mutex 和 sync.RWMutex，前者是互斥锁，后者是读写锁。<br>
+互斥锁是传统的开发程序对共享资源进行访问控制的主要手段。在 Go 中更推崇使用通道来实现资源共享和通信。互斥锁由标准库 sync 包中的 Mutex 结构体类型实现，只有两个公共方法：调用 Lock() 获得锁和调用 Unlock() 释放锁。</p>
+<ul>
+<li>同一个协程中同步调用使用 Lock() 加锁后，不能再对其加锁，否则会引发运行时异常。只能在 Unlock() 之后再次 Lock()。多个协程中异步调用 Lock() 没有问题，但是每个协程只能调用一次 Lock()。由于多个协程之间产生了锁竞争，因此不会有运行时异常。互斥锁适用于只允许一个读或写的场景，所以该锁也叫作全局锁。</li>
+<li>Unlock() 用于解锁，如果在使用 Unlock() 前未加锁，就会引起一个运行错误。已经锁定的 Mutex 并不与特定的协程相关，这样可以利用一个协程对其加锁，再利用其他协程对其解锁。</li>
+</ul>
+<h3 id="读写锁">读写锁</h3>
+<p>读写锁是多读单写互斥锁，分别针对读操作和写操作进行锁定和解锁操作，经常用于读次数远远多于写次数的场合。读写锁由结构体类型 sync,RWMutex 实现。</p>
+<ul>
+<li>读锁定情况下，对读写锁进行读锁定或者写锁定，都将阻塞，而且读锁与写锁之间是互斥的。</li>
+<li>读锁定情况下，对读写锁进行写锁定，将阻塞；加读锁时不会阻塞，即可多读。</li>
+<li>对未被写锁定的读写锁进行写解锁，会引发运行时异常。</li>
+<li>对未被读锁定的读写锁进行读解锁时也会引发运行时异常。</li>
+<li>写解锁在进行的同时会试图唤醒所有因进行而被阻塞的协程。</li>
+<li>读解锁在进行的时候则会试图唤醒一个因进行写锁定而被阻塞的协程。</li>
+</ul>
+<h3 id="syncwaitgroup">sync.WaitGroup</h3>
+<p>WaitGroup 用于线程总同步。它等待一组线程集合完成，才会继续向下执行。主线程调用 Add() 方法来设置等待的协程数量。然后每个协程运行，并在完成后调用 Done() 方法。同时，Wait() 方法用来阻塞主线程，直到所有线程完成才会向下执行。Add(-1) 和 Done() 效果一致，都表示等待的协程数量减少一个。</p>
+<h3 id="synconce">sync.Once()</h3>
+<p>sync.Once.Do(f func()) 能保证 Do() 方法只执行一次。对只需要运行一次的代码，如全局性初始化操作，或者防止多次重复执行都有很好的作用。</p>
+<h3 id="syncmap">sync.Map</h3>
+<p>sync.Map，它原生支持并发安全的字典。原有普通字典并不线程安全，一般情况下还以可以继续使用它。只有在涉及线程安全时才考虑 sync.Map，而且 sync.Map 的使用和字典有较大差异。</p>
 <pre><code class="language-go">package main
 
 import (
-    . &quot;fmt&quot;
+   . &quot;fmt&quot;
+   &quot;sync&quot;
 )
 
-type A struct {
-    name string
-}
-
-func (a A) print() {
-    Println(a.name)
-}
-
 func main() {
-    var a A = A {name : &quot;A&quot;}
-    b := &amp;A {name : &quot;B&quot;}
-    // b.print() 等价于 (*b).print()
-    // 这是一种语法糖
-    b.print()
-    // A.print(a) 等价于 a.print()
-    A.print(a)
-    a.print()
+   var m sync.Map
+   // Stroe 保存数据
+   m.Store(&quot;name&quot;, &quot;Joe&quot;)
+   m.Store(&quot;gender&quot;, &quot;Male&quot;)
+
+   // LoadOrStore
+   // 若 key 不存在，则存入 key 和 value，返回 false 和输入的 value
+   v, ok := m.LoadOrStore(&quot;name1&quot;, &quot;Joe&quot;)
+   Println(v, ok)
+
+   // 若 key 已存在，则返回 true 和 key 对应的 value，不会修改原来的 value
+   v, ok = m.LoadOrStore(&quot;name&quot;, &quot;aaa&quot;)
+   Println(v, ok)
+   
+   // Load 读取数据
+   v, ok = m.Load(&quot;name&quot;)
+   if ok {
+       Println(&quot;key 存在, 值是： &quot;, v)
+   } else {
+       Println(&quot;key 不存在&quot;)
+   }
+   // Range 遍历
+   f := func(k, v interface{}) bool {
+       Println(k, v)
+       return true
+   }
+   m.Range(f)
+
+   // Delete 删除 key 及数据
+   m.Delete(&quot;name&quot;)
+   Println(m.Load(&quot;name&quot;))
 }
 </code></pre>
 <p>程序输出</p>
-<pre><code>B
-A
-A
+<pre><code>Joe false
+Joe true
+key 存在, 值是：  Joe
+name Joe
+gender Male
+name1 Joe
+&lt;nil&gt; false
 </code></pre>
-<h3 id="函数和方法的区别">函数和方法的区别</h3>
-<p>方法相对于函数多了接收器，这是他们之间最大的区别。<br>
-函数是直接调用，而方法是作用在接收器上，方法需要类型的实例来调用。方法接收器必须有一个显式的名字，这个名字在方法中可以被使用。</p>
-<h2 id="指针方法与值方法">指针方法与值方法</h2>
-<h3 id="指针方法与值方法的区别">指针方法与值方法的区别</h3>
-<p>有类型 T 且方法的接收器为 (t T) 时称为值接收器，该方法称为值方法。方法的接收器为 (t *T) 时称为指针接收器，该方法称为指针方法。<br>
-如果想要方法改变接收器的数据，就在接收器的指针上定义该方法。否则，就在普通的值类型上定义方法，这是指针方法和值方法最大的区别。</p>
-<pre><code class="language-go">package main
-
-import (
-    . &quot;fmt&quot;
-)
-
-type A struct {
-    name string
-}
-
-func (a A) print1() {
-    a.name = &quot;changed1&quot;
-}
-
-func (a *A) print2() {
-    a.name = &quot;changed2&quot;
-}
-
-func main() {
-    var a A = A {name : &quot;B&quot;}
-    a.print1()
-    Println(a.name)
-    // 语法糖将值隐式转换为指针
-    a.print2()
-    Println(a.name)
-}
-</code></pre>
-<p>程序输出</p>
-<pre><code>B
-changed2
-</code></pre>
-<p><strong>无论声明方法的接收器是指针接收器还是值接收器，Go 都可以将其隐式转换为正确的方法使用。</strong></p>
-<h3 id="接口变量上的指针方法与值方法">接口变量上的指针方法与值方法</h3>
-<pre><code class="language-go">package mian
-
-type A struct {
-    name string
-}
-
-type B interface {
-    func1()
-    func2()
-}
-
-func (a A) func1() {
-    a.name = &quot;A&quot;
-}
-
-func (a *A) func2() {
-    a.name = &quot;*A&quot;
-}
-
-func main() {
-    var a A = A {&quot;B&quot;}
-    a.func1()
-    a.func2()
-
-    // 类型 A 没有实现接口 B，无法直接赋值
-    // cannot use b (type B) as type A in assignment: B does not implement A (func2 method has pointer receiver)
-    // var b B = a
-    var b B = &amp;a
-    b.func1()
-    b.func2()
-}
-</code></pre>
-<p><strong>Go 有关接口与方法的规则如下</strong></p>
-<ol>
-<li>如果使用指针方法来实现一个接口，那么只有指向那个类型的指针才能够实现对应的接口。</li>
-<li>如果使用值方法来实现一个接口，那么那个类型的值和指针都能够实现对应的接口。</li>
-</ol>
-<h3 id="方法提升规则">方法提升规则</h3>
-<pre><code class="language-go">package main
-
-import (
-    . &quot;fmt&quot;
-)
-
-type A struct {
-    name string
-}
-
-type B struct {
-    A
-    // *A
-}
-
-func (a A) func1() {
-    a.name = &quot;A&quot;
-}
-
-func (a *A) func2() {
-    a.name = &quot;*A&quot;
-}
-
-func main() {
-    var b B = B {A{name : &quot;B&quot;}}
-    b.func1()
-    b.func2()
-}
-</code></pre>
-<p>程序输出</p>
-<pre><code>A
-*A
-// A
-// *A
-</code></pre>
-<p>给定一个结构体 A 和 一个类型 B，Go 中匿名嵌入类型的方法集提升规则如下</p>
-<ol>
-<li>如果 A 包含匿名字段 B，则 A 和 *A 的方法集都包含具有接收器 B 的提升方法，*A的方法集还包含具有接收器 *B 的提升方法。</li>
-<li>如果 A 包含匿名字段 *B，则 A 和 *A 的方法集都包含具有接收器 B 或 *B 的提升方法。</li>
-</ol>
-<p><strong>注意：以上规则由于 A.Meth() 会被自动转换为 (&amp;A).Meth() 这个语法糖，导致误解规则不起作用，而实际上规则是有效的。</strong></p>
  </p>
                     </div>
                 </div>
@@ -338,9 +252,9 @@ func main() {
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goErrors/">
+                                <a href="https://tsubasa597.github.io/goMethod/">
                                     <h3 class="post-title">
-                                        Golang 错误处理与 Defer
+                                        Golang 方法
                                     </h3>
                                 </a>
                             </div>
@@ -375,18 +289,15 @@ func main() {
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9A%E4%B9%89">方法的定义</a>
+<li>
 <ul>
-<li><a href="#%E6%8E%A5%E6%94%B6%E5%99%A8">接收器</a>
+<li><a href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E9%94%81">同步与锁</a>
 <ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">函数和方法的区别</a></li>
-</ul>
-</li>
-<li><a href="#%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E4%B8%8E%E5%80%BC%E6%96%B9%E6%B3%95">指针方法与值方法</a>
-<ul>
-<li><a href="#%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E4%B8%8E%E5%80%BC%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">指针方法与值方法的区别</a></li>
-<li><a href="#%E6%8E%A5%E5%8F%A3%E5%8F%98%E9%87%8F%E4%B8%8A%E7%9A%84%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E4%B8%8E%E5%80%BC%E6%96%B9%E6%B3%95">接口变量上的指针方法与值方法</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E6%8F%90%E5%8D%87%E8%A7%84%E5%88%99">方法提升规则</a></li>
+<li><a href="#%E4%BA%92%E6%96%A5%E9%94%81">互斥锁</a></li>
+<li><a href="#%E8%AF%BB%E5%86%99%E9%94%81">读写锁</a></li>
+<li><a href="#syncwaitgroup">sync.WaitGroup</a></li>
+<li><a href="#synconce">sync.Once()</a></li>
+<li><a href="#syncmap">sync.Map</a></li>
 </ul>
 </li>
 </ul>
