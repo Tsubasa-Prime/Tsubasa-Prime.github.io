@@ -161,7 +161,7 @@
             <h2 class="fh5co-article-title animate-box">Golang 多线程图片爬取</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2020-10-08</li>
-                <li>268字</li>
+                <li>271字</li>
                 <li>2 min read</li>
             </ol>
 
@@ -171,69 +171,83 @@
                         <p> <pre><code class="language-Golang">package main
 
 import (
-	&quot;strconv&quot;
-	&quot;net/http&quot;
 	&quot;io/ioutil&quot;
-	&quot;github.com/anaskhan96/soup&quot;
-	// . &quot;fmt&quot;
+	&quot;log&quot;
+	&quot;net/http&quot;
+	&quot;strconv&quot;
 	&quot;sync&quot;
-	&quot;runtime&quot;
+	&quot;time&quot;
+
+	&quot;github.com/anaskhan96/soup&quot;
 )
 
 var (
-	wg sync.WaitGroup
-	foo int
-	lock sync.Mutex
-	pageNum int
+	photoNum int = 0
+	wg       sync.WaitGroup
+	lock     sync.Mutex
 )
 
-
-func pageSpider(pageUrl string, urlChannle chan string, wait chan int) {
-	soup.Header(&quot;user-agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36&quot;)
-	source, _ := soup.Get(pageUrl)
-	for _, bar := range soup.HTMLParse(source).Find(&quot;ul&quot;, &quot;id&quot;, &quot;post-list-posts&quot;).FindAll(&quot;li&quot;) {
-		urlChannle &lt;- bar.FindAll(&quot;a&quot;)[1].Attrs()[&quot;href&quot;]
+func getPhotoURL(pageURL &lt;-chan string, photoURL chan&lt;- string, done chan int) {
+	for i := range pageURL {
+		source, _ := soup.Get(i)
+		ul := soup.HTMLParse(source).Find(&quot;ul&quot;, &quot;id&quot;, &quot;post-list-posts&quot;)
+		if ul.Pointer == nil {
+			continue
+		}
+		for _, bar := range soup.HTMLParse(source).Find(&quot;ul&quot;, &quot;id&quot;, &quot;post-list-posts&quot;).FindAll(&quot;li&quot;) {
+			photoURL &lt;- bar.FindAll(&quot;a&quot;)[1].Attrs()[&quot;href&quot;]
+		}
 	}
-	wait &lt;- 1
+	done &lt;- 1
 }
 
-func save(urlChannle chan string) {
-	for i := range urlChannle {
-		res, _ := http.Get(i)
-		defer res.Body.Close()
-		data, _ := ioutil.ReadAll(res.Body)
-        // 防止数据异常
+func getPhoto(photoURL &lt;-chan string) {
+	for i := range photoURL {
+		resp, err := http.Get(i)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		photo, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatalln(err)
+		}
 		lock.Lock()
-		_ = ioutil.WriteFile(&quot;/home/tsubasa/图片/photo/&quot; + strconv.Itoa(foo) + &quot;.jpg&quot;, data, 0755)
-		foo ++
+		j := photoNum
+		photoNum++
 		lock.Unlock()
+		ioutil.WriteFile(&quot;/home/tsubasa/图片/photo/&quot;+strconv.Itoa(j)+&quot;.jpg&quot;, photo, 0755)
 	}
-	defer wg.Done()
+	wg.Done()
 }
 
 func main() {
-    // 设置运行的 CPU 核数
-	runtime.GOMAXPROCS(4)
-    // 爬取的页面数量
-	pageNum = 100
-	urlChannle := make(chan string, 20)
-	wait := make(chan int)
-	// 调度器
-	go func() {
-		for i := 0; i &lt; pageNum; i ++ {
-			&lt;-wait
-		}
-		close(urlChannle)
-	}()
-	for i := 1; i &lt; pageNum + 1; i ++ {
-		go pageSpider(&quot;https://konachan.net/post?page=&quot;+ strconv.Itoa(i) +&quot;&amp;tags=&quot;, urlChannle, wait)
-	}
-	for i := 0; i &lt; 4; i ++ {
+	var (
+		pageURL  chan string = make(chan string, 10)
+		done     chan int    = make(chan int)
+		photoURL chan string = make(chan string, 10)
+		pageNum  int         = 101
+	)
+
+	for i := 0; i &lt; 8; i++ {
 		wg.Add(1)
-		go save(urlChannle)
+		go getPhotoURL(pageURL, photoURL, done)
+		wg.Add(1)
+		go getPhoto(photoURL)
 	}
+	go func() {
+		for i := 0; i &lt; 4; i++ {
+			&lt;-done
+		}
+		close(photoURL)
+	}()
+	for i := 1; i &lt; pageNum; i++ {
+		pageURL &lt;- &quot;https://konachan.net/post?page=&quot; + strconv.Itoa(i) + &quot;&amp;tags=&quot;
+		time.Sleep(time.Second * 1)
+	}
+	close(pageURL)
 	wg.Wait()
 }
+
 
 </code></pre>
  </p>

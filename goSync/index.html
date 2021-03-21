@@ -168,16 +168,16 @@
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h2 id="同步与锁">同步与锁</h2>
+                        <p> <h1 id="同步与锁">同步与锁</h1>
 <p>在并发条件下，信息的同步要求用户必须要用锁的机制来保证准确性。</p>
-<h3 id="互斥锁">互斥锁</h3>
+<h2 id="互斥锁">互斥锁</h2>
 <p>Go 中的 sync 包提供了两种锁类型: sync.Mutex 和 sync.RWMutex，前者是互斥锁，后者是读写锁。<br>
 互斥锁是传统的开发程序对共享资源进行访问控制的主要手段。在 Go 中更推崇使用通道来实现资源共享和通信。互斥锁由标准库 sync 包中的 Mutex 结构体类型实现，只有两个公共方法：调用 Lock() 获得锁和调用 Unlock() 释放锁。</p>
 <ul>
 <li>同一个协程中同步调用使用 Lock() 加锁后，不能再对其加锁，否则会引发运行时异常。只能在 Unlock() 之后再次 Lock()。多个协程中异步调用 Lock() 没有问题，但是每个协程只能调用一次 Lock()。由于多个协程之间产生了锁竞争，因此不会有运行时异常。互斥锁适用于只允许一个读或写的场景，所以该锁也叫作全局锁。</li>
 <li>Unlock() 用于解锁，如果在使用 Unlock() 前未加锁，就会引起一个运行错误。已经锁定的 Mutex 并不与特定的协程相关，这样可以利用一个协程对其加锁，再利用其他协程对其解锁。</li>
 </ul>
-<h3 id="读写锁">读写锁</h3>
+<h2 id="读写锁">读写锁</h2>
 <p>读写锁是多读单写互斥锁，分别针对读操作和写操作进行锁定和解锁操作，经常用于读次数远远多于写次数的场合。读写锁由结构体类型 sync,RWMutex 实现。</p>
 <ul>
 <li>读锁定情况下，对读写锁进行读锁定或者写锁定，都将阻塞，而且读锁与写锁之间是互斥的。</li>
@@ -187,11 +187,11 @@
 <li>写解锁在进行的同时会试图唤醒所有因进行而被阻塞的协程。</li>
 <li>读解锁在进行的时候则会试图唤醒一个因进行写锁定而被阻塞的协程。</li>
 </ul>
-<h3 id="syncwaitgroup">sync.WaitGroup</h3>
+<h2 id="syncwaitgroup">sync.WaitGroup</h2>
 <p>WaitGroup 用于线程总同步。它等待一组线程集合完成，才会继续向下执行。主线程调用 Add() 方法来设置等待的协程数量。然后每个协程运行，并在完成后调用 Done() 方法。同时，Wait() 方法用来阻塞主线程，直到所有线程完成才会向下执行。Add(-1) 和 Done() 效果一致，都表示等待的协程数量减少一个。</p>
-<h3 id="synconce">sync.Once()</h3>
+<h2 id="synconce">sync.Once()</h2>
 <p>sync.Once.Do(f func()) 能保证 Do() 方法只执行一次。对只需要运行一次的代码，如全局性初始化操作，或者防止多次重复执行都有很好的作用。</p>
-<h3 id="syncmap">sync.Map</h3>
+<h2 id="syncmap">sync.Map</h2>
 <p>sync.Map，它原生支持并发安全的字典。原有普通字典并不线程安全，一般情况下还以可以继续使用它。只有在涉及线程安全时才考虑 sync.Map，而且 sync.Map 的使用和字典有较大差异。</p>
 <pre><code class="language-go">package main
 
@@ -289,8 +289,6 @@ name1 Joe
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li>
-<ul>
 <li><a href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E9%94%81">同步与锁</a>
 <ul>
 <li><a href="#%E4%BA%92%E6%96%A5%E9%94%81">互斥锁</a></li>
@@ -298,8 +296,6 @@ name1 Joe
 <li><a href="#syncwaitgroup">sync.WaitGroup</a></li>
 <li><a href="#synconce">sync.Once()</a></li>
 <li><a href="#syncmap">sync.Map</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
