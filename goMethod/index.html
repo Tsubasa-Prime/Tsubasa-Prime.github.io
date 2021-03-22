@@ -168,8 +168,12 @@
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h1 id="方法的定义">方法的定义</h1>
-<p>Go 中方法和函数在形式上很像，是作用在接收器上的一个函数，接收器是某种类型的变量。因此方法是一种特殊类型的函数，只是比函数多了一个接收器，在接口中定义的函数也称为方法。</p>
+                        <p> <blockquote>
+<blockquote>
+<p>方法的定义<br>
+Go 中方法和函数在形式上很像，是作用在接收器上的一个函数，接收器是某种类型的变量。因此方法是一种特殊类型的函数，只是比函数多了一个接收器，在接口中定义的函数也称为方法。</p>
+</blockquote>
+</blockquote>
 <pre><code class="language-go">type A struct {
     Face int
 }
@@ -178,7 +182,7 @@ func (a A) f() {
     fmt.Println(&quot;hi&quot;, a.Face)
 }
 </code></pre>
-<h2 id="接收器">接收器</h2>
+<h1 id="接收器">接收器</h1>
 <p>接收器类型除了不能是指针类型或接口类型外，可以是其他任何类型，不仅仅是结构体类型，也可以是函数类型，还可以是以 int、bool、string 等为基础的自定义类型。</p>
 <pre><code class="language-go">package main
 
@@ -210,11 +214,11 @@ func main() {
 A
 A
 </code></pre>
-<h3 id="函数和方法的区别">函数和方法的区别</h3>
+<h2 id="函数和方法的区别">函数和方法的区别</h2>
 <p>方法相对于函数多了接收器，这是他们之间最大的区别。<br>
 函数是直接调用，而方法是作用在接收器上，方法需要类型的实例来调用。方法接收器必须有一个显式的名字，这个名字在方法中可以被使用。</p>
-<h2 id="指针方法与值方法">指针方法与值方法</h2>
-<h3 id="指针方法与值方法的区别">指针方法与值方法的区别</h3>
+<h1 id="指针方法与值方法">指针方法与值方法</h1>
+<h2 id="指针方法与值方法的区别">指针方法与值方法的区别</h2>
 <p>有类型 T 且方法的接收器为 (t T) 时称为值接收器，该方法称为值方法。方法的接收器为 (t *T) 时称为指针接收器，该方法称为指针方法。<br>
 如果想要方法改变接收器的数据，就在接收器的指针上定义该方法。否则，就在普通的值类型上定义方法，这是指针方法和值方法最大的区别。</p>
 <pre><code class="language-go">package main
@@ -249,7 +253,7 @@ func main() {
 changed2
 </code></pre>
 <p><strong>无论声明方法的接收器是指针接收器还是值接收器，Go 都可以将其隐式转换为正确的方法使用。</strong></p>
-<h3 id="接口变量上的指针方法与值方法">接口变量上的指针方法与值方法</h3>
+<h2 id="接口变量上的指针方法与值方法">接口变量上的指针方法与值方法</h2>
 <pre><code class="language-go">package mian
 
 type A struct {
@@ -287,7 +291,7 @@ func main() {
 <li>如果使用指针方法来实现一个接口，那么只有指向那个类型的指针才能够实现对应的接口。</li>
 <li>如果使用值方法来实现一个接口，那么那个类型的值和指针都能够实现对应的接口。</li>
 </ol>
-<h3 id="方法提升规则">方法提升规则</h3>
+<h2 id="方法提升规则">方法提升规则</h2>
 <pre><code class="language-go">package main
 
 import (
@@ -375,8 +379,6 @@ func main() {
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9A%E4%B9%89">方法的定义</a>
-<ul>
 <li><a href="#%E6%8E%A5%E6%94%B6%E5%99%A8">接收器</a>
 <ul>
 <li><a href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">函数和方法的区别</a></li>
@@ -387,8 +389,6 @@ func main() {
 <li><a href="#%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E4%B8%8E%E5%80%BC%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">指针方法与值方法的区别</a></li>
 <li><a href="#%E6%8E%A5%E5%8F%A3%E5%8F%98%E9%87%8F%E4%B8%8A%E7%9A%84%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E4%B8%8E%E5%80%BC%E6%96%B9%E6%B3%95">接口变量上的指针方法与值方法</a></li>
 <li><a href="#%E6%96%B9%E6%B3%95%E6%8F%90%E5%8D%87%E8%A7%84%E5%88%99">方法提升规则</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

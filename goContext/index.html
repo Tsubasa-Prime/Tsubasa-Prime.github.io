@@ -168,13 +168,18 @@
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <p>Go 中的 goroutine 之间没有父与子的关系，也就没有所谓子进程退出后的通知机制，多个 goroutine 都是平行的被调度，多个 goroutine 如何协作工作涉及通信、同步、通知和退出四个方面。</p>
+                        <p> <!--more-->
+<blockquote>
+<blockquote>
+<p>Go 中的 goroutine 之间没有父与子的关系，也就没有所谓子进程退出后的通知机制，多个 goroutine 都是平行的被调度，多个 goroutine 如何协作工作涉及通信、同步、通知和退出四个方面。</p>
 <ul>
 <li>通信：chan 通道当然是 goroutine 之间通信的基础，注意这里的通信主要是指程序的数据通道。</li>
 <li>同步：不带缓冲的 chan 提供了一个天然的同步等待机制；当然 sync.WaitGroup 也为多个 goroutine 协同工作提供一种同步等待机制。</li>
 <li>通知：这个通知和上面通信的数据不一样，通知通常不是业务数据，而是管理、控制流数据。</li>
 <li>退出：goroutine 之间没有父子关系，可以通过增加一个单独的通道，借助通道和 select 的广播机制实现退出。</li>
 </ul>
+</blockquote>
+</blockquote>
 <h1 id="context-的设计目的">Context 的设计目的</h1>
 <p>context 库的设计目的就是跟踪 goroutine 调用树，并在这些 goroutine 调用树中传递通知和元数据。两个目的：</p>
 <ol>
