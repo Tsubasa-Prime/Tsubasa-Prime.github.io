@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-03-22T09:08:40.770Z</updated>
+    <updated>2021-04-03T09:29:16.641Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasa597.github.io"/>
     <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://tsubasa597.github.io/images/avatar.png</logo>
     <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[Git]]></title>
+        <id>https://tsubasa597.github.io/gitCommand /</id>
+        <link href="https://tsubasa597.github.io/gitCommand /">
+        </link>
+        <updated>2021-04-03T08:20:57.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Go Context 标准库]]></title>
         <id>https://tsubasa597.github.io/goContext/</id>
@@ -86,12 +93,5 @@
         <link href="https://tsubasa597.github.io/goSpider/">
         </link>
         <updated>2020-10-08T05:43:02.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Golang 线程之间的数据同步]]></title>
-        <id>https://tsubasa597.github.io/goDataSync/</id>
-        <link href="https://tsubasa597.github.io/goDataSync/">
-        </link>
-        <updated>2020-10-08T05:03:55.000Z</updated>
     </entry>
 </feed>
