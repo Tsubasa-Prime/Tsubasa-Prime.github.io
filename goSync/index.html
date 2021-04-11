@@ -78,6 +78,8 @@
             <a href="https://tsubasa597.github.io/tags/"><h3 class="heading">👉标签</h3></a>
             <ul>
                 
+                    <li><a href="https://tsubasa597.github.io/tag/mysql/">MySql</a></li>
+                
                     <li><a href="https://tsubasa597.github.io/tag/git/">Git</a></li>
                 
                     <li><a href="https://tsubasa597.github.io/tag/go/">Golang</a></li>
@@ -163,8 +165,8 @@
             <h2 class="fh5co-article-title animate-box">Go 同步与锁</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2021-03-06</li>
-                <li>1009字</li>
-                <li>4 min read</li>
+                <li>1339字</li>
+                <li>6 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
@@ -177,8 +179,8 @@
 </blockquote>
 </blockquote>
 <h1 id="互斥锁">互斥锁</h1>
-<p>Go 中的 sync 包提供了两种锁类型: sync.Mutex 和 sync.RWMutex，前者是互斥锁，后者是读写锁。<br>
-互斥锁是传统的开发程序对共享资源进行访问控制的主要手段。在 Go 中更推崇使用通道来实现资源共享和通信。互斥锁由标准库 sync 包中的 Mutex 结构体类型实现，只有两个公共方法：调用 Lock() 获得锁和调用 Unlock() 释放锁。</p>
+<p>Go 中的 sync 包提供了两种锁类型: <code>sync.Mutex</code> 和 <code>sync.RWMutex</code>，前者是互斥锁，后者是读写锁。<br>
+互斥锁是传统的开发程序对共享资源进行访问控制的主要手段。在 Go 中更推崇使用通道来实现资源共享和通信。互斥锁由标准库 sync 包中的 Mutex 结构体类型实现，只有两个公共方法：调用 Lock() 获得锁和调用 <code>Unlock()</code> 释放锁。</p>
 <ul>
 <li>同一个协程中同步调用使用 Lock() 加锁后，不能再对其加锁，否则会引发运行时异常。只能在 Unlock() 之后再次 Lock()。多个协程中异步调用 Lock() 没有问题，但是每个协程只能调用一次 Lock()。由于多个协程之间产生了锁竞争，因此不会有运行时异常。互斥锁适用于只允许一个读或写的场景，所以该锁也叫作全局锁。</li>
 <li>Unlock() 用于解锁，如果在使用 Unlock() 前未加锁，就会引起一个运行错误。已经锁定的 Mutex 并不与特定的协程相关，这样可以利用一个协程对其加锁，再利用其他协程对其解锁。</li>
@@ -195,10 +197,10 @@
 </ul>
 <h1 id="syncwaitgroup">sync.WaitGroup</h1>
 <p>WaitGroup 用于线程总同步。它等待一组线程集合完成，才会继续向下执行。主线程调用 Add() 方法来设置等待的协程数量。然后每个协程运行，并在完成后调用 Done() 方法。同时，Wait() 方法用来阻塞主线程，直到所有线程完成才会向下执行。Add(-1) 和 Done() 效果一致，都表示等待的协程数量减少一个。</p>
-<h1 id="synconce">sync.Once()</h1>
-<p>sync.Once.Do(f func()) 能保证 Do() 方法只执行一次。对只需要运行一次的代码，如全局性初始化操作，或者防止多次重复执行都有很好的作用。</p>
+<h1 id="synconce">sync.Once</h1>
+<p><code>sync.Once.Do(f func())</code> 能保证 Do() 方法只执行一次。对只需要运行一次的代码，如全局性初始化操作，或者防止多次重复执行都有很好的作用。</p>
 <h1 id="syncmap">sync.Map</h1>
-<p>sync.Map，它原生支持并发安全的字典。原有普通字典并不线程安全，一般情况下还以可以继续使用它。只有在涉及线程安全时才考虑 sync.Map，而且 sync.Map 的使用和字典有较大差异。</p>
+<p><code>sync.Map</code>，它原生支持并发安全的字典。原有普通字典并不线程安全，一般情况下还以可以继续使用它。只有在涉及线程安全时才考虑 <code>sync.Map</code>，而且 <code>sync.Map</code> 的使用和字典有较大差异。</p>
 <pre><code class="language-go">package main
 
 import (
@@ -249,6 +251,13 @@ gender Male
 name1 Joe
 &lt;nil&gt; false
 </code></pre>
+<h1 id="synccond">sync.Cond</h1>
+<p><code>sync.Cond</code> 基于互斥锁/读写锁。互斥锁 <code>sync.Mutex</code> 通常用来保护临界区和共享资源，条件变量 <code>sync.Cond</code> 用来协调想要访问共享资源的 <code>goroutine</code><br>
+<code>sync.Cond</code> 经常用在多个 <code>goroutine</code> 等待，一个 <code>goroutine</code> 通知（事件发生）的场景。如果是一个通知，一个等待，使用互斥锁或 <code>channle</code> 就能解决。<br>
+我们想象一个非常简单的场景：<br>
+有一个协程在异步地接收数据，剩下的多个协程必须等待这个协程接收完数据，才能读取到正确的数据。在这种情况下，如果单纯使用 <code>channle</code> 或互斥锁，那么只能有一个协程可以等待，并读取到数据，没办法通知其他的协程也读取数据。</p>
+<p>这个时候，就需要有个全局的变量来标志第一个协程数据是否接受完毕，剩下的协程，反复简单该变量的值，直到满足要求。或者创建多个 <code>channel</code>，每个协程阻塞在一个 <code>channel</code> 上，由接收数据的协程在数据接收完毕后，逐个通知。总之，需要额外的复杂度来完成这件事。</p>
+<p>Go 语言在标准库 <code>sync</code> 中内置一个 <code>sync.Cond</code> 用来解决这类问题。</p>
  </p>
                     </div>
                 </div>
@@ -298,8 +307,9 @@ name1 Joe
 <li><a href="#%E4%BA%92%E6%96%A5%E9%94%81">互斥锁</a></li>
 <li><a href="#%E8%AF%BB%E5%86%99%E9%94%81">读写锁</a></li>
 <li><a href="#syncwaitgroup">sync.WaitGroup</a></li>
-<li><a href="#synconce">sync.Once()</a></li>
+<li><a href="#synconce">sync.Once</a></li>
 <li><a href="#syncmap">sync.Map</a></li>
+<li><a href="#synccond">sync.Cond</a></li>
 </ul>
 
 </div>
