@@ -150,138 +150,142 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/beanUtils.jpg" alt="BeanUtils" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/goContainer.jpg" alt="Container" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasa597.github.io/tag/java/" class="tag">Java, </a>
+                            <a href="https://tsubasa597.github.io/tag/go/" class="tag">Golang, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">BeanUtils</h2>
+            <h2 class="fh5co-article-title animate-box">Container</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2020-11-19</li>
-                <li>710字</li>
-                <li>4 min read</li>
+                <li>2021-04-18</li>
+                <li>746字</li>
+                <li>5 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h1 id="为何使用">为何使用</h1>
-<p>在项目实际开发中，经常需要将两个对象实例进行属性复制，从而对源数据进行后续操作，而不改变源对象属性信息。</p>
-<p>这种转换最原始的方法就是手写大量的 <code>get/set</code> 代码，这是在开发过程中不愿去做的，因为它显得很繁琐。为了解决这个问题，就诞生了一些方便的库，常用的有 apache 的 BeanUtils 和 Spring 的 BeanUtils。</p>
-<h1 id="浅拷贝与深拷贝">浅拷贝与深拷贝</h1>
-<ul>
-<li>浅拷贝<br>
-对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝，此为浅拷贝</li>
-<li>深拷贝<br>
-对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。</li>
-</ul>
-<h1 id="spring-的-beanutils">Spring 的 BeanUtils</h1>
-<pre><code class="language-java"> /**
-* Copy the property values of the given source bean into the given target bean.
-* 把给定源 bean 的属性复制到给定目标 bean 中。
-* &lt;p&gt;Note: The source and target classes do not have to match or even be derived
-* from each other, as long as the properties match. Any bean properties that the
-* source bean exposes but the target bean does not will silently be ignored.
-* 注意：源类与目标类不必匹配甚至不必派生。源 bean 公开但是目标 bean 没有公开的属性都会被忽略
-* @param source the source bean
-* @param target the target bean
-* @param editable the class (or interface) to restrict property setting to
-* @param ignoreProperties array of property names to ignore
-* @throws BeansException if the copying failed
-* source：源 bean，target：目标 bean，ignoreProperties：要忽略的属性名数组
-* @see BeanWrapper
-*/
-private static void copyProperties(Object source, Object target, @Nullable Class&lt;?&gt; editable,
-		@Nullable String... ignoreProperties) throws BeansException {
+                        <p> <blockquote>
+<p>Container 包实现了三个数据结构：堆、链表、环</p>
+</blockquote>
+<h1 id="堆">堆</h1>
+<p>使用堆的功能需要实现 <code>heap.Interface</code> 接口</p>
+<pre><code class="language-go">// heap.Interface
+type Interface interface {
+	sort.Interface
+	Push(x interface{}) // add x as element Len()
+	Pop() interface{}   // remove and return element Len() - 1.
+}
 
-	Assert.notNull(source, &quot;Source must not be null&quot;);
-	Assert.notNull(target, &quot;Target must not be null&quot;);
+// sort.Interface
+type Interface interface {
+	// Len is the number of elements in the collection.
+	Len() int
 
-	Class&lt;?&gt; actualEditable = target.getClass();
-	if (editable != null) {
-		if (!editable.isInstance(target)) {
-			throw new IllegalArgumentException(&quot;Target class [&quot; + target.getClass().getName() +
-					&quot;] not assignable to Editable class [&quot; + editable.getName() + &quot;]&quot;);
-		}
-		actualEditable = editable;
-	}
-	PropertyDescriptor[] targetPds = getPropertyDescriptors(actualEditable);
-	List&lt;String&gt; ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
+	// Less reports whether the element with index i
+	// must sort before the element with index j.
+	//
+	// If both Less(i, j) and Less(j, i) are false,
+	// then the elements at index i and j are considered equal.
+	// Sort may place equal elements in any order in the final result,
+	// while Stable preserves the original input order of equal elements.
+	//
+	// Less must describe a transitive ordering:
+	//  - if both Less(i, j) and Less(j, k) are true, then Less(i, k) must be true as well.
+	//  - if both Less(i, j) and Less(j, k) are false, then Less(i, k) must be false as well.
+	//
+	// Note that floating-point comparison (the &lt; operator on float32 or float64 values)
+	// is not a transitive ordering when not-a-number (NaN) values are involved.
+	// See Float64Slice.Less for a correct implementation for floating-point values.
+	Less(i, j int) bool
 
-	for (PropertyDescriptor targetPd : targetPds) {
-		Method writeMethod = targetPd.getWriteMethod();
-		if (writeMethod != null &amp;&amp; (ignoreList == null || !ignoreList.contains(targetPd.getName()))) {
-			PropertyDescriptor sourcePd = getPropertyDescriptor(source.getClass(), targetPd.getName());
-			if (sourcePd != null) {
-				Method readMethod = sourcePd.getReadMethod();
-				if (readMethod != null &amp;&amp;
-						ClassUtils.isAssignable(writeMethod.getParameterTypes()[0], readMethod.getReturnType())) {
-					try {
-						if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
-							readMethod.setAccessible(true);
-						}
-						Object value = readMethod.invoke(source);
-						if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
-							writeMethod.setAccessible(true);
-						}
-						writeMethod.invoke(target, value);
-					}
-					catch (Throwable ex) {
-						throw new FatalBeanException(
-								&quot;Could not copy property '&quot; + targetPd.getName() + &quot;' from source to target&quot;, ex);
-					}
-				}
-			}
-		}
-	}
+	// Swap swaps the elements with indexes i and j.
+	Swap(i, j int)
 }
 </code></pre>
-<h2 id="自定义-beanutils">自定义 BeanUtils</h2>
-<pre><code class="language-java">public abstract class BeanUtil {
-    public static Object copyProperties(Object source, Object target, String... ignoreProperties) {
-        if (source == null) {
-            return target;
-        }
-        BeanUtils.copyProperties(source, target, ignoreProperties);
-        return target;
-    }
-
-    public static &lt;T&gt; List&lt;T&gt; copyList(List&lt;?&gt; sources, Class&lt;T&gt; clazz) {
-        return copyList(sources, clazz, null);
-    }
-    // 复制 List&lt;T&gt; 类型的 bean
-    public static &lt;T&gt; List&lt;T&gt; copyList(List&lt;?&gt; sources, Class&lt;T&gt; clazz, Callback&lt;T&gt; callback) {
-        List&lt;T&gt; targetList = new ArrayList&lt;&gt;();
-        if (sources != null) {
-            try {
-                for (Object source : sources) {
-                    T target = clazz.newInstance();
-                    copyProperties(source, target);
-                    if (callback != null) {
-                        callback.set(source, target);
-                    }
-                    targetList.add(target);
-                }
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return targetList;
-    }
-
-    public static interface Callback&lt;T&gt; {
-        void set(Object source, T target);
-    }
+<p>实现了这个接口就可以使用堆的方法来进行操作</p>
+<pre><code>// Init establishes the heap invariants required by the other routines in this package.
+// Init is idempotent with respect to the heap invariants
+// and may be called whenever the heap invariants may have been invalidated.
+// The complexity is O(n) where n = h.Len().
+func Init(h Interface) {
+	// heapify
+	n := h.Len()
+	for i := n/2 - 1; i &gt;= 0; i-- {
+		down(h, i, n)
+	}
 }
+
+// Push pushes the element x onto the heap.
+// The complexity is O(log n) where n = h.Len().
+func Push(h Interface, x interface{}) {
+	h.Push(x)
+	up(h, h.Len()-1)
+}
+
+// Pop removes and returns the minimum element (according to Less) from the heap.
+// The complexity is O(log n) where n = h.Len().
+// Pop is equivalent to Remove(h, 0).
+func Pop(h Interface) interface{} {
+	n := h.Len() - 1
+	h.Swap(0, n)
+	down(h, 0, n)
+	return h.Pop()
+}
+
+// Remove removes and returns the element at index i from the heap.
+// The complexity is O(log n) where n = h.Len().
+func Remove(h Interface, i int) interface{} {
+	n := h.Len() - 1
+	if n != i {
+		h.Swap(i, n)
+		if !down(h, i, n) {
+			up(h, i)
+		}
+	}
+	return h.Pop()
+}
+</code></pre>
+<h1 id="链表">链表</h1>
+<pre><code class="language-go">type Element struct {
+    next, prev *Element  // 上一个元素和下一个元素
+    list *List  // 元素所在链表
+    Value interface{}  // 元素
+}
+
+type List struct {
+    root Element  // 链表的根元素
+    len  int      // 链表的长度
+}
+</code></pre>
+<p>list 对应的方法有</p>
+<pre><code class="language-go">type Element
+    func (e *Element) Next() *Element
+    func (e *Element) Prev() *Element
+type List
+    func New() *List
+    func (l *List) Back() *Element   // 最后一个元素
+    func (l *List) Front() *Element  // 第一个元素
+    func (l *List) Init() *List  // 链表初始化
+    func (l *List) InsertAfter(v interface{}, mark *Element) *Element // 在某个元素后插入
+    func (l *List) InsertBefore(v interface{}, mark *Element) *Element  // 在某个元素前插入
+    func (l *List) Len() int // 在链表长度
+    func (l *List) MoveAfter(e, mark *Element)  // 把 e 元素移动到 mark 之后
+    func (l *List) MoveBefore(e, mark *Element)  // 把 e 元素移动到 mark 之前
+    func (l *List) MoveToBack(e *Element) // 把 e 元素移动到队列最后
+    func (l *List) MoveToFront(e *Element) // 把 e 元素移动到队列最头部
+    func (l *List) PushBack(v interface{}) *Element  // 在队列最后插入元素
+    func (l *List) PushBackList(other *List)  // 在队列最后插入接上新队列
+    func (l *List) PushFront(v interface{}) *Element  // 在队列头部插入元素
+    func (l *List) PushFrontList(other *List) // 在队列头部插入接上新队列
+    func (l *List) Remove(e *Element) interface{} // 删除某个元素
 </code></pre>
  </p>
                     </div>
@@ -292,9 +296,9 @@ private static void copyProperties(Object source, Object target, @Nullable Class
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/primarySort/">
+                                <a href="https://tsubasa597.github.io/designSql/">
                                     <h3 class="post-title">
-                                        排序算法
+                                        数据库设计范式
                                     </h3>
                                 </a>
                             </div>
@@ -329,13 +333,8 @@ private static void copyProperties(Object source, Object target, @Nullable Class
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%BA%E4%BD%95%E4%BD%BF%E7%94%A8">为何使用</a></li>
-<li><a href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D">浅拷贝与深拷贝</a></li>
-<li><a href="#spring-%E7%9A%84-beanutils">Spring 的 BeanUtils</a>
-<ul>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89-beanutils">自定义 BeanUtils</a></li>
-</ul>
-</li>
+<li><a href="#%E5%A0%86">堆</a></li>
+<li><a href="#%E9%93%BE%E8%A1%A8">链表</a></li>
 </ul>
 
 </div>
