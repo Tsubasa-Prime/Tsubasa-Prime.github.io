@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-04-23T06:28:21.118Z</updated>
+    <updated>2021-04-25T13:50:20.554Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasa597.github.io"/>
     <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://tsubasa597.github.io/images/avatar.png</logo>
     <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[MySQL 事务]]></title>
+        <id>https://tsubasa597.github.io/transactionMySQL/</id>
+        <link href="https://tsubasa597.github.io/transactionMySQL/">
+        </link>
+        <updated>2021-04-25T13:19:28.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Container]]></title>
         <id>https://tsubasa597.github.io/goContainer/</id>
@@ -86,12 +93,5 @@
         <link href="https://tsubasa597.github.io/primarySort/">
         </link>
         <updated>2020-11-18T21:06:27.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[线性表]]></title>
-        <id>https://tsubasa597.github.io/list/</id>
-        <link href="https://tsubasa597.github.io/list/">
-        </link>
-        <updated>2020-10-28T18:38:16.000Z</updated>
     </entry>
 </feed>

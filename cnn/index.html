@@ -78,9 +78,9 @@
             <a href="https://tsubasa597.github.io/tags/"><h3 class="heading">👉标签</h3></a>
             <ul>
                 
-                    <li><a href="https://tsubasa597.github.io/tag/go/">Golang</a></li>
-                
                     <li><a href="https://tsubasa597.github.io/tag/mysql/">MySql</a></li>
+                
+                    <li><a href="https://tsubasa597.github.io/tag/go/">Golang</a></li>
                 
                     <li><a href="https://tsubasa597.github.io/tag/git/">Git</a></li>
                 
@@ -167,8 +167,8 @@
             <h2 class="fh5co-article-title animate-box">CNN(卷积神经网络)</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
                 <li>2019-08-23</li>
-                <li>751字</li>
-                <li>5 min read</li>
+                <li>346字</li>
+                <li>2 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
@@ -275,87 +275,6 @@ print(&quot;测试准确率 : %f %%&quot; % (100 * correct / total))
 测试准确率 : 99.000000 %
 </code></pre>
 <p>比逻辑回归的正确率高出 18%!</p>
-<pre><code class="language-python">from torchvision import datasets, transforms
-import torch
-import torch.nn as nn
-import torchvision
-import torch.utils.data as Data
-from torch.autograd import Variable
- 
-data_transfrom = transforms.Compose([  # 对读取的图片进行以下指定操作
-    transforms.Resize((300, 300)),     # 图片放缩为 (300, 300), 统一处理的图像最好设置为统一的大小,这样之后的处理也更加方便
-    transforms.ToTensor(),             # 向量化,向量化时 每个点的像素值会除以255,整个向量中的元素值都在0-1之间      
-])
- 
-img = datasets.ImageFolder('/home/tsubasa/Code/Python/rock/1', transform=data_transfrom)  # 指明读取的文件夹和读取方式,注意指明的是到文件夹的路径,不是到图片的路径
- 
-# imgLoader = torch.utils.data.DataLoader(img, batch_size=2, shuffle=False, num_workers=1)  # 指定读取配置信息
-train_loader = torch.utils.data.DataLoader(img, batch_size=2, shuffle=False, num_workers=1)
-test_loader = torch.utils.data.DataLoader(img, batch_size=2, shuffle=False, num_workers=1)
-
-class CNN(nn.Module) :
-    def __init__(self) :
-        super(CNN, self).__init__()
-        self.layer1 = nn.Sequential( 
-                    nn.Conv2d(
-                            in_channels = 3,
-                            out_channels = 16,
-                            kernel_size = 5,
-                            stride = 1, #　步长
-                            padding = 2, # 补0
-                            groups = 1
-                        ),
-                    nn.ReLU(),
-                    nn.MaxPool2d(kernel_size = 2)
-                )
-        self.layer2 = nn.Sequential(
-                    nn.Conv2d(
-                            in_channels = 16,
-                            out_channels = 32,
-                            kernel_size = 5,
-                            stride = 1, # 步长
-                            padding = 2 # 补0
-                        ),
-                    nn.ReLU(),
-                    nn.MaxPool2d(kernel_size = 2)
-                )
-        self.layer3 = nn.Linear(180000, 10)
-        
-    def forward(self, x) :
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = x.view(x.size(0), -1)
-        x = self.layer3(x)
-        return x
-
-cnn = CNN().cuda()
-
-optimizer = torch.optim.Adam(cnn.parameters(), lr = 0.001)
-loss = nn.CrossEntropyLoss()
-
-for epoch in range(3) :
-    for step, (b_x, b_y) in enumerate(train_loader) :
-        output = cnn(Variable(b_x).cuda())
-        loss_ = loss(output, Variable(b_y).cuda())
-        optimizer.zero_grad()
-        loss_.backward()
-        optimizer.step()
-
-print(&quot;训练成功&quot;)
-
-cnn.eval()
-correct = 0
-total = 0
-for images, labels in test_loader :
-    image = Variable(images).cuda()
-    labels = Variable(labels).cuda()
-    output = cnn(image).cuda()
-    _, predicted = torch.max(output.data, 1)
-    total += labels.size(0)
-    correct += (predicted.cpu() == labels.cpu()).sum()
-
-print(&quot;测试准确率 : %f %%&quot; % (100 * correct / total))
-</code></pre>
  </p>
                     </div>
                 </div>
