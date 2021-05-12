@@ -186,16 +186,6 @@
 <h1 id="旋转树节点">旋转树节点</h1>
 <pre><code class="language-go">// 将树进行左旋
 func ll(node *AVLTreeNode) *AVLTreeNode {
-	nodeL := node.Left
-	node.Left = nodeL.Right
-	nodeL.Right = node
-	node.Height = max(height(node.Left), height(node.Right)) + 1
-	nodeL.Height = max(height(nodeL.Left), node.Height) + 1
-	return nodeL
-}
-
-// 将树进行右旋
-func rr(node *AVLTreeNode) *AVLTreeNode {
 	nodeR := node.Right
 	node.Right = nodeR.Left
 	nodeR.Left = node
@@ -204,16 +194,26 @@ func rr(node *AVLTreeNode) *AVLTreeNode {
 	return nodeR
 }
 
+// 将树进行右旋
+func rr(node *AVLTreeNode) *AVLTreeNode {
+	nodeL := node.Left
+	node.Left = nodeL.Right
+	nodeL.Right = node
+	node.Height = max(height(node.Left), height(node.Right)) + 1
+	nodeL.Height = max(height(nodeL.Left), node.Height) + 1
+	return nodeL
+}
+
  // 将树进行右旋后左旋
 func lr(node *AVLTreeNode) *AVLTreeNode {
-	node.Left = rr(node.Left)
-	return ll(node)
+	node.Left = ll(node.Left)
+	return rr(node)
 }
 
 // 将树进行左旋后右旋
 func rl(node *AVLTreeNode) *AVLTreeNode {
-	node.Right = ll(node.Right)
-	return rr(node)
+	node.Right = rr(node.Right)
+	return ll(node)
 }
 
  // 若树失去平衡性，`进行旋转
@@ -221,7 +221,7 @@ func handleBF(node *AVLTreeNode) *AVLTreeNode {
         // 左子树失衡
 	if height(node.Left)-height(node.Right) == 2 {
 		if height(node.Left.Left)-height(node.Left.Right) &gt; 0 {
-			node = ll(node)  // 左子树的左子树失衡
+			node = rr(node)  // 左子树的左子树失衡
 		} else {
 			node = lr(node) // 左子树的右子树失衡
 		}
@@ -230,7 +230,7 @@ func handleBF(node *AVLTreeNode) *AVLTreeNode {
 		if height(node.Right.Left)-height(node.Right.Right) &gt; 0 {
 			node = rl(node)  // 右子树的左子树失衡
 		} else {
-			node = rr(node)  // 右子树的右子树失衡
+			node = ll(node)  // 右子树的右子树失衡
 		}
 	}
         // 重新计算当前节点深度
