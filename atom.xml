@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-05-12T03:58:02.981Z</updated>
+    <updated>2021-05-16T05:43:27.611Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasa597.github.io"/>
     <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://tsubasa597.github.io/images/avatar.png</logo>
     <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[Go Sync.Pool]]></title>
+        <id>https://tsubasa597.github.io/goPool/</id>
+        <link href="https://tsubasa597.github.io/goPool/">
+        </link>
+        <updated>2021-05-14T14:09:29.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[AVL树]]></title>
         <id>https://tsubasa597.github.io/AVLTree/</id>
@@ -86,12 +93,5 @@
         <link href="https://tsubasa597.github.io/generic/">
         </link>
         <updated>2020-11-26T16:40:07.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[BeanUtils]]></title>
-        <id>https://tsubasa597.github.io/beanUtils/</id>
-        <link href="https://tsubasa597.github.io/beanUtils/">
-        </link>
-        <updated>2020-11-19T15:53:07.000Z</updated>
     </entry>
 </feed>
