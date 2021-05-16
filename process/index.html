@@ -152,40 +152,46 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/transactionMySQL.jpg" alt="MySQL 事务" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/process.jpg" alt="进程、线程、协程" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasa597.github.io/tag/mysql/" class="tag">MySql, </a>
+                            <a href="https://tsubasa597.github.io/tag/principlesOfComputer/" class="tag">计算机原理, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">MySQL 事务</h2>
+            <h2 class="fh5co-article-title animate-box">进程、线程、协程</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2021-04-25</li>
-                <li>584字</li>
-                <li>2 min read</li>
+                <li>2021-05-16</li>
+                <li>785字</li>
+                <li>3 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
                         <p> <blockquote>
-<p>事务处理在数据库开发过程中有着非常重要的作用，它可以保证在同一个事务中的操作具有同步性。</p>
+<p>进程是资源分配的最小单位，线程是 CPU 调度的最小单位。</p>
 </blockquote>
-<h1 id="概念">概念</h1>
-<p>在 MySQL 中，事务就是针对数据库的一组操作，它可以由一条或多条 SQL 语句组成，且每个 SQL 语句是互相依赖的。只要在程序执行过程中有一条 SQL 语句执行失败或发生错误，则其他语句都不会执行，也就是说事务的执行要么成功，要么就返回到事务开始前的状态，这就保证了同一事务操作的同步性和数据的完整性。<br>
-MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
-<ol>
-<li>原子性。原子性是指一个事务必须被视为一个不可分割的最小工作单元，只有事务中所有的数据库操作都执行成功，才是算整个事务执行成功。事务中如果有任何一个 SQL 语句执行失败，已经执行成功的 SQL 语句也必须撤销，数据库的状态退回到执行事务前的状态。</li>
-<li>一致性。一致性是是指事务处理时，无论执行成功还是失败，都要保证数据库系统处于一致的状态，保证数据库系统处于一致的状态，保证数据库系统不会返回一个未处理的事务。MySQL 中的一致性主要由日志机制实现，通过日志记录数据库的所有变化，为事务恢复提供了追踪记录。</li>
-<li>隔离性。隔离性是指当一个事务在执行时，不会受到其他事务的影响。保证了未完成事务的所有操作与数据库系统的隔离，直到事务完成为止，才能看到事务的执行结果。隔离性相关的技术有并发控制、可串行化、锁等。当多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</li>
-<li>持久性。持久性是指事务一旦提交，其对数据库的修改就是永久性的。</li>
-</ol>
+<h1 id="进程">进程</h1>
+<p>在程序启动时，操作系统会给该程序分配一块内存空间，对于程序但看到的是一整块连续的内存空间，称为虚拟内存空间，落实到操作系统内核则是一块一块的内存碎片的东西。为的是节省内核空间，方便对内存管理。<br>
+就这片内存空间，又划分为用户空间与内核空间，用户空间只用于用户程序的执行，若要执行各种 IO 操作，就会通过系统调用等进入内核空间进行操作。每个进程都有自己的 PID。<br>
+<img src="https://tsubasa597.github.io/post-images/1621163661967.webp" alt="" loading="lazy"></p>
+<h1 id="线程">线程</h1>
+<p>线程是进程的一个执行单元，一个进程可以包含多个线程，只有拥有了线程的进程才会被 CPU 执行，所以一个进程最少拥有一个主线程。<br>
+由于多个线程可以共享同一个进程的内存空间，线程的创建不需要额外的虚拟内存空间，线程之间的切换也就少了如进程切换的切换页表，切换虚拟地址空间此类的巨大开销。至于进程切换为什么较大，简单理解是因为进程切换要保存的现场太多如寄存器，栈，代码段，执行位置等，而线程切换只需要上下文切换，保存线程执行的上下文即可。线程的的切换只需要保存线程的执行现场(程序计数器等状态)保存在该线程的栈里，CPU 把栈指针，指令寄存器的值指向下一个线程。相比之下线程更加轻量级。<br>
+可以说进程面向的主要内容是内存分配管理，而线程主要面向的 CPU 调度。<br>
+<img src="https://tsubasa597.github.io/post-images/1621163728346.webp" alt="" loading="lazy"></p>
+<h1 id="协程">协程</h1>
+<p>虽然线程比进程要轻量级，但是每个线程依然占有1M左右的空间，在高并发场景下非常吃机器内存，比如构建一个http服务器，如果一个每来一次请求分配一个线程，请求数暴增容易OOM，而且线程切换的开销也是不可忽视的。同时，线程的创建与销毁同样是比较大的系统开销，因为是由内核来做的，解决方法也有，可以通过线程池或协程来解决。<br>
+协程是用户态的线程，比线程更加的轻量级，操作系统对其没有感知，之所以没有感知是由于协程处于线程的用户栈能感知的范围，是由用户创建的而非操作系统。<br>
+<img src="https://tsubasa597.github.io/post-images/1621163797125.webp" alt="" loading="lazy"><br>
+如一个进程可拥有以有多个线程一样，一个线程也可以拥有多个协程。协程之于线程如同线程之于 CPU，拥有自己的协程队列，每个协程拥有自己的栈空间，在协程切换时候只需要保存协程的上下文，开销要比内核态的线程切换要小很多。<br>
+<img src="https://tsubasa597.github.io/post-images/1621163817645.webp" alt="" loading="lazy"></p>
  </p>
                     </div>
                 </div>
@@ -195,9 +201,9 @@ MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goContainer/">
+                                <a href="https://tsubasa597.github.io/goGMP/">
                                     <h3 class="post-title">
-                                        Go Container
+                                        Go GMP 模型
                                     </h3>
                                 </a>
                             </div>
@@ -232,7 +238,9 @@ MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B">进程</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B">线程</a></li>
+<li><a href="#%E5%8D%8F%E7%A8%8B">协程</a></li>
 </ul>
 
 </div>

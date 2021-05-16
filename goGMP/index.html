@@ -152,40 +152,61 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/transactionMySQL.jpg" alt="MySQL 事务" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/goGMP.jpg" alt="Go GMP 模型" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasa597.github.io/tag/mysql/" class="tag">MySql, </a>
+                            <a href="https://tsubasa597.github.io/tag/go/" class="tag">Golang, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">MySQL 事务</h2>
+            <h2 class="fh5co-article-title animate-box">Go GMP 模型</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2021-04-25</li>
-                <li>584字</li>
-                <li>2 min read</li>
+                <li>2021-05-16</li>
+                <li>1040字</li>
+                <li>4 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
                         <p> <blockquote>
-<p>事务处理在数据库开发过程中有着非常重要的作用，它可以保证在同一个事务中的操作具有同步性。</p>
+<p>Goroutine 的并发编程模型基于GMP模型。</p>
 </blockquote>
-<h1 id="概念">概念</h1>
-<p>在 MySQL 中，事务就是针对数据库的一组操作，它可以由一条或多条 SQL 语句组成，且每个 SQL 语句是互相依赖的。只要在程序执行过程中有一条 SQL 语句执行失败或发生错误，则其他语句都不会执行，也就是说事务的执行要么成功，要么就返回到事务开始前的状态，这就保证了同一事务操作的同步性和数据的完整性。<br>
-MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
-<ol>
-<li>原子性。原子性是指一个事务必须被视为一个不可分割的最小工作单元，只有事务中所有的数据库操作都执行成功，才是算整个事务执行成功。事务中如果有任何一个 SQL 语句执行失败，已经执行成功的 SQL 语句也必须撤销，数据库的状态退回到执行事务前的状态。</li>
-<li>一致性。一致性是是指事务处理时，无论执行成功还是失败，都要保证数据库系统处于一致的状态，保证数据库系统处于一致的状态，保证数据库系统不会返回一个未处理的事务。MySQL 中的一致性主要由日志机制实现，通过日志记录数据库的所有变化，为事务恢复提供了追踪记录。</li>
-<li>隔离性。隔离性是指当一个事务在执行时，不会受到其他事务的影响。保证了未完成事务的所有操作与数据库系统的隔离，直到事务完成为止，才能看到事务的执行结果。隔离性相关的技术有并发控制、可串行化、锁等。当多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</li>
-<li>持久性。持久性是指事务一旦提交，其对数据库的修改就是永久性的。</li>
-</ol>
+<h1 id="并发-并行">并发 &amp; 并行</h1>
+<p>随着服务器硬件迭代升级，配置也越来越高。为充分利用服务器资源，并发编程也变的越来越重要。在开始之前，需要了解一下并发和并行的区别。</p>
+<ul>
+<li><strong>并发</strong>:  逻辑上具有处理多个同时性任务的能力。</li>
+<li><strong>并行</strong>:   物理上同一时刻执行多个并发任务。</li>
+</ul>
+<p>通常所说的并发编程，也就是说它允许多个任务同时执行，但实际上并不一定在同一时刻被执行。在单核处理器上，通过多线程共享CPU时间片串行执行(并发非并行)。而并行则依赖于多核处理器等物理资源，让多个任务可以实现并行执行(并发且并行)。</p>
+<p>多线程或多进程是并行的基本条件，但单线程也可以用协程(coroutine)做到并发。简单将 Goroutine 归纳为协程并不合适，因为它运行时会创建多个线程来执行并发任务，且任务单元可被调度到其它线程执行。这更像是多线程和协程的结合体，能最大限度提升执行效率，发挥多核处理器能力。</p>
+<p>Go编写一个并发编程程序很简单，只需要在函数之前使用一个Go关键字就可以实现并发编程。</p>
+<pre><code class="language-go">func main() {
+    go func() {
+        fmt.Println(&quot;hello, world&quot;)
+    }()
+}
+</code></pre>
+<h1 id="gmp-模型">GMP 模型</h1>
+<h2 id="goroutine-调度器组成">Goroutine 调度器组成</h2>
+<figure data-type="image" tabindex="1"><img src="https://tsubasa597.github.io/post-images/1621164434784.jpg" alt="" loading="lazy"></figure>
+<h3 id="g">G</h3>
+<p>G 是 Goroutine 的缩写，相当于操作系统中的进程控制块，在这里就是 Goroutine 的控制结构，是对Goroutine 的抽象。其中包括执行的函数指令及参数；G 保存的任务对象；线程上下文切换，现场保护和现场恢复需要的寄存器(SP、IP)等信息。</p>
+<p>Go不同版本 Goroutine 默认栈大小不同。</p>
+<h3 id="m">M</h3>
+<p>M 是一个线程或称为Machine，所有 M 是有线程栈的。如果不对该线程栈提供内存的话，系统会给该线程栈提供内存(不同操作系统提供的线程栈大小不同)。当指定了线程栈，则 M.stack → G.stack，M 的 PC 寄存器指向 G 提供的函数，然后去执行。</p>
+<h3 id="p">P</h3>
+<p>P(Processor) 是一个抽象的概念，并不是真正的物理 CPU。所以当 P 有任务时需要创建或者唤醒一个系统线程来执行它队列里的任务。所以P/M需要进行绑定，构成一个执行单元。</p>
+<p>P 决定了同时可以并发任务的数量，可通过 GOMAXPROCS 限制同时执行用户级任务的操作系统线程。可以通过 runtime.GOMAXPROCS 进行指定。在Go1.5之后 GOMAXPROCS 被默认设置可用的核数，而之前则默认为 1。</p>
+<h2 id="调度过程">调度过程</h2>
+<p><img src="https://tsubasa597.github.io/post-images/1621164803591.jpg" alt="" loading="lazy"><br>
+首先创建一个 G 对象，G 对象保存到 P 本地队列或者是全局队列。P 此时去唤醒一个 M。P 继续执行它的执行序。M 寻找是否有空闲的 P，如果有则将该 G 对象移动到它本身。接下来 M 执行一个调度循环(调用 G 对象 -&gt; 执行 -&gt; 清理线程 -&gt; 继续找新的 Goroutine 执行)。</p>
+<p>M 执行过程中，随时会发生上下文切换。当发生上线文切换时，需要对执行现场进行保护，以便下次被调度执行时进行现场恢复。Go 调度器 M 的栈保存在 G 对象上，只需要将 M 所需要的寄存器(SP、PC等)保存到 G 对象上就可以实现现场保护。当这些寄存器数据被保护起来，就随时可以做上下文切换了，在中断之前把现场保存起来。如果此时 G 任务还没有执行完，M 可以将任务重新丢到P的任务队列，等待下一次被调度执行。当再次被调度执行时，M 通过访问 G 的 vdsoSP、vdsoPC 寄存器进行现场恢复(从上次中断位置继续执行)。</p>
  </p>
                     </div>
                 </div>
@@ -195,9 +216,9 @@ MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goContainer/">
+                                <a href="https://tsubasa597.github.io/goPool/">
                                     <h3 class="post-title">
-                                        Go Container
+                                        Go Sync.Pool
                                     </h3>
                                 </a>
                             </div>
@@ -232,7 +253,19 @@ MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E5%B9%B6%E5%8F%91-%E5%B9%B6%E8%A1%8C">并发 &amp; 并行</a></li>
+<li><a href="#gmp-%E6%A8%A1%E5%9E%8B">GMP 模型</a>
+<ul>
+<li><a href="#goroutine-%E8%B0%83%E5%BA%A6%E5%99%A8%E7%BB%84%E6%88%90">Goroutine 调度器组成</a>
+<ul>
+<li><a href="#g">G</a></li>
+<li><a href="#m">M</a></li>
+<li><a href="#p">P</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B">调度过程</a></li>
+</ul>
+</li>
 </ul>
 
 </div>

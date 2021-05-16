@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Tsubasa 的日记</title>
@@ -35,7 +35,7 @@
 
 </head>
 <body>
-    <div id="fh5co-offcanvas">
+<div id="fh5co-offcanvas">
     <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
         <span><i class="icon-cross3"></i> <span>Close</span></span>
     </a>
@@ -142,109 +142,55 @@
 </header>
 
 
-    <!--  <a href="#" class="fh5co-post-prev"><span>👈 Prev</span></a>-->
-    <!--  <a href="#" class="fh5co-post-next"><span>Next 👉</span></a>-->
+<div class="container-fluid">
 
-    <!-- 等gridea出自定义页面功能再优化一下 -->
+  <div class="col-lg-12 col-md-12 text-center tag-title">
+      <i class="fa fa-tag"></i> 标签: <h3>计算机原理</h3>
+  </div>
+
+  <div class="row fh5co-post-entry">
+
     
-        <div class="container-fluid">
-    <div class="row fh5co-post-entry single-entry">
-        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
-            <figure class="animate-box">
-                
-                    <img src="https://tsubasa597.github.io/post-images/transactionMySQL.jpg" alt="MySQL 事务" class="img-responsive">
-                
-            </figure>
-            <span class="fh5co-meta animate-box">
-                
-                    <div class="tag-container">
-                        
-                            <a href="https://tsubasa597.github.io/tag/mysql/" class="tag">MySql, </a>
-                        
-                    </div>
-                
-            </span>
-            <h2 class="fh5co-article-title animate-box">MySQL 事务</h2>
-            <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2021-04-25</li>
-                <li>584字</li>
-                <li>2 min read</li>
-            </ol>
-
-            <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
-                <div class="row">
-                    <div class="col-md-12 animate-box post-content">
-                        <p> <blockquote>
-<p>事务处理在数据库开发过程中有着非常重要的作用，它可以保证在同一个事务中的操作具有同步性。</p>
-</blockquote>
-<h1 id="概念">概念</h1>
-<p>在 MySQL 中，事务就是针对数据库的一组操作，它可以由一条或多条 SQL 语句组成，且每个 SQL 语句是互相依赖的。只要在程序执行过程中有一条 SQL 语句执行失败或发生错误，则其他语句都不会执行，也就是说事务的执行要么成功，要么就返回到事务开始前的状态，这就保证了同一事务操作的同步性和数据的完整性。<br>
-MySQL 中的事务必须满足 A、C、I、D 这 4 个基本特征。</p>
-<ol>
-<li>原子性。原子性是指一个事务必须被视为一个不可分割的最小工作单元，只有事务中所有的数据库操作都执行成功，才是算整个事务执行成功。事务中如果有任何一个 SQL 语句执行失败，已经执行成功的 SQL 语句也必须撤销，数据库的状态退回到执行事务前的状态。</li>
-<li>一致性。一致性是是指事务处理时，无论执行成功还是失败，都要保证数据库系统处于一致的状态，保证数据库系统处于一致的状态，保证数据库系统不会返回一个未处理的事务。MySQL 中的一致性主要由日志机制实现，通过日志记录数据库的所有变化，为事务恢复提供了追踪记录。</li>
-<li>隔离性。隔离性是指当一个事务在执行时，不会受到其他事务的影响。保证了未完成事务的所有操作与数据库系统的隔离，直到事务完成为止，才能看到事务的执行结果。隔离性相关的技术有并发控制、可串行化、锁等。当多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</li>
-<li>持久性。持久性是指事务一旦提交，其对数据库的修改就是永久性的。</li>
-</ol>
- </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 animate-box">
-                        
-                            <div class="next-post">
-                                <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goContainer/">
-                                    <h3 class="post-title">
-                                        Go Container
-                                    </h3>
-                                </a>
-                            </div>
-                        
-                    </div>
-                </div>
-
-                <div class="row">
-    <div class="col-md-12 animate-box">
-        
-    </div>
-</div>
-
+      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
+        <figure class="img-box">
+          <a href="https://tsubasa597.github.io/process/">
+            
+              <img data-original="https://tsubasa597.github.io/post-images/process.jpg" alt="进程、线程、协程" class="img-responsive img-rounded lazy">
+            
+          </a>
+        </figure>
+        <span class="fh5co-meta">
+          
+            <div class="tag-container">
+              
+                <a href="https://tsubasa597.github.io/tag/principlesOfComputer/" class="tag">计算机原理 </a>
+              
             </div>
-
-        </article>
-    </div>
-</div>
-
+          
+        </span>
+        <h3 class="fh5co-article-title">
+          <a href="https://tsubasa597.github.io/process/">进程、线程、协程</a>
+        </h3>
+        <span class="fh5co-meta fh5co-date">2021-05-16</span>
+      </article>
     
+    <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
 
-    <!-- 返回顶部 -->
-    <div class="back-to-top">
+  </div>
+
+  <div class="pagination-box animate-box">
     
-        <a href="#!" id="tool-toc" class="hidden-xs hidden-sm">
-            <i class="fa fa-map"></i>
-        </a>
-        <br>
     
-    <a href="#top" class="hidden-xs hidden-sm"><i class="fa fa-paper-plane"></i></a>
-</div>
-
-<div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
-    <ul class="markdownIt-TOC">
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
-</ul>
-
+  </div>
 </div>
 
 
-    
 <footer id="fh5co-footer">
   <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
 </footer>
 
 
-    <!-- jQuery -->
+<!-- jQuery -->
 <script src="https://tsubasa597.github.io/media/scripts/jquery.min.js"></script>
 <!-- img lazy load -->
 <script src="https://tsubasa597.github.io/media/scripts/jquery.lazyload.min.js"></script>
