@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Tsubasa 的日记</title>
@@ -35,7 +35,7 @@
 
 </head>
 <body>
-<div id="fh5co-offcanvas">
+    <div id="fh5co-offcanvas">
     <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
         <span><i class="icon-cross3"></i> <span>Close</span></span>
     </a>
@@ -144,78 +144,154 @@
 </header>
 
 
-<div class="container-fluid">
+    <!--  <a href="#" class="fh5co-post-prev"><span>👈 Prev</span></a>-->
+    <!--  <a href="#" class="fh5co-post-next"><span>Next 👉</span></a>-->
 
-  <div class="col-lg-12 col-md-12 text-center tag-title">
-      <i class="fa fa-tag"></i> 标签: <h3>Redis</h3>
-  </div>
-
-  <div class="row fh5co-post-entry">
-
+    <!-- 等gridea出自定义页面功能再优化一下 -->
     
-      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
-        <figure class="img-box">
-          <a href="https://tsubasa597.github.io/cacheStrategy/">
-            
-              <img data-original="https://tsubasa597.github.io/post-images/cacheStrategy.jpg" alt="缓存常用的三种读写策略" class="img-responsive img-rounded lazy">
-            
-          </a>
-        </figure>
-        <span class="fh5co-meta">
-          
-            <div class="tag-container">
-              
-                <a href="https://tsubasa597.github.io/tag/redis/" class="tag">Redis </a>
-              
+        <div class="container-fluid">
+    <div class="row fh5co-post-entry single-entry">
+        <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <figure class="animate-box">
+                
+                    <img src="https://tsubasa597.github.io/post-images/cacheStrategy.jpg" alt="缓存常用的三种读写策略" class="img-responsive">
+                
+            </figure>
+            <span class="fh5co-meta animate-box">
+                
+                    <div class="tag-container">
+                        
+                            <a href="https://tsubasa597.github.io/tag/redis/" class="tag">Redis, </a>
+                        
+                    </div>
+                
+            </span>
+            <h2 class="fh5co-article-title animate-box">缓存常用的三种读写策略</h2>
+            <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
+                <li>2021-05-22</li>
+                <li>506字</li>
+                <li>2 min read</li>
+            </ol>
+
+            <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+                <div class="row">
+                    <div class="col-md-12 animate-box post-content">
+                        <p> <h1 id="旁路缓存模式">旁路缓存模式</h1>
+<p><code>旁路缓存模式</code> 是平时使用比较多的一个缓存读写模式，比较适合读请求比较多的场景。服务端需要同时维系 DB 和 cache，并且是以 DB 的结果为准。</p>
+<h2 id="写">写</h2>
+<ul>
+<li>先更新 DB</li>
+<li>然后直接删除 cache</li>
+</ul>
+<h2 id="读">读</h2>
+<ul>
+<li>从 cache 中读取数据，读到就直接返回</li>
+<li>cache 中找不到的话，就从 DB 中读取数据返回</li>
+<li>把从 DB 中读取放入 cache 中</li>
+</ul>
+<h2 id="缺陷">缺陷</h2>
+<ul>
+<li>首次请求的数据一定不在 cache 中。<br>
+解决办法：
+<ul>
+<li>可以将热点数据提前放入 cache 中</li>
+</ul>
+</li>
+<li>写操作频繁的话，会导致 cache 中的数据被频繁删除，缓存命中率降低。<br>
+解决办法：
+<ul>
+<li>数据库与缓存数据强一致场景：在更新 DB 的同时更新 cache，添加一个锁来保证更新 cache 时不存在线程安全问题。</li>
+<li>可以短暂地允许数据库和缓存数据不一致的场景 ：更新DB的时候同样更新cache，但是给缓存加一个比较短的过期时间，这样的话就可以保证即使数据不一致的话影响也比较小。</li>
+</ul>
+</li>
+</ul>
+<h1 id="读写穿透">读写穿透</h1>
+<p><code>读写穿透</code> 中服务端把 cache 视为主要数据存储，从中读取数据并将数据写入其中。cache 服务负责将此数据读取和写入 DB，从而减轻了应用程序的职责。</p>
+<h2 id="写-2">写</h2>
+<ul>
+<li>先查 cache，cache 中不存在，直接更新 DB。</li>
+<li>cache 中存在，先更新 cache，然后 cache 服务更新DB。</li>
+</ul>
+<h2 id="读-2">读</h2>
+<ul>
+<li>从 cache 中读取数据，读取到就直接返回 。</li>
+<li>读取不到的话，先从 DB 加载，写入到 cache 后返回响应。</li>
+</ul>
+<h1 id="异步缓存写入">异步缓存写入</h1>
+<p><code>读写穿透</code> 和 <code>异步缓存写入</code> 两者都是由 cache 服务来负责 cache 和 DB 的读写。<br>
+<code>读写穿透</code> 是同步更新 cache 和 DB，而 <code>异步缓存写入</code> 则是只更新缓存，不直接更新 DB，而是改为异步批量的方式来更新 DB。</p>
+ </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 animate-box">
+                        
+                            <div class="next-post">
+                                <div class="next">下一篇</div>
+                                <a href="https://tsubasa597.github.io/redisType/">
+                                    <h3 class="post-title">
+                                        Redis 基础类型
+                                    </h3>
+                                </a>
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+    <div class="col-md-12 animate-box">
+        
+    </div>
+</div>
+
             </div>
-          
-        </span>
-        <h3 class="fh5co-article-title">
-          <a href="https://tsubasa597.github.io/cacheStrategy/">缓存常用的三种读写策略</a>
-        </h3>
-        <span class="fh5co-meta fh5co-date">2021-05-22</span>
-      </article>
-    
-      <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box article-box" style="height: 25em;">
-        <figure class="img-box">
-          <a href="https://tsubasa597.github.io/redisType/">
-            
-              <img data-original="https://tsubasa597.github.io/post-images/redisType.jpg" alt="Redis 基础类型" class="img-responsive img-rounded lazy">
-            
-          </a>
-        </figure>
-        <span class="fh5co-meta">
-          
-            <div class="tag-container">
-              
-                <a href="https://tsubasa597.github.io/tag/redis/" class="tag">Redis </a>
-              
-            </div>
-          
-        </span>
-        <h3 class="fh5co-article-title">
-          <a href="https://tsubasa597.github.io/redisType/">Redis 基础类型</a>
-        </h3>
-        <span class="fh5co-meta fh5co-date">2021-05-16</span>
-      </article>
-    
-    <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
 
-  </div>
+        </article>
+    </div>
+</div>
 
-  <div class="pagination-box animate-box">
     
+
+    <!-- 返回顶部 -->
+    <div class="back-to-top">
     
-  </div>
+        <a href="#!" id="tool-toc" class="hidden-xs hidden-sm">
+            <i class="fa fa-map"></i>
+        </a>
+        <br>
+    
+    <a href="#top" class="hidden-xs hidden-sm"><i class="fa fa-paper-plane"></i></a>
+</div>
+
+<div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F">旁路缓存模式</a>
+<ul>
+<li><a href="#%E5%86%99">写</a></li>
+<li><a href="#%E8%AF%BB">读</a></li>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
+</ul>
+</li>
+<li><a href="#%E8%AF%BB%E5%86%99%E7%A9%BF%E9%80%8F">读写穿透</a>
+<ul>
+<li><a href="#%E5%86%99-2">写</a></li>
+<li><a href="#%E8%AF%BB-2">读</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E7%BC%93%E5%AD%98%E5%86%99%E5%85%A5">异步缓存写入</a></li>
+</ul>
+
 </div>
 
 
+    
 <footer id="fh5co-footer">
   <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
 </footer>
 
 
-<!-- jQuery -->
+    <!-- jQuery -->
 <script src="https://tsubasa597.github.io/media/scripts/jquery.min.js"></script>
 <!-- img lazy load -->
 <script src="https://tsubasa597.github.io/media/scripts/jquery.lazyload.min.js"></script>
