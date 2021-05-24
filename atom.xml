@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-05-22T12:08:33.613Z</updated>
+    <updated>2021-05-24T13:11:32.642Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasa597.github.io"/>
     <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://tsubasa597.github.io/images/avatar.png</logo>
     <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[缓存雪崩、缓存击穿、缓存穿透]]></title>
+        <id>https://tsubasa597.github.io/cache/</id>
+        <link href="https://tsubasa597.github.io/cache/">
+        </link>
+        <updated>2021-05-24T10:39:10.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Redis 持久化]]></title>
+        <id>https://tsubasa597.github.io/reidsPersistence/</id>
+        <link href="https://tsubasa597.github.io/reidsPersistence/">
+        </link>
+        <updated>2021-05-23T12:12:43.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[锁]]></title>
         <id>https://tsubasa597.github.io/lock/</id>
@@ -79,19 +93,5 @@
         <link href="https://tsubasa597.github.io/designSql/">
         </link>
         <updated>2021-04-11T10:45:18.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Git]]></title>
-        <id>https://tsubasa597.github.io/gitCommand /</id>
-        <link href="https://tsubasa597.github.io/gitCommand /">
-        </link>
-        <updated>2021-04-03T08:20:57.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Go sync.Context]]></title>
-        <id>https://tsubasa597.github.io/goContext/</id>
-        <link href="https://tsubasa597.github.io/goContext/">
-        </link>
-        <updated>2021-03-14T11:42:45.000Z</updated>
     </entry>
 </feed>
