@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tsubasa597.github.io</id>
     <title>Tsubasa 的日记</title>
-    <updated>2021-05-31T10:50:13.103Z</updated>
+    <updated>2021-06-04T10:03:52.804Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tsubasa597.github.io"/>
     <link rel="self" href="https://tsubasa597.github.io/atom.xml"/>
@@ -10,6 +10,27 @@
     <logo>https://tsubasa597.github.io/images/avatar.png</logo>
     <icon>https://tsubasa597.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Tsubasa 的日记</rights>
+    <entry>
+        <title type="html"><![CDATA[IO 模型]]></title>
+        <id>https://tsubasa597.github.io/ioModel/</id>
+        <link href="https://tsubasa597.github.io/ioModel/">
+        </link>
+        <updated>2021-06-02T15:18:33.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Go 调度]]></title>
+        <id>https://tsubasa597.github.io/goControl/</id>
+        <link href="https://tsubasa597.github.io/goControl/">
+        </link>
+        <updated>2021-06-02T15:17:46.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Go 性能分析]]></title>
+        <id>https://tsubasa597.github.io/goPProf/</id>
+        <link href="https://tsubasa597.github.io/goPProf/">
+        </link>
+        <updated>2021-06-02T15:17:17.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Go 防止缓存击穿]]></title>
         <id>https://tsubasa597.github.io/goSingleflight/</id>
@@ -72,26 +93,5 @@
         <link href="https://tsubasa597.github.io/redisType/">
         </link>
         <updated>2021-05-16T14:13:54.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[进程、线程、协程]]></title>
-        <id>https://tsubasa597.github.io/process/</id>
-        <link href="https://tsubasa597.github.io/process/">
-        </link>
-        <updated>2021-05-16T09:42:55.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Go GMP 模型]]></title>
-        <id>https://tsubasa597.github.io/goGMP/</id>
-        <link href="https://tsubasa597.github.io/goGMP/">
-        </link>
-        <updated>2021-05-16T08:53:11.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Go Sync.Pool]]></title>
-        <id>https://tsubasa597.github.io/goPool/</id>
-        <link href="https://tsubasa597.github.io/goPool/">
-        </link>
-        <updated>2021-05-14T14:09:29.000Z</updated>
     </entry>
 </feed>
