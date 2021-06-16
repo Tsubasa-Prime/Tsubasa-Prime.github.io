@@ -156,120 +156,77 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/vimOrder.jpg" alt="Vim 命令" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/javaThread.jpg" alt="Java 多线程" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasa597.github.io/tag/vim/" class="tag">Vim, </a>
+                            <a href="https://tsubasa597.github.io/tag/java/" class="tag">Java, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">Vim 命令</h2>
+            <h2 class="fh5co-article-title animate-box">Java 多线程</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2020-10-10</li>
-                <li>1240字</li>
-                <li>5 min read</li>
+                <li>2021-06-16</li>
+                <li>918字</li>
+                <li>4 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h2 id="在安装-vim-之后-输入-vimtutor-可阅读教程">在安装 Vim 之后 输入 <code>vimtutor</code> 可阅读教程</h2>
-<pre><code>  1. 欲从当前光标删除至下一个单词，请输入：dw
-  2. 欲从当前光标删除至当前行末尾，请输入：d$
-  3. 欲删除整行，请输入：dd
-
-  4. 欲重复一个动作，请在它前面加上一个数字：2w
-  5. 在正常模式下修改命令的格式是：
-               operator   [number]   motion
-     其中：
-       operator - 操作符，代表要做的事情，比如 d 代表删除
-       [number] - 可以附加的数字，代表动作重复的次数
-       motion   - 动作，代表在所操作的文本上的移动，例如 w 代表单词(word)，
-                  $ 代表行末等等。
-
-  6. 欲移动光标到行首，请按数字0键：0
-
-  7. 欲撤消以前的操作，请输入：u (小写的u)
-     欲撤消在一行中所做的改动，请输入：U (大写的U)
-     欲撤消以前的撤消命令，恢复以前的操作结果，请输入：CTRL-R
+                        <p> <blockquote>
+<p>Java 给多线程编程提供了内置的支持。 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。<br>
+多线程是多任务的一种特别的形式，但多线程使用了更小的资源开销。</p>
+</blockquote>
+<h1 id="创建">创建</h1>
+<h2 id="实现-runnable-接口">实现 Runnable 接口</h2>
+<p>创建一个线程，最简单的方法是创建一个实现 Runnable 接口的类。<br>
+为了实现 Runnable，一个类只需要执行一个方法调用 run()，声明如下：</p>
+<pre><code class="language-java">public void run()
 </code></pre>
-<pre><code>1. 要重新置入已经删除的文本内容，请按小写字母 p 键。该操作可以将已删除
-     的文本内容置于光标之后。如果最后一次删除的是一个整行，那么该行将置
-     于当前光标所在行的下一行。
-
-  2. 要替换光标所在位置的字符，请输入小写的 r 和要替换掉原位置字符的新字
-     符即可。
-
-  3. 更改类命令允许您改变从当前光标所在位置直到动作指示的位置中间的文本。
-     比如输入 ce 可以替换当前光标到单词的末尾的内容；输入 c$ 可以替换当
-     前光标到行末的内容。
-
-  4. 更改类命令的格式是：
-
-         c   [number]   motion
+<p>在创建一个实现 Runnable 接口的类之后，你可以在类中实例化一个线程对象。</p>
+<p>Thread 定义了几个构造方法，下面的这个是我们经常使用的：</p>
+<pre><code class="language-java">Thread(Runnable threadOb, String threadName);
 </code></pre>
-<pre><code>  1. CTRL-G 用于显示当前光标所在位置和文件状态信息。
-     G 用于将光标跳转至文件最后一行。
-     先敲入一个行号然后输入大写 G 则是将光标移动至该行号代表的行。
-     gg 用于将光标跳转至文件第一行。
-
-  2. 输入 / 然后紧随一个字符串是在当前所编辑的文档中正向查找该字符串。
-     输入 ? 然后紧随一个字符串则是在当前所编辑的文档中反向查找该字符串。
-     完成一次查找之后按 n 键是重复上一次的命令，可在同一方向上查
-     找下一个匹配字符串所在；或者按大写 N 向相反方向查找下一匹配字符串所在。
-     CTRL-O 带您跳转回较旧的位置，CTRL-I 则带您到较新的位置。
-
-  3. 如果光标当前位置是括号(、)、[、]、{、}，按 % 会将光标移动到配对的括号上。
-
-  4. 在一行内替换头一个字符串 old 为新的字符串 new，请输入  :s/old/new
-     在一行内替换所有的字符串 old 为新的字符串 new，请输入  :s/old/new/g
-     在两行内替换所有的字符串 old 为新的字符串 new，请输入  :#,#s/old/new/g
-     在文件内替换所有的字符串 old 为新的字符串 new，请输入  :%s/old/new/g
-     进行全文替换时询问用户确认每个替换需添加 c 标志        :%s/old/new/gc
+<p><code>threadOb</code> 是一个实现 <code>Runnable</code> 接口的类的实例，并且 <code>threadName</code> 指定新线程的名字。<br>
+新线程创建之后，你调用它的 <code>start()</code> 方法它才会运行。</p>
+<pre><code class="language-java">void start();
 </code></pre>
-<pre><code>    1. :!command 用于执行一个外部命令 command。
-
-     请看一些实际例子：
-         (MS-DOS)         (Unix)
-          :!dir            :!ls            -  用于显示当前目录的内容。
-          :!del FILENAME   :!rm FILENAME   -  用于删除名为 FILENAME 的文件。
-
-  1. :w FILENAME  可将当前 VIM 中正在编辑的文件保存到名为 FILENAME 的文
-     件中。
-
-  2. v motion :w FILENAME 可将当前编辑文件中可视模式下选中的内容保存到文件
-     FILENAME 中。
-
-  3. :r FILENAME 可提取磁盘文件 FILENAME 并将其插入到当前文件的光标位置
-     后面。
-
-  4. :r !dir 可以读取 dir 命令的输出并将其放置到当前文件的光标位置后面。
+<h2 id="继承-thread-类">继承 Thread 类</h2>
+<p>创建一个线程的第二种方法是创建一个新的类，该类继承 <code>Thread</code> 类，然后创建一个该类的实例。<br>
+继承类必须重写 <code>run()</code> 方法，该方法是新线程的入口点。它也必须调用 <code>start()</code> 方法才能执行。<br>
+该方法尽管被列为一种多线程实现方式，但是本质上也是实现了 <code>Runnable</code> 接口的一个实例。</p>
+<h3 id="thread-方法">Thread 方法</h3>
+<pre><code class="language-java">public void start() // 使该线程开始执行；Java 虚拟机调用该线程的 run 方法。
+public void run() // 如果该线程是使用独立的 Runnable 运行对象构造的，则调用该 Runnable 对象的 run 方法；否则，该方法不执行任何操作并返回。
+public final void setName(String name) // 改变线程名称，使之与参数 name 相同。
+public final void setPriority(int priority) // 更改线程的优先级。
+public final void setDaemon(boolean on) // 将该线程标记为守护线程或用户线程。
+public final void join(long millisec) // 等待该线程终止的时间最长为 millis 毫秒。
+public void interrupt() // 中断线程。
+public final boolean isAlive() // 测试线程是否处于活动状态。
+public static void yield() // 暂停当前正在执行的线程对象，并执行其他线程。
+public static void sleep(long millisec) // 在指定的毫秒数内让当前正在执行的线程休眠（暂停执行），此操作受到系统计时器和调度程序精度和准确性的影响。
+public static boolean holdsLock(Object x) // 当且仅当当前线程在指定的对象上保持监视器锁时，才返回 true。
+public static Thread currentThread() // 返回对当前正在执行的线程对象的引用。
+public static void dumpStack() // 将当前线程的堆栈跟踪打印至标准错误流。
 </code></pre>
-<pre><code>  1. 输入小写的 o 可以在光标下方打开新的一行并进入插入模式。
-     输入大写的 O 可以在光标上方打开新的一行。
-
-  2. 输入小写的 a 可以在光标所在位置之后插入文本。
-     输入大写的 A 可以在光标所在行的行末之后插入文本。
-
-  3. e 命令可以使光标移动到单词末尾。
-
-  4. 操作符 y 复制文本，p 粘贴先前复制的文本。
-
-  5. 输入大写的 R 将进入替换模式，直至按 &lt;ESC&gt; 键回到正常模式。
-
-  6. 输入 :set xxx 可以设置 xxx 选项。一些有用的选项如下：
-        'ic' 'ignorecase'       查找时忽略字母大小写
-        'is' 'incsearch'        查找短语时显示部分匹配
-        'hls' 'hlsearch'        高亮显示所有的匹配短语
-     选项名可以用完整版本，也可以用缩略版本。
-
-  7. 在选项前加上 no 可以关闭选项：  :set noic
-</code></pre>
+<h2 id="通过-callable-和-future-创建线程">通过 Callable 和 Future 创建线程。</h2>
+<ol>
+<li>创建 Callable 接口的实现类，并实现 call() 方法，该 call() 方法将作为线程执行体，并且有返回值。</li>
+<li>创建 Callable 实现类的实例，使用 FutureTask 类来包装 Callable 对象，该 FutureTask 对象封装了该 Callable 对象的 call() 方法的返回值。</li>
+<li>使用 FutureTask 对象作为 Thread 对象的 target 创建并启动新线程。</li>
+<li>调用 FutureTask 对象的 get() 方法来获得子线程执行结束后的返回值。</li>
+</ol>
+<h1 id="创建线程的三种方式的对比">创建线程的三种方式的对比</h1>
+<ol>
+<li>采用实现 Runnable、Callable 接口的方式创建多线程时，线程类只是实现了 Runnable 接口或 Callable 接口，还可以继承其他类。</li>
+<li>使用继承 Thread 类的方式创建多线程时，编写简单，如果需要访问当前线程，则无需使用 Thread.currentThread() 方法，直接使用 this 即可获得当前线程。</li>
+</ol>
  </p>
                     </div>
                 </div>
@@ -279,9 +236,9 @@
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goSpider/">
+                                <a href="https://tsubasa597.github.io/ioModel/">
                                     <h3 class="post-title">
-                                        Golang 多线程图片爬取
+                                        IO 模型
                                     </h3>
                                 </a>
                             </div>
@@ -316,11 +273,18 @@
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E5%88%9B%E5%BB%BA">创建</a>
 <ul>
-<li><a href="#%E5%9C%A8%E5%AE%89%E8%A3%85-vim-%E4%B9%8B%E5%90%8E-%E8%BE%93%E5%85%A5-vimtutor-%E5%8F%AF%E9%98%85%E8%AF%BB%E6%95%99%E7%A8%8B">在安装 Vim 之后 输入 <code>vimtutor</code> 可阅读教程</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0-runnable-%E6%8E%A5%E5%8F%A3">实现 Runnable 接口</a></li>
+<li><a href="#%E7%BB%A7%E6%89%BF-thread-%E7%B1%BB">继承 Thread 类</a>
+<ul>
+<li><a href="#thread-%E6%96%B9%E6%B3%95">Thread 方法</a></li>
 </ul>
 </li>
+<li><a href="#%E9%80%9A%E8%BF%87-callable-%E5%92%8C-future-%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B">通过 Callable 和 Future 创建线程。</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94">创建线程的三种方式的对比</a></li>
 </ul>
 
 </div>
