@@ -157,65 +157,199 @@
         <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
             <figure class="animate-box">
                 
-                    <img src="https://tsubasa597.github.io/post-images/dwmInstall.jpg" alt="Dwm 安装与配置" class="img-responsive">
+                    <img src="https://tsubasa597.github.io/post-images/boundaryCheck.jpg" alt="Go 边界检查" class="img-responsive">
                 
             </figure>
             <span class="fh5co-meta animate-box">
                 
                     <div class="tag-container">
                         
-                            <a href="https://tsubasa597.github.io/tag/dwm/" class="tag">Dwm, </a>
+                            <a href="https://tsubasa597.github.io/tag/go/" class="tag">Golang, </a>
                         
                     </div>
                 
             </span>
-            <h2 class="fh5co-article-title animate-box">Dwm 安装与配置</h2>
+            <h2 class="fh5co-article-title animate-box">Go 边界检查</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2020-10-01</li>
-                <li>243字</li>
-                <li>2 min read</li>
+                <li>2021-09-04</li>
+                <li>1270字</li>
+                <li>6 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h3 id="安装">安装</h3>
-<pre><code class="language-bash">sudo pacman -S base-devel # 安装开发工具集
-# 安装 x 组件
-sudo pacman -S xorg-server
-sudo pacman -S xorg-apps
-sudo pacman -S xorg-xinit
-sudo pacman -S noto-fonts-cjk # 安装字体
-# 下载 Dwm 源码
-git clone https://git.suckless.org/dwm
-</code></pre>
-<h3 id="配置">配置</h3>
-<p>将 config.def.h 复制成 config.h</p>
-<pre><code class="language-c">47 #define MODKEY Mod1Mask // MODKEY1 是左 ALT 键
+                        <p> <!-- more -->
+<h1 id="边界检查">边界检查</h1>
+<p>边界检查，是 Go 语言中防止数组、切片越界而导致内存不安全的检查手段。如果检查下标已经越界，就会产生 Panic。<br>
+边界检查会让代码能够安全的运行，但也会使代码运行效率略微降低。</p>
+<pre><code class="language-go">package main
 
-60 static const char *termcmd[]  = { &quot;st&quot;, NULL };  // 默认终端为 st
+func f(s []int) {
+    _ = s[0] // 检查第一次
+    _ = s[1] // 检查第二次
+    _ = s[2] // 检查第三次
+}
 
-65	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } }, // Alt + Shift + Enter 打开终端
+func main() {}
 </code></pre>
-<h3 id="启动">启动</h3>
-<pre><code class="language-bash"># 编译启动 Dwm
-sudo make
-sudo make install
-# 在文件最后一行加入 exec dwm
-vim .bashrc
-# 如果没有意外，则可以进入 Dwm 桌面环境
-startx
+<p>在编译的时候，加入参数即可知道发生了几次边界检查</p>
+<pre><code class="language-bash">$ go build -gcflags=&quot;-d=ssa/check_bce/Debug=1&quot; main.go
+# command-line-arguments
+./main.go:4:7: Found IsInBounds
+./main.go:5:7: Found IsInBounds
+./main.go:6:7: Found IsInBounds
 </code></pre>
-<h3 id="意外">意外</h3>
-<p>如果使用 sddm 启动器，在输入密码之后会出现进不去桌面环境的情况。<br>
-这是因为在 <code>/usr/share/xsessions/</code> 中没有找到需要的 .desktop 文件，我们只需要在目录下加入 dwm.desktop 后重启即可进入桌面系统</p>
-<pre><code>[Desktop Entry]
-Name=dwm
-Comment=Dynamic Window Manager
-Exec=/usr/local/bin/dwm
-TryExec=/usr/local/bin/dwm
-Icon=/dwm.png
-Type=Application
+<h1 id="边界检查的条件">边界检查的条件</h1>
+<p>并不是所有对数组、切片进行索引操作都需要边界检查。<br>
+编译器可以根据上下文得知切片的长度是多少，终止索引是多少，立马就可以判断到底有没有越界，因此不需要进行边界检查，因为在编译的时候就已经知道这个地方会不会 panic。</p>
+<pre><code class="language-go">package main
+
+func f() {
+    s := []int{1,2,3,4}
+    _ = s[:9]  // 不需要边界检查
+}
+
+func main() {}
+</code></pre>
+<p>因此可以得出结论，对于在编译阶段无法判断是否会越界的索引操作才会需要边界检查。</p>
+<pre><code class="language-go">package main
+
+
+func f(s []int) {
+    _ = s[:9]  // 需要边界检查
+}
+func main() {}
+</code></pre>
+<h1 id="边界检查的特殊案例">边界检查的特殊案例</h1>
+<ul>
+<li>在下面的示例代码中，由于索引 2 在最前面已经检查过会不会越界，因此编译器可以推断出后面的索引不用再检查。</li>
+</ul>
+<pre><code class="language-go">package main
+
+func f(s []int) {
+    _ = s[2] // 检查一次
+    _ = s[1]  // 不会检查
+    _ = s[0]  // 不会检查
+}
+
+
+func main() {}
+</code></pre>
+<ul>
+<li>可以在逻辑上保证不会越界的代码，同样是不会进行越界检查。</li>
+</ul>
+<pre><code class="language-go">package main
+
+func f(s []int) {
+    for index, _ := range s {
+        _ = s[index]
+        _ = s[:index+1]
+        _ = s[index:len(s)]
+    }
+}
+
+func main() {}
+</code></pre>
+<ul>
+<li>在如下示例代码中，虽然数组的长度和容量可以确定，但是索引是通过 <code>rand.Intn()</code> 函数取得的随机数，在编译器看来这个索引值是不确定的，它有可能大于数组的长度，也有可能小于数组的长度。</li>
+</ul>
+<p>因此第一次是需要进行检查的，有了第一次检查后，第二次索引从逻辑上就能推断，所以不会再进行边界检查。</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;math/rand&quot;
+)
+
+func f()  {
+    s := make([]int, 3, 3)
+    index := rand.Intn(3)
+     _ = s[:index]  // 第一次检查
+    _ = s[index:]  // 不会检查
+}
+
+func main() {}
+</code></pre>
+<p>但如果把上面的代码稍微改一下，让切片的长度和容量变得不一样，结果又会变得不一样了。</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;math/rand&quot;
+)
+
+func f()  {
+    s := make([]int, 3, 5)
+    index := rand.Intn(3)
+    _ = s[:index]  // 第一次检查
+    _ = s[index:]  // 第二次检查
+}
+
+func main() {}
+</code></pre>
+<p>我们只有当数组的长度和容量相等时， :index 成立，才能一定能推出 <code>index:</code> 也成立，这样的话，只要做一次检查即可</p>
+<p>一旦数组的长度和容量不相等，那么 index 在编译器看来是有可能大于数组长度的，甚至大于数组的容量。</p>
+<p>我们假设 index 取得的随机数为 4，那么它大于数组长度，此时 <code>s[:index]</code> 虽然可以成功，但是 <code>s[index:]</code> 是要失败的，因此第二次边界的检查是有必要的。</p>
+<ol>
+<li>当数组的长度和容量相等时，s[:index] 成立能够保证 s[index:] 也成立，因为只要检查一次即可</li>
+<li>当数组的长度和容量不等时，s[:index] 成立不能保证 s[index:] 也成立，因为要检查两次才可以</li>
+</ol>
+<ul>
+<li>在下面这个示例中，由于数组是调用者传入的参数，所以编译器编译的时候无法得知数组的长度和容量是否相等，因此只能两个都检查</li>
+</ul>
+<pre><code class="language-go">package main
+
+import (
+    &quot;math/rand&quot;
+)
+
+func f(s []int, index int) {
+    _ = s[:index] // 第一次检查
+    _ = s[index:] // 第二次检查
+}
+
+func main()  {}
+</code></pre>
+<p>但是如果把两个表达式的顺序反过来，就只要做一次检查就行了。</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;math/rand&quot;
+)
+
+func f(s []int, index int) {
+    _ = s[index:] // 第一次检查
+    _ = s[:index] // 不用检查
+}
+
+func main()  {}
+</code></pre>
+<h1 id="主动消除边界检查">主动消除边界检查</h1>
+<p>下面这个示例，从代码的逻辑上来说，是完全没有必要做边界检查的，但是编译器并没有那么智能，实际上每个for循环，它都要做一次边界的检查，非常的浪费性能。</p>
+<pre><code class="language-go">package main
+
+func f(is []int, bs []byte) {
+    if len(is) &gt;= 256 {
+        for _, n := range bs {
+            _ = is[n] // 每个循环都要边界检查
+        }
+    }
+}
+
+func main()  {}
+</code></pre>
+<p>可以试着在 for 循环前加上 <code>is = is[:256]</code> 来告诉编译器新 is 的长度为 256，最大索引值为 255，不会超过 byte 的最大值，因为 <code>is[n]</code> 从逻辑上来说是一定不会越界的。</p>
+<pre><code class="language-go">package main
+
+func f(is []int, bs []byte) {
+    if len(is) &gt;= 256 {
+        is = is[:256]
+        for _, n := range bs {
+            _ = is[n] // 不需要做边界检查
+        }
+    }
+}
+
+func main()  {}
 </code></pre>
  </p>
                     </div>
@@ -226,9 +360,9 @@ Type=Application
                         
                             <div class="next-post">
                                 <div class="next">下一篇</div>
-                                <a href="https://tsubasa597.github.io/goInstall/">
+                                <a href="https://tsubasa597.github.io/myCat/">
                                     <h3 class="post-title">
-                                        Golang 安装与配置
+                                        MyCat 双主双从配置
                                     </h3>
                                 </a>
                             </div>
@@ -263,18 +397,10 @@ Type=Application
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8">启动</a></li>
-<li><a href="#%E6%84%8F%E5%A4%96">意外</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#%E8%BE%B9%E7%95%8C%E6%A3%80%E6%9F%A5">边界检查</a></li>
+<li><a href="#%E8%BE%B9%E7%95%8C%E6%A3%80%E6%9F%A5%E7%9A%84%E6%9D%A1%E4%BB%B6">边界检查的条件</a></li>
+<li><a href="#%E8%BE%B9%E7%95%8C%E6%A3%80%E6%9F%A5%E7%9A%84%E7%89%B9%E6%AE%8A%E6%A1%88%E4%BE%8B">边界检查的特殊案例</a></li>
+<li><a href="#%E4%B8%BB%E5%8A%A8%E6%B6%88%E9%99%A4%E8%BE%B9%E7%95%8C%E6%A3%80%E6%9F%A5">主动消除边界检查</a></li>
 </ul>
 
 </div>

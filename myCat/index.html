@@ -79,13 +79,13 @@
             <a href="https://tsubasa597.github.io/tags/"><h3 class="heading">👉标签</h3></a>
             <ul>
                 
+                    <li><a href="https://tsubasa597.github.io/tag/go/">Golang</a></li>
+                
                     <li><a href="https://tsubasa597.github.io/tag/mysql/">MySql</a></li>
                 
                     <li><a href="https://tsubasa597.github.io/tag/java/">Java</a></li>
                 
                     <li><a href="https://tsubasa597.github.io/tag/principlesOfComputer/">计算机原理</a></li>
-                
-                    <li><a href="https://tsubasa597.github.io/tag/go/">Golang</a></li>
                 
                     <li><a href="https://tsubasa597.github.io/tag/redis/">Redis</a></li>
                 
@@ -171,105 +171,280 @@
             </span>
             <h2 class="fh5co-article-title animate-box">MyCat 双主双从配置</h2>
             <ol class="breadcrumb fh5co-meta fh5co-date animate-box" style="margin-bottom:0; background-color:#f8f9fa">
-                <li>2021-07-04</li>
-                <li>664字</li>
-                <li>5 min read</li>
+                <li>2021-07-06</li>
+                <li>1098字</li>
+                <li>6 min read</li>
             </ol>
 
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
                 <div class="row">
                     <div class="col-md-12 animate-box post-content">
-                        <p> <h1 id="系统参数">系统参数</h1>
-<pre><code>MySQL 5.7
-Linux 5.10.42-1
-Docker 20.10.7
-MyCat 1.7
+                        <p> <h1 id="双主双从构建">双主双从构建</h1>
+<h2 id="搭建过程">搭建过程</h2>
+<ol>
+<li>安装 MySQL</li>
+</ol>
+<pre><code class="language-bash">wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum update
+yum install mysql-server
 </code></pre>
-<h1 id="数据库配置">数据库配置</h1>
-<h2 id="master1-配置">Master1 配置</h2>
-<pre><code>[mysqld]
+<ol start="2">
+<li>配置 MySQL 的配置文件</li>
+</ol>
+<pre><code class="language-bash">vi /etc/mysql/my.ini
+</code></pre>
+<ul>
+<li>Master1</li>
+</ul>
+<pre><code class="language-conf">[mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 secure-file-priv= NULL
-
+# 服务器唯一ID
 server-id=1
+# 启用二进制日志
 log-bin=mysql-bin
-binlog_format=ROW
+
 log-slave-updates=1
 
+# 设置不要复制的数据库(可设置多个)
 binlog-ignore-db=information_schema
 binlog-ignore-db=mysql
 binlog-ignore-db=performance_schema
 binlog-ignore-db=sys
+
+# 设置需要复制的数据库
+# 如果要配置了此项，则 mysql 只复制下面指定的数据库。
+# 如果不配置此项，则 mysql 默认复制所有的数据库（不包含 binlog-ignore-db 的数据库）
 binlog-do-db=test
 
 auto-increment-increment=2
 auto-increment-offset=1
 </code></pre>
-<h2 id="master2-配置">Master2 配置</h2>
-<pre><code>[mysqld]
+<ul>
+<li>Master2</li>
+</ul>
+<pre><code class="language-conf">[mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 secure-file-priv= NULL
-
+#主服务器唯一ID
 server-id=2
+#启用二进制日志
 log-bin=mysql-bin
-binlog_format=ROW
+
 log-slave-updates=1
 
+# 设置不要复制的数据库(可设置多个)
 binlog-ignore-db=information_schema
 binlog-ignore-db=mysql
 binlog-ignore-db=performance_schema
 binlog-ignore-db=sys
+
+# 设置需要复制的数据库
+# 如果要配置了此项，则 mysql 只复制下面指定的数据库。
+# 如果不配置此项，则 mysql 默认复制所有的数据库（不包含 binlog-ignore-db 的数据库）
 binlog-do-db=test
 
 auto-increment-increment=2
 auto-increment-offset=2
 </code></pre>
-<h2 id="slave1-配置">Slave1 配置</h2>
-<pre><code>[mysqld]
+<ul>
+<li>Slave1</li>
+</ul>
+<pre><code class="language-conf">[mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 secure-file-priv= NULL
+
+#从服务器唯一ID
 server-id=3
+
 log-bin=mysql-slave-bin   
 relay-log=mysql-relay
 </code></pre>
-<h2 id="slave2-配置">Slave2 配置</h2>
-<pre><code>[mysqld]
+<ul>
+<li>Slave2</li>
+</ul>
+<pre><code class="language-conf">[mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 secure-file-priv= NULL
+
+#从服务器唯一ID
 server-id=4
+
 log-bin=mysql-slave-bin   
 relay-log=mysql-relay
 </code></pre>
-<h2 id="启动">启动</h2>
-<pre><code class="language-bash">sudo docker run -itd -p 4406:3306 -e MYSQL_ROOT_PASSWORD=123456 -v master1.cnf:/etc/mysql/my.cnf -v /opt/mysql/data4:/var/lib/mysql --name=mysql-master1 mysql:5.7
+<ol start="3">
+<li>启动 Mysql</li>
+</ol>
+<pre><code class="language-bash">chown mysql:mysql -R /var/lib/mysql
 
-sudo docker run -itd -p 4407:3306 -e MYSQL_ROOT_PASSWORD=123456 -v master2.cnf:/etc/mysql/my.cnf -v /opt/mysql/data4:/var/lib/mysql --name=mysql-master2 mysql:5.7
+mysqld --initialize
 
-sudo docker run -itd -p 4408:3306 -e MYSQL_ROOT_PASSWORD=123456 -v slave1.cnf:/etc/mysql/my.cnf -v /opt/mysql/data4:/var/lib/mysql --name=mysql-slave1 mysql:5.7
-
-sudo docker run -itd -p 4409:3306 -e MYSQL_ROOT_PASSWORD=123456 -v slave2.cnf:/etc/mysql/my.cnf -v /opt/mysql/data4:/var/lib/mysql --name=mysql-slave2 mysql:5.7
+systemctl start mysqld
 </code></pre>
-<h2 id="主从配置">主从配置</h2>
-<pre><code class="language-sql">change master to master_host='172.17.0.2', // 所复制数据库 IP
-master_port=3306, // 数据库端口
-master_user='slave',  // 用户名称
+<p>打开对应端口</p>
+<pre><code class="language-bash">firewall-cmd --zone=public --add-port=3306/tcp --permanent
+</code></pre>
+<ol start="4">
+<li>创建用户并赋予权限</li>
+</ol>
+<ul>
+<li>登录 Master1 的数据库授权并刷新</li>
+</ul>
+<pre><code class="language-sql">create user 'slave'@'%' identified by '123456';
+
+grant replication slave,replication client on *.* to 'slave'@'%';
+
+flush privileges;
+</code></pre>
+<ul>
+<li>登录 Master2 的数据库授权并刷新</li>
+</ul>
+<pre><code class="language-sql">create user 'slave'@'%' identified by '123456';
+
+grant replication slave,replication client on *.* to 'slave'@'%';
+
+flush privileges;
+</code></pre>
+<ol start="5">
+<li>查看配置</li>
+</ol>
+<pre><code class="language-sql">mysql&gt; show master status\G
+*************************** 1. row ***************************
+             File: mysql-bin.000003
+         Position: 450
+     Binlog_Do_DB: test
+ Binlog_Ignore_DB: information_schema,mysql,performance_schema,sys
+Executed_Gtid_Set:
+1 row in set (0.00 sec)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">File</th>
+<th style="text-align:center">Position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Master1</td>
+<td style="text-align:center">172.17.0.2</td>
+<td style="text-align:center">mysql-bin.000003</td>
+<td style="text-align:center">450</td>
+</tr>
+<tr>
+<td style="text-align:center">Master2</td>
+<td style="text-align:center">172.17.0.3</td>
+<td style="text-align:center">mysql-bin.000003</td>
+<td style="text-align:center">470</td>
+</tr>
+<tr>
+<td style="text-align:center">Slave1</td>
+<td style="text-align:center">172.17.0.4</td>
+<td style="text-align:center">mysql-bin.000002</td>
+<td style="text-align:center">516</td>
+</tr>
+<tr>
+<td style="text-align:center">Slave2</td>
+<td style="text-align:center">172.17.0.5</td>
+<td style="text-align:center">mysql-bin.000002</td>
+<td style="text-align:center">653</td>
+</tr>
+</tbody>
+</table>
+<ol start="6">
+<li>配置主从</li>
+</ol>
+<ul>
+<li>登录从库配置</li>
+</ul>
+<p>Slave1</p>
+<pre><code class="language-sql">change master to master_host='172.17.0.2',
+master_port=3306,
+master_user='slave',
 master_password='123456',
 master_connect_retry=60,
-// show master status 输出的值
 master_log_file='mysql-bin.000003',
-master_log_pos=443;
+master_log_pos=450;
 </code></pre>
-<h1 id="mycat-配置">MyCat 配置</h1>
-<h2 id="serverxml">server.xml</h2>
-<pre><code class="language-txt">&lt;user name=&quot;root&quot;&gt;
+<p>Slave2</p>
+<pre><code class="language-sql">change master to master_host='172.17.0.3	',
+master_port=3306,
+master_user='slave',
+master_password='123456',
+master_connect_retry=60,
+master_log_file='mysql-bin.000003',
+master_log_pos=470;
+</code></pre>
+<ul>
+<li>启动配置</li>
+</ul>
+<pre><code class="language-sql">start slave;
+</code></pre>
+<p>若没有配置错误，则会输出：</p>
+<pre><code class="language-sql">show slave status\G
+
+...
+Slave_IO_Running: Yes
+Slave_SQL_Running: Yes
+...
+</code></pre>
+<ol start="7">
+<li>配置主主</li>
+</ol>
+<ul>
+<li>Master1 上配置</li>
+</ul>
+<pre><code class="language-sql">change master to master_host='172.17.0.3',
+master_port=3306,
+master_user='slave',
+master_password='123456',
+master_connect_retry=60,
+master_log_file='mysql-bin.000003',
+master_log_pos=470;
+</code></pre>
+<ul>
+<li>Master2 上配置</li>
+</ul>
+<pre><code class="language-sql">change master to master_host='172.17.0.2',
+master_port=3306,
+master_user='slave',
+master_password='123456',
+master_connect_retry=60,
+master_log_file='mysql-bin.000003',
+master_log_pos=450;
+</code></pre>
+<ul>
+<li>启动</li>
+</ul>
+<pre><code>start slave
+</code></pre>
+<h1 id="mycat">Mycat</h1>
+<h2 id="搭建过程-2">搭建过程</h2>
+<ol>
+<li>下载 Mycat</li>
+</ol>
+<pre><code class="language-bash">wget http://dl.mycat.org.cn/1.6.7.6/20201104174609/Mycat-server-1.6.7.6-test-20201104174609-linux.tar.gz
+
+tar -zxvf Mycat-server-1.6.7.6-test-20201104174609-linux.tar.gz
+</code></pre>
+<ol start="2">
+<li>配置 server.xml</li>
+</ol>
+<pre><code class="language-bash">vi mycat/conf/server.xml
+</code></pre>
+<pre><code class="language-xml">&lt;user name=&quot;root&quot;&gt;
 	&lt;property name=&quot;password&quot;&gt;123456&lt;/property&gt;
 	&lt;property name=&quot;schemas&quot;&gt;TESTDB&lt;/property&gt;
 &lt;/user&gt;
@@ -280,9 +455,14 @@ master_log_pos=443;
 	&lt;property name=&quot;readOnly&quot;&gt;true&lt;/property&gt;
 &lt;/user&gt;
 </code></pre>
-<h2 id="schemaxml">schema.xml</h2>
-<pre><code class="language-txt">&lt;schema name=&quot;TESTDB&quot; checkSQLschema=&quot;true&quot; sqlMaxLimit=&quot;100&quot;&gt;
- &lt;/schema&gt;
+<ol start="3">
+<li>配置 schema.xml</li>
+</ol>
+<p>主库负责读写，从库只负责读。</p>
+<pre><code class="language-bash">vi mycat/conf/schema.xml
+</code></pre>
+<pre><code class="language-xml">&lt;schema name=&quot;TESTDB&quot; checkSQLschema=&quot;true&quot; sqlMaxLimit=&quot;100&quot;&gt;
+&lt;/schema&gt;
 &lt;dataNode name=&quot;dn1&quot; dataHost=&quot;localhost1&quot; database=&quot;test&quot; /&gt;
 &lt;dataHost name=&quot;localhost1&quot; maxCon=&quot;1000&quot; minCon=&quot;10&quot; balance=&quot;1&quot; writeType=&quot;0&quot; dbType=&quot;mysql&quot; dbDriver=&quot;native&quot; switchType=&quot;1&quot;  slaveThreshold=&quot;100&quot;&gt;
     &lt;heartbeat&gt;select user()&lt;/heartbeat&gt;
@@ -293,6 +473,14 @@ master_log_pos=443;
         &lt;readHost host=&quot;hostS2&quot; url=&quot;172.17.0.5:3306&quot; user=&quot;slave&quot; password=&quot;123456&quot; /&gt;
     &lt;/writeHost&gt;
 &lt;/dataHost&gt;
+</code></pre>
+<ol start="4">
+<li>启动</li>
+</ol>
+<p>打开对应端口</p>
+<pre><code class="language-bash">firewall-cmd --zone=public --add-port=8066/tcp --permanent
+</code></pre>
+<pre><code>./mycat/bin/mycat start
 </code></pre>
  </p>
                     </div>
@@ -340,21 +528,14 @@ master_log_pos=443;
 
 <div class="post-toc animated fadeInRight hidden-xs hidden-sm" style="display: none;">
     <ul class="markdownIt-TOC">
-<li><a href="#%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0">系统参数</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE">数据库配置</a>
+<li><a href="#%E5%8F%8C%E4%B8%BB%E5%8F%8C%E4%BB%8E%E6%9E%84%E5%BB%BA">双主双从构建</a>
 <ul>
-<li><a href="#master1-%E9%85%8D%E7%BD%AE">Master1 配置</a></li>
-<li><a href="#master2-%E9%85%8D%E7%BD%AE">Master2 配置</a></li>
-<li><a href="#slave1-%E9%85%8D%E7%BD%AE">Slave1 配置</a></li>
-<li><a href="#slave2-%E9%85%8D%E7%BD%AE">Slave2 配置</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8">启动</a></li>
-<li><a href="#%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE">主从配置</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B">搭建过程</a></li>
 </ul>
 </li>
-<li><a href="#mycat-%E9%85%8D%E7%BD%AE">MyCat 配置</a>
+<li><a href="#mycat">Mycat</a>
 <ul>
-<li><a href="#serverxml">server.xml</a></li>
-<li><a href="#schemaxml">schema.xml</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B-2">搭建过程</a></li>
 </ul>
 </li>
 </ul>
